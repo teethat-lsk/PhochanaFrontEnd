@@ -1,4 +1,6 @@
 :root {
-  --bg: #26979f;
-  --bt: #ff6e69;
+	--bg: #26979f;
+	--bt: #ff6e69;
+	--bt_active: #7e0400;
+	--bt_hover: #ff2f28;
 }
