@@ -1,5 +1,5 @@
 import React from "react";
-import ButtonLink from "../components/ButtonLink/ButtonLink";
+import ButtonLink from "../components/ButtonLink";
 import Logo from "../components/Logo";
 import "../styles/home.css";
 
