@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/main.css';
-
+import CalendarFood from '../components/CalendarFood';
+import HomeLogo from '../components/HomeLogo';
+// var axios = require('axios');
 // icon here https://fontawesome.com/v4.7.0/icons/
 
 function Main() {
+	// var config = {
+	// 	method: 'get',
+	// 	url: 'http://localhost:5000/images/kookza01.jpg',
+	// 	headers: {
+	// 		authorization:
+	// 			'83843cd278ec2122822eaf043e378c8a74b6e4505fc97a62ebf83b4601f8fcd8047bf6421b40f0b36088a4eb7a200615',
+	// 	},
+	// };
+	// const [imgSrc, setImgSrc] = useState(null);
+	// useEffect(async () => {
+	// 	const res = await axios(config);
+	// 	setImgSrc(res.data);
+	// }, []);
+
 	return (
 		<div className='main_container'>
 			<Main_header_container />
-			<div className='main_body_container'></div>
+			<div className='main_body_container'>
+				<HomeLogo />
+				{/* <CalendarFood /> */}
+			</div>
 			<Main_footer_box />
 		</div>
 	);
