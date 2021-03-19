@@ -1,68 +1,82 @@
-@import 'Color.css';
+@import "Color.css";
 .window {
-	height: 100vh;
-	width: 100vw;
-	position: relative;
-	background-color: var(--bg);
-	position: absolute;
-	bottom: 0;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.login_container {
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	background-color: red;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-color: var(--bg);
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
+  justify-content: center;
+  align-items: center;
 }
 
 .textLogin {
-	text-align: center;
-	color: white;
-	padding: 30px;
-	font-size: 35px;
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+  padding: 60px;
+  font-size: 35px;
+}
+
+.login_container {
+  /* padding: 30px; */
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* background-color: red; */
 }
 
 .username {
-	padding-top: 15px;
-	padding-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .password {
-	padding-bottom: 30px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .textUser {
-	color: white;
-	bottom: 5px;
+  color: white;
+  bottom: 5px;
 }
 
 .textPass {
-	color: white;
-	bottom: 5px;
+  color: white;
+  bottom: 5px;
 }
 
 .userBox {
-	height: 35px;
-	width: 320px;
+  height: 45px;
+  width: 320px;
 }
 
 .passBox {
-	height: 35px;
-	width: 320px;
+  height: 45px;
+  width: 320px;
 }
 
 .login_btn_enter {
-	background-color: var(--bt);
-	text-align: center;
-	border: none;
-	height: 50px;
-	width: 250px;
-	font-size: 28px;
-	color: white;
-	font-family: 'Kanit', sans-serif;
+  background-color: var(--bt);
+  text-align: center;
+  border: none;
+  height: 50px;
+  width: 320px;
+  font-size: 28px;
+  color: white;
+  font-family: "Kanit", sans-serif;
+  margin-top: 118px;
 }
