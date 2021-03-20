@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/main.css';
 import CalendarFood from '../components/CalendarFood';
 import HomeLogo from '../components/HomeLogo';
@@ -22,17 +22,17 @@ function Main() {
 
 	return (
 		<div className='main_container'>
-			<Main_header_container />
+			<MainHeaderContainer />
 			<div className='main_body_container'>
 				<HomeLogo />
 				{/* <CalendarFood /> */}
 			</div>
-			<Main_footer_box />
+			<MainFooterBox />
 		</div>
 	);
 }
 
-const Main_header_container = () => {
+const MainHeaderContainer = () => {
 	const [showMenu, toggleMenu] = useState(false);
 	const [menuWidth, setMenuWidth] = useState('0%');
 	const toggleMenuHandle = () => {
@@ -84,7 +84,7 @@ const Menu = ({ widthMenu, toggleMenu }) => {
 	);
 };
 
-const Main_footer_box = () => {
+const MainFooterBox = () => {
 	const [notify, setNotify] = useState(0);
 	return (
 		<div className='main_footer_container'>
