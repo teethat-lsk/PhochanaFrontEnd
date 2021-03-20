@@ -34,7 +34,6 @@ class Login extends Component {
         username: this.state.username,
         password: this.state.password,
       });
-
       var config = {
         method: "post",
         url: `${URL}/login`,
@@ -68,8 +67,8 @@ class Login extends Component {
 	render() {
 		return (
 			<div className='window'>
+				<label className='textLogin'> เข้าสู่ระบบ </label>
 				<div className='login_container'>
-					<label className='textLogin'> เข้าสู่ระบบ </label>
 					<form onSubmit={this.handleSubmit}>
 						<div className='username'>
 							<label className='textUser'>ชื่อผู้ใช้ </label>
@@ -89,11 +88,11 @@ class Login extends Component {
 								className='passBox'
 							/>
 						</div>
-						<button type='submit' className='login_btn_enter'>
-							เข้าสู่ระบบ
-						</button>
 					</form>
 				</div>
+				<button type='submit' className='login_btn_enter'>
+					เข้าสู่ระบบ
+				</button>
 			</div>
 		);
 	}

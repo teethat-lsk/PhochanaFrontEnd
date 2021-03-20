@@ -7,33 +7,46 @@
 	position: absolute;
 	bottom: 0;
 	display: flex;
-	justify-content: space-evenly;
+	flex-direction: column;
+	/* justify-content: space-evenly; */
+	justify-content: center;
 	align-items: center;
 }
 
+.textLogin {
+	display: flex;
+	flex-direction: column;
+
+	color: white;
+	padding: 60px;
+	font-size: 35px;
+}
+
 .login_container {
-	padding: 20px;
+	/* padding: 30px; */
+	margin-top: 40px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-	background-color: red;
-}
-
-.textLogin {
-	text-align: center;
-	color: white;
-	padding: 30px;
-	font-size: 35px;
+	/* background-color: red; */
 }
 
 .username {
 	padding-top: 15px;
 	padding-bottom: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
 .password {
 	padding-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
 .textUser {
@@ -47,12 +60,12 @@
 }
 
 .userBox {
-	height: 35px;
+	height: 45px;
 	width: 320px;
 }
 
 .passBox {
-	height: 35px;
+	height: 45px;
 	width: 320px;
 }
 
@@ -61,8 +74,9 @@
 	text-align: center;
 	border: none;
 	height: 50px;
-	width: 250px;
+	width: 320px;
 	font-size: 28px;
 	color: white;
 	font-family: 'Kanit', sans-serif;
+	margin-top: 118px;
 }
