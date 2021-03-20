@@ -7,15 +7,17 @@
 .homelogo_circle {
 	position: relative;
 	background-color: var(--bt);
-	top: 5%;
-	left: 15%;
 	width: 300px;
 	height: 300px;
 	border-radius: 100%;
 	border: 5px solid #0f3057;
 }
 
-.homelogo_arrow1 {
+.homelogo_circle:active {
+	background-color: #1154a5;
+}
+
+.homelogo_arrow {
 	position: absolute;
 	width: 0;
 	height: 0;
@@ -24,25 +26,14 @@
 	border-top: 25px solid #0f3057;
 	top: 25px;
 	left: 25px;
-	/* background-color: #0f3057; */
-	/* line-height: 30px; */
-	/* border-radius: 100%; */
+}
+
+.arrow1 {
 	animation: spin-back 5s infinite;
 	transform-origin: 120px 120px;
 }
 
-.homelogo_arrow2 {
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-left: 15px solid transparent;
-	border-right: 15px solid transparent;
-	border-top: 25px solid #0f3057;
-	top: 25px;
-	left: 25px;
-	/* background-color: #0f3057; */
-	/* line-height: 30px; */
-	/* border-radius: 100%; */
+.arrow2 {
 	animation: spin-back2 5s infinite;
 	transform-origin: 120px 120px;
 }
@@ -66,3 +57,8 @@
 }
 
 /* 0F3057 */
+.homelogo_logo {
+	position: relative;
+	left: 50px;
+	top: 60px;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import '../styles/main.css';
 import CalendarFood from '../components/CalendarFood';
 import HomeLogo from '../components/HomeLogo';
@@ -27,12 +28,24 @@ function Main() {
 			<MainHeaderContainer />
 			<div className='main_body_container'>
 				<HomeLogo />
+				<MainScore />
 				{/* <CalendarFood /> */}
 			</div>
 			<MainFooterBox />
 		</div>
 	);
 }
+
+const MainScore = () => {
+	const [score, setScore] = useState(1000);
+	return (
+		<div className='main_score_container'>
+			<div style={{ paddingRight: '5px' }}>คะแนนวันนี้ :</div>
+			<div>{score} </div>
+			<div style={{ paddingLeft: '10px', fontSize: '20px' }}>🚀</div>
+		</div>
+	);
+};
 
 const MainHeaderContainer = () => {
 	const [showMenu, toggleMenu] = useState(false);
@@ -58,7 +71,13 @@ const MainHeaderContainer = () => {
 };
 
 const Menu = ({ widthMenu, toggleMenu }) => {
-	const menuItems = ['A', 'B', 'C', 'D'];
+	const menuItems = [
+		'โปรไฟล์ของฉัน',
+		'อาหารของฉัน',
+		'การออกกำลังกาย',
+		'บาร์โค้ตของฉัน',
+		'ตั้งค่า',
+	];
 	return (
 		<div className='main_menu_container' style={{ width: widthMenu || '0%' }}>
 			<div
@@ -72,43 +91,82 @@ const Menu = ({ widthMenu, toggleMenu }) => {
 			>
 				<i className='fa fa-times' aria-hidden='true'></i>
 			</div>
-			{menuItems.map((item, key) => {
-				return (
-					<a href={item} className='main_menu_item noselect' key={key}>
-						{item}
-					</a>
-				);
-			})}
+			{widthMenu === '60%' &&
+				menuItems.map((item, key) => {
+					return (
+						<a href={item} className='main_menu_item noselect' key={key}>
+							{item}
+						</a>
+					);
+				})}
 		</div>
 	);
 };
 
 const MainFooterBox = () => {
-	const [notify, setNotify] = useState(0);
+	const [notify, setNotify] = useState(20);
 	return (
 		<div className='main_footer_container'>
 			<div className='main_footer_box'>
-				<button className='main_footer_button'>
-					<i className='fa fa-home' aria-hidden='true'></i>
-				</button>
-				<button className='main_footer_button'>
-					<i className='fa fa-users' aria-hidden='true'></i>
-				</button>
-				<button className='main_footer_button'>
-					<i className='fa fa-book' aria-hidden='true'></i>
-				</button>
-				<button className='main_footer_button'>
-					<i className='fa fa-bolt' aria-hidden='true'></i>
-				</button>
-				<button
+				<NavLink
+					className='main_footer_button'
+					to='/main'
+					activeClassName='mfb_active'
+				>
+					<i
+						className='fa fa-home'
+						aria-hidden='true'
+						style={{ paddingTop: '10px' }}
+					></i>
+				</NavLink>
+				<NavLink
+					className='main_footer_button'
+					to='/friends'
+					activeClassName='mfb_active'
+				>
+					<i
+						className='fa fa-users'
+						aria-hidden='true'
+						style={{ paddingTop: '10px' }}
+					></i>
+				</NavLink>
+				<NavLink
+					className='main_footer_button'
+					to='/books'
+					activeClassName='mfb_active'
+				>
+					<i
+						className='fa fa-book'
+						aria-hidden='true'
+						style={{ paddingTop: '10px' }}
+					></i>
+				</NavLink>
+				<NavLink
+					className='main_footer_button'
+					to='/exercise'
+					activeClassName='mfb_active'
+				>
+					<i
+						style={{ paddingTop: '10px' }}
+						className='fa fa-bolt'
+						aria-hidden='true'
+					></i>
+				</NavLink>
+				<NavLink
 					className='main_footer_button'
 					onClick={() => setNotify(notify + 1)}
+					to='/notification'
+					activeClassName='mfb_active'
 				>
 					<div>
 						{notify !== 0 && <div className='number_notify'>{notify}</div>}
-						<i className='fa fa-bell' aria-hidden='true'></i>
+						<i
+							className='fa fa-bell'
+							aria-hidden='true'
+							style={{ paddingTop: '10px' }}
+						></i>
 					</div>
-				</button>
+				</NavLink>
 			</div>
 		</div>
 	);
