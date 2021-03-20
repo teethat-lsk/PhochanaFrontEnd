@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/Login.css';
-import axios from 'axios';
+// import axios from 'axios';
 
 class Login extends Component {
 	constructor(props) {

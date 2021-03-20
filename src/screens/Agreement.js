@@ -7,11 +7,7 @@ import agreementText from '../config/agreement';
 function Agreement() {
 	return (
 		<div className='agreement'>
-			<ScrollText
-				h='calc(78% - 30px)'
-				w='100%'
-				className='agreement_text'
-			>
+			<ScrollText h='calc(78% - 30px)' w='100%' className='agreement_text'>
 				{agreementText}
 			</ScrollText>
 			<div className='agreement_button_zone'>

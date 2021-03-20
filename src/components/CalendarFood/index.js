@@ -16,16 +16,10 @@ function CalendarFood() {
 				maxDate={new Date()}
 				locale='th'
 				tileClassName={({ date, view }) => {
-					if (
-						mark.find(
-							(x) => x === moment(date).format('DD-MM-YYYY')
-						)
-					) {
+					if (mark.find((x) => x === moment(date).format('DD-MM-YYYY'))) {
 						return 'highlight1';
 					} else if (
-						mark2.find(
-							(x) => x === moment(date).format('DD-MM-YYYY')
-						)
+						mark2.find((x) => x === moment(date).format('DD-MM-YYYY'))
 					) {
 						return 'highlight2';
 					}

@@ -58,10 +58,7 @@ const MainHeaderContainer = () => {
 const Menu = ({ widthMenu, toggleMenu }) => {
 	const menuItems = ['A', 'B', 'C', 'D'];
 	return (
-		<div
-			className='main_menu_container'
-			style={{ width: widthMenu || '0%' }}
-		>
+		<div className='main_menu_container' style={{ width: widthMenu || '0%' }}>
 			<div
 				className='main_menu_item'
 				style={{
@@ -75,7 +72,7 @@ const Menu = ({ widthMenu, toggleMenu }) => {
 			</div>
 			{menuItems.map((item, key) => {
 				return (
-					<a className='main_menu_item noselect' key={key}>
+					<a href={item} className='main_menu_item noselect' key={key}>
 						{item}
 					</a>
 				);
@@ -106,9 +103,7 @@ const MainFooterBox = () => {
 					onClick={() => setNotify(notify + 1)}
 				>
 					<div>
-						{notify !== 0 && (
-							<div className='number_notify'>{notify}</div>
-						)}
+						{notify !== 0 && <div className='number_notify'>{notify}</div>}
 						<i className='fa fa-bell' aria-hidden='true'></i>
 					</div>
 				</button>
