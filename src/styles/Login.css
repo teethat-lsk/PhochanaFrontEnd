@@ -80,3 +80,9 @@
 	font-family: 'Kanit', sans-serif;
 	margin-top: 118px;
 }
+
+.create_new_account {
+	padding-top: 30px;
+	color: white;
+	text-decoration: underline;
+}

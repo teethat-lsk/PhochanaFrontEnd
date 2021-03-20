@@ -93,6 +93,9 @@ class Login extends Component {
 				<button type='submit' className='login_btn_enter'>
 					เข้าสู่ระบบ
 				</button>
+				<a href='/register' className='create_new_account'>
+					สร้างบันชีผู้ใช้ใหม่
+				</a>
 			</div>
 		);
 	}

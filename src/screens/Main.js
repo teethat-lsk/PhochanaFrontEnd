@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../styles/main.css';
 import CalendarFood from '../components/CalendarFood';
 import HomeLogo from '../components/HomeLogo';
+import { getToken, setToken, removeToken } from '../config/Cookie';
+
 // var axios = require('axios');
 // icon here https://fontawesome.com/v4.7.0/icons/
 

@@ -1,8 +1,14 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from 'react-router-dom';
 import Home from './screens/Home';
 import Agreement from './screens/Agreement';
 import Login from './screens/Login';
 import Main from './screens/Main';
+import { isLoggedIn } from './config/Cookie';
 
 const App = () => {
 	return (
@@ -14,7 +20,10 @@ const App = () => {
 					<Route path='/agreement'>
 						<Agreement />
 					</Route>
-					<Route path='/main'>{<Main />}</Route>
+					<Route path='/main'>
+						{/* {isLoggedIn === true ? <Main /> : <Redirect to='/login' />} */}
+						<Main /> {/* disable login */}
+					</Route>
 					<Route path='/'>
 						<Home />
 					</Route>
