@@ -1,3 +1,3 @@
 module.exports = {
-	backend: `http://localhost:5000`,
+	backend: `http://192.168.88.10:5000`,
 };

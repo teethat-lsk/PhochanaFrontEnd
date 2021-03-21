@@ -16,7 +16,7 @@ function Main() {
 			<div className='main_body_container'>
 				<HomeLogo />
 				<MainScore />
-				<CalendarFood />
+				{/* <CalendarFood /> */}
 			</div>
 			<MainFooterBox />
 		</div>

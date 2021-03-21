@@ -26,9 +26,9 @@ function Profile(props) {
 		const res = await getUserProfile(username);
 		// alert(username + res);
 		// console.log(res.userprofile);
-		const img = await GetImage(res.urlprofile);
 
 		if (res) {
+			const img = await GetImage(res.urlprofile);
 			const age = getYears(res.birthday);
 
 			// BMR Calculator
