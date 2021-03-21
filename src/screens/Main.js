@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import '../styles/main.css';
 import CalendarFood from '../components/CalendarFood';
 import HomeLogo from '../components/HomeLogo';
-import { getToken, setToken, removeToken } from '../config/Cookie';
+import { getToken, setToken, removeToken } from '../middleware/Cookie';
+import calendarIcon from '../images/calendar.png';
 
 // var axios = require('axios');
 // icon here https://fontawesome.com/v4.7.0/icons/
 
 function Main() {
-	// var config = {
-	// 	method: 'get',
-	// 	url: 'http://localhost:5000/images/kookza01.jpg',
-	// 	headers: {
-	// 		authorization:
-	// 			'83843cd278ec2122822eaf043e378c8a74b6e4505fc97a62ebf83b4601f8fcd8047bf6421b40f0b36088a4eb7a200615',
-	// 	},
-	// };
-	// const [imgSrc, setImgSrc] = useState(null);
-	// useEffect(async () => {
-	// 	const res = await axios(config);
-	// 	setImgSrc(res.data);
-	// }, []);
-
 	return (
 		<div className='main_container'>
 			<MainHeaderContainer />
 			<div className='main_body_container'>
 				<HomeLogo />
 				<MainScore />
-				{/* <CalendarFood /> */}
+				<CalendarFood />
 			</div>
 			<MainFooterBox />
 		</div>
@@ -64,7 +51,8 @@ const MainHeaderContainer = () => {
 			</div>
 			<div className='main_header_center noselect'>PhoChana</div>
 			<div className='main_header_right'>
-				<i className='fa fa-calendar' aria-hidden='true'></i>
+				<img style={{ width: '25px' }} src={calendarIcon} />
+				{/* <i className='fa fa-calendar' aria-hidden='true'></img> */}
 			</div>
 		</div>
 	);
@@ -72,14 +60,17 @@ const MainHeaderContainer = () => {
 
 const Menu = ({ widthMenu, toggleMenu }) => {
 	const menuItems = [
-		'โปรไฟล์ของฉัน',
-		'อาหารของฉัน',
-		'การออกกำลังกาย',
-		'บาร์โค้ตของฉัน',
-		'ตั้งค่า',
+		['โปรไฟล์ของฉัน', '/profile/me'],
+		['อาหารของฉัน', '/food/'],
+		['การออกกำลังกาย', '/ex/'],
+		['บาร์โค้ตของฉัน', '/bar/'],
+		['ตั้งค่า', '/settings/'],
 	];
 	return (
-		<div className='main_menu_container' style={{ width: widthMenu || '0%' }}>
+		<div
+			className='main_menu_container noselect'
+			style={{ width: widthMenu || '0%' }}
+		>
 			<div
 				className='main_menu_item'
 				style={{
@@ -94,9 +85,9 @@ const Menu = ({ widthMenu, toggleMenu }) => {
 			{widthMenu === '60%' &&
 				menuItems.map((item, key) => {
 					return (
-						<a href={item} className='main_menu_item noselect' key={key}>
-							{item}
-						</a>
+						<Link to={item[1]} className='main_menu_item noselect' key={key}>
+							<div>{item[0]}</div>
+						</Link>
 					);
 				})}
 		</div>
