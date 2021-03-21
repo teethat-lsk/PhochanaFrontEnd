@@ -36,4 +36,4 @@ yarn build
 
 ### Link
 
-[x] React documentation [Click Here](https://reactjs.org/docs/getting-started.html) to visit site.
+ ⚛ React documentation [Click Here](https://reactjs.org/docs/getting-started.html) to visit site.
