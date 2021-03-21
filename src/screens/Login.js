@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/Login.css';
 import apiClient from '../middleware/ApiClient';
 import { setToken } from '../middleware/Cookie';
-
+import { withRouter } from 'react-router-dom';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -14,18 +14,24 @@ class Login extends Component {
 		};
 	}
 
-	handleSubmit = async () => {
+	handleSubmit = async (e) => {
+		e.preventDefault();
 		const config = {
 			method: 'post',
 			url: `/users/login`,
+			headers: {
+				'Content-Type': 'application/json',
+			},
 			data: JSON.stringify({
 				username: this.state.username,
 				password: this.state.password,
 			}),
 		};
 		const res = await apiClient(config);
+		console.log(res.data);
 		if (res.data.status === 'success') {
 			setToken(res.data.message.token);
+			// this.props.history.push('/main');
 			this.props.history.push('/main');
 		}
 	};
@@ -44,7 +50,7 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div className='window'>
+			<form className='window' onSubmit={this.handleSubmit}>
 				<label className='textLogin'> เข้าสู่ระบบ </label>
 				<div className='login_container'>
 					<form onSubmit={this.handleSubmit}>
@@ -71,16 +77,16 @@ class Login extends Component {
 				<button
 					type='submit'
 					className='login_btn_enter'
-					onClick={this.handleSubmit}
+					// onClick={this.handleSubmit}
 				>
 					เข้าสู่ระบบ
 				</button>
 				<a href='/register' className='create_new_account'>
 					สร้างบันชีผู้ใช้ใหม่
 				</a>
-			</div>
+			</form>
 		);
 	}
 }
 
-export default Login;
+export default withRouter(Login);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { backend } from '../config/Url';
-import { getToken, setToken } from './Cookie';
+import { getToken, setToken, removeToken } from './Cookie';
+import { Redirect } from 'react-router-dom';
 // request
 
 axios.interceptors.request.use(
@@ -11,7 +12,6 @@ axios.interceptors.request.use(
 			headers: {
 				...config.headers,
 				Authorization: getToken(),
-				'Content-Type': 'application/json',
 			},
 		};
 		// console.log('Request have been modified', config);
@@ -24,9 +24,15 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
 	function (response) {
+		console.log(response);
 		return response;
 	},
 	function (error) {
+		if (error.response.status == 401) {
+			alert('Invalid token, please login');
+			removeToken();
+			window.location.reload();
+		}
 		return Promise.reject(error);
 	}
 );
