@@ -24,7 +24,14 @@ const App = () => {
 					<Route path='/agreement' component={Agreement} />
 					<Route path='/main' component={Main} />
 					<Route exact path='/' component={Home} />
-					<Route path='/profile/:username' component={Profile} />
+					<Route
+						path='/profile/:username'
+						component={(props) => <Profile {...props} displayProfile={true} />}
+					/>
+					<Route
+						path='/editprofile'
+						component={(props) => <Profile {...props} displayProfile={false} />}
+					/>
 					<Route path='/404'>{<NotFoundPage />}</Route>
 					<Redirect to='/404' />
 				</Switch>

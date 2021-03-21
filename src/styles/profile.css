@@ -3,7 +3,14 @@
 	height: 100vh;
 	width: 100vw;
 	position: relative;
+}
+
+.c1 {
 	background-color: var(--bg1);
+}
+
+.c2 {
+	background-color: var(--bg);
 }
 
 .profile_navigation_container {
@@ -90,11 +97,10 @@
 }
 
 .profile_picture {
-	width: 200px;
-	height: 200px;
 	object-fit: cover;
 	border: 2px outset var(--bg2);
 	border-radius: 50%;
+	background-color: black;
 }
 
 .profile_header_sec3 {
@@ -159,4 +165,61 @@
 
 .shortcut_item:active {
 	background-color: var(--bg2_active);
+}
+
+.edit_profile_container {
+	padding: 10px;
+	/* background-color: red; */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	justify-items: center;
+}
+
+.edit_profile_header {
+	/* background-color: yellow; */
+	width: 100%;
+	height: 20vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.edit_profile_header_btn {
+	/* background-color: aqua; */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 50vw;
+	margin-left: 5vw;
+}
+
+.edit_profile_header_box {
+	width: 100%;
+	height: 7vh;
+	background-color: var(--bg2);
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	justify-items: center;
+	text-align: center;
+	font-size: 20px;
+}
+
+.edit_profile_header_box:active {
+	background-color: var(--bg2_active);
+}
+.edit_profile_body {
+	/* background-color: pink; */
+	width: 100%;
+	height: 80vh;
+}
+
+.edit_profile_footer {
+	background-color: green;
+	width: 100%;
+	height: 10vh;
 }

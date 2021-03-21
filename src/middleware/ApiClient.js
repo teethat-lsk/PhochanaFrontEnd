@@ -2,6 +2,7 @@ import axios from 'axios';
 import { backend } from '../config/Url';
 import { getToken, setToken } from './Cookie';
 // request
+
 axios.interceptors.request.use(
 	function (config) {
 		config = {
@@ -10,9 +11,10 @@ axios.interceptors.request.use(
 			headers: {
 				...config.headers,
 				Authorization: getToken(),
+				'Content-Type': 'application/json',
 			},
 		};
-		console.log('Request have been modified', config);
+		// console.log('Request have been modified', config);
 		return config;
 	},
 	function (error) {

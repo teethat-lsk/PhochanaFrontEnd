@@ -6,10 +6,11 @@ import friendsIcon from '../images/chat.png';
 import cupIcon from '../images/cup.png';
 import excerciseIcon from '../images/excercise.png';
 import GetImage from '../middleware/GetImage';
+import Input from '../components/Input';
 import '../styles/profile.css';
 
 function Profile(props) {
-	const username = props.match.params.username;
+	const username = props.match.params.username || 'me';
 	const [userData, setUserData] = useState({
 		username: null,
 		displayname: 'hello world',
@@ -19,8 +20,11 @@ function Profile(props) {
 		bmr: 0,
 		imgpath: null,
 	});
+	const [displayProfile, toggleDisplay] = useState(props.displayProfile);
+
 	useEffect(async () => {
 		const res = await getUserProfile(username);
+		// alert(username + res);
 		// console.log(res.userprofile);
 		const img = await GetImage(res.urlprofile);
 
@@ -55,23 +59,79 @@ function Profile(props) {
 			});
 		}
 	}, []);
+
+	const handleToggle = () => {
+		toggleDisplay(!displayProfile);
+	};
+
 	return (
-		<div className='profile_container noselect'>
+		<div
+			className={
+				'profile_container noselect ' + (displayProfile ? ' c1' : 'c2')
+			}
+		>
 			<div className='profile_navigation_container'>
 				<Link className='btn_back_ward' to='/main'>
 					<i className='fa fa-chevron-circle-left' aria-hidden='true'></i>
 					<p style={{ paddingLeft: '5px' }}>หน้าหลัก</p>
 				</Link>
 			</div>
-			<ProfileHeader userData={userData} />
-			<div className='profile_body_container'>
-				<Shortcut_Box />
+			<div>
+				{displayProfile ? (
+					<ShowProfile userData={userData} toggleDisplay={handleToggle} />
+				) : (
+					<EditProfile userData={userData} toggleDisplay={handleToggle} />
+				)}
 			</div>
 		</div>
 	);
 }
 
-const ProfileHeader = ({ userData }) => {
+const ShowProfile = ({ userData, toggleDisplay }) => {
+	return (
+		<div className='profile_container'>
+			<ProfileHeader userData={userData} toggleDisplay={toggleDisplay} />
+			<div className='profile_body_container'>
+				<Shortcut_Box />
+			</div>
+		</div>
+	);
+};
+
+const EditProfile = ({ userData, toggleDisplay }) => {
+	console.log(userData);
+	return (
+		<div className='edit_profile_container'>
+			<div className='edit_profile_header'>
+				<img
+					style={{ height: '130px', weight: '130px' }}
+					className='profile_picture'
+					src={userData.imgpath}
+				/>
+				<div className='edit_profile_header_btn'>
+					<div className='edit_profile_header_box'>{userData.displayname}</div>
+					<div style={{ fontSize: '14px', paddingTop: '10px' }}>
+						Change profile picture
+					</div>
+				</div>
+			</div>
+			<div className='edit_profile_body'>
+				<Input>ชื่อที่ใช้แสดง</Input>
+				<Input type='number' ext='kg.'>
+					น้ำหนัก
+				</Input>
+				<Input type='number' ext='m.'>
+					ส่วนสูง
+				</Input>
+				<Input type='date'>วันเดือนปีเกิด</Input>
+				<Input type='combobox'></Input>
+			</div>
+			<div className='edit_profile_footer'>3</div>
+		</div>
+	);
+};
+
+const ProfileHeader = ({ userData, toggleDisplay }) => {
 	return (
 		<div className='profile_header_container'>
 			<div className='profile_header_sec1'>
@@ -85,7 +145,11 @@ const ProfileHeader = ({ userData }) => {
 				</div>
 			</div>
 			<div className='profile_header_sec2'>
-				<img className='profile_picture' src={userData.imgpath} />
+				<img
+					className='profile_picture'
+					src={userData.imgpath}
+					style={{ width: '200px', height: '200px' }}
+				/>
 				<div style={{ fontSize: '16px' }}>{userData.displayname}</div>
 			</div>
 			<div className='profile_header_sec3'>
@@ -139,6 +203,7 @@ const getUserProfile = async (username) => {
 		else return null;
 	} catch (error) {
 		console.log(error);
+		// alert(error);
 		return null;
 	}
 };

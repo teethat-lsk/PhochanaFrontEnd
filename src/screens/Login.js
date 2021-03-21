@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Login.css';
-// import axios from 'axios';
+import apiClient from '../middleware/ApiClient';
+import { setToken } from '../middleware/Cookie';
 
 class Login extends Component {
 	constructor(props) {
@@ -12,6 +13,23 @@ class Login extends Component {
 			isLoading: false,
 		};
 	}
+
+	handleSubmit = async () => {
+		const config = {
+			method: 'post',
+			url: `/users/login`,
+			data: JSON.stringify({
+				username: this.state.username,
+				password: this.state.password,
+			}),
+		};
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			setToken(res.data.message.token);
+			this.props.history.push('/main');
+		}
+	};
+
 	handleUsernameChange = (event) => {
 		this.setState({
 			username: event.target.value,
@@ -24,46 +42,6 @@ class Login extends Component {
 		});
 	};
 
-	/*handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!this.state.isLoading) {
-      this.setState({
-        isLoading: true,
-      });
-      var data = JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-      });
-      var config = {
-        method: "post",
-        url: `${URL}/login`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-      try {
-        const res = await axios(config);
-        console.log(res.data.status);
-        this.setState({
-          isLoading: false,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-      // axios(config)
-      //   .then(function (response) {
-      //     console.log(JSON.stringify(response.data));
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-      console.log(this.state.username);
-      console.log(this.state.password);
-    } else {
-      console.log("Cannot submit");
-    }
-  };*/
 	render() {
 		return (
 			<div className='window'>
@@ -82,7 +60,7 @@ class Login extends Component {
 						<div className='password'>
 							<label className='textPass'>รหัสผ่าน</label>
 							<input
-								type='text'
+								type='password'
 								value={this.state.password}
 								onChange={this.handlePasswordChange}
 								className='passBox'
@@ -90,7 +68,11 @@ class Login extends Component {
 						</div>
 					</form>
 				</div>
-				<button type='submit' className='login_btn_enter'>
+				<button
+					type='submit'
+					className='login_btn_enter'
+					onClick={this.handleSubmit}
+				>
 					เข้าสู่ระบบ
 				</button>
 				<a href='/register' className='create_new_account'>
