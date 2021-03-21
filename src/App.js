@@ -8,8 +8,11 @@ import Home from './screens/Home';
 import Agreement from './screens/Agreement';
 import Login from './screens/Login';
 import Main from './screens/Main';
+import Profile from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
-import { isLoggedIn } from './config/Cookie';
+import { isLoggedIn } from './middleware/Cookie';
+
+console.warn = console.error = () => {}; // Something bad happened 🌠
 
 const App = () => {
 	return (
@@ -17,18 +20,12 @@ const App = () => {
 			<div className='App'>
 				<Switch>
 					<Route path='/register'>{/* <About /> */}</Route>
-					<Route path='/login'>{<Login />}</Route>
-					<Route path='/agreement'>
-						<Agreement />
-					</Route>
-					<Route path='/main'>
-						{/* {isLoggedIn === true ? <Main /> : <Redirect to='/login' />} */}
-						<Main /> {/* disable login */}
-					</Route>
-					<Route exact path='/'>
-						<Home />
-					</Route>
-					<Route path='/404'>{NotFoundPage}</Route>
+					<Route path='/login' component={Login} />
+					<Route path='/agreement' component={Agreement} />
+					<Route path='/main' component={Main} />
+					<Route exact path='/' component={Home} />
+					<Route path='/profile/:username' component={Profile} />
+					<Route path='/404'>{<NotFoundPage />}</Route>
 					<Redirect to='/404' />
 				</Switch>
 			</div>

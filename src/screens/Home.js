@@ -5,7 +5,7 @@ import '../styles/home.css';
 
 function Home() {
 	return (
-		<div className='home'>
+		<div className='home noselect'>
 			<div className='logo_layout'>
 				<Logo h='200px' w='200px' />
 			</div>
