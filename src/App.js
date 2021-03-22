@@ -8,7 +8,7 @@ import Home from './screens/Home';
 import Agreement from './screens/Agreement';
 import Login from './screens/Login';
 import Main from './screens/Main';
-import Profile from './screens/Profile';
+import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
 import { isLoggedIn } from './middleware/Cookie';
 
@@ -20,17 +20,18 @@ const App = () => {
 		<Router>
 			<div className='App'>
 				<Switch>
+					<Route path='/home' component={Home}></Route>
 					<Route path='/register'>{/* <About /> */}</Route>
 					<Route path='/agreement' component={Agreement} />
 					<Route path='/login' component={Login} />
 					<PrivateRoute path='/main' component={Main} />
 					<PrivateRoute
 						path='/profile/:username'
-						component={(props) => <Profile {...props} displayProfile={true} />}
+						component={(props) => <ShowProfile {...props} />}
 					/>
 					<PrivateRoute
 						path='/editprofile'
-						component={(props) => <Profile {...props} displayProfile={false} />}
+						component={(props) => <EditProfile {...props} />}
 					/>
 					<Route path='/404'>{<NotFoundPage />}</Route>
 					<Redirect to='/404' />
