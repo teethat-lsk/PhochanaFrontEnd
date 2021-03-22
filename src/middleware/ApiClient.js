@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { backend } from '../config';
 import { getToken, setToken, removeToken } from './Cookie';
-import { Redirect } from 'react-router-dom';
 // request
 
 axios.interceptors.request.use(

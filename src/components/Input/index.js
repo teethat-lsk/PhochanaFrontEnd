@@ -48,9 +48,13 @@ function Input({
 				valid = true;
 			}
 		} else if (allow === 'username') {
-			// console.log(!/^[a-z0-9_]+$/.test(value_), /[a-z]/g.test(value_));
-			if (!/^[a-z0-9_]+$/.test(value_) && /[a-z]/g.test(value_)) {
+			console.log(!/^[a-z0-9_]+$/.test(value_), !/[a-z]/g.test(value_));
+			if (!/^[a-z0-9_]+$/.test(value_)) {
 				setError(`อนุญาติ a-z, 0-9, _ เท่านั้น`);
+				// console.log('no');
+				valid = false;
+			} else if (!/[a-z]/g.test(value_)) {
+				setError(`ต้องมีตัวอักษรภาษาอังกฤษตัวพิมพ์อย่างน้อย 1 ตัว`);
 				// console.log('no');
 				valid = false;
 			} else {

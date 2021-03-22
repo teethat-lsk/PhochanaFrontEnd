@@ -254,7 +254,7 @@ export function EditProfile(props) {
 			};
 			const res = await apiClient(config);
 			if (res.data.status === 'success') {
-				console.log('yoo');
+				// console.log('yoo');
 				setLodding(false);
 				setStatus(true);
 				setTimeout(() => {
@@ -334,7 +334,7 @@ export function EditProfile(props) {
 					value={newUserData.displayname}
 					onChange={handleOnchange}
 					id='displayname'
-					allow='paint'
+					allow='username'
 					maxLength={20}
 				>
 					ชื่อที่ใช้แสดง
