@@ -1,16 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import moment from 'moment';
+import validator from 'validator';
 import './Input.css';
 
-function Input({ children, ext, placeholder, type }) {
-	const [value, setValue] = React.useState(
-		type === 'date' ? convertDate(new Date()) : null
-	);
-	const [openDatePicker, toggleDatePicker] = React.useState(false);
-	const onChangeHandle = (e) => {
-		setValue(moment(e).format('YYYY-MM-DD'));
+function Input({
+	children,
+	ext,
+	placeholder,
+	type,
+	options,
+	value,
+	onChange,
+	id,
+	minLength = 1,
+	maxLength = 30,
+	max = 100000000000,
+	min = -100000000000,
+	allow = 'paint', // paint, email, username, number
+}) {
+	const options_ = options || [];
+	const [openDatePicker, toggleDatePicker] = useState(false);
+	const [error, setError] = useState();
+
+	const onChangeHandleCalendar = (e) => {
+		onChange(moment(e).format('YYYY-MM-DD'));
 		toggleDatePicker(false);
+	};
+
+	// Validator
+	const handleValidation = (e) => {
+		let valid = true;
+		let value_ = e.target.value;
+
+		if (value_.length < minLength) {
+			valid = false;
+			setError(`ความยาวต้องมากกว่า ${minLength} ตัวอักษร`);
+		} else if (value_.length > maxLength) {
+			setError(`ความยาวห้ามเกิน ${maxLength} ตัวอักษร`);
+			valid = false;
+		} else if (allow === 'email') {
+			// console.log(validator.isEmail(e.target.value), e.target.value);
+			if (!validator.isEmail(value_)) {
+				setError(`รูปแบบของ email ไม่ถูกต้อง`);
+				valid = false;
+			} else {
+				valid = true;
+			}
+		} else if (allow === 'username') {
+			// console.log(!/^[a-z0-9_]+$/.test(value_), /[a-z]/g.test(value_));
+			if (!/^[a-z0-9_]+$/.test(value_) && /[a-z]/g.test(value_)) {
+				setError(`อนุญาติ a-z, 0-9, _ เท่านั้น`);
+				// console.log('no');
+				valid = false;
+			} else {
+				// console.log('yes');
+				valid = true;
+			}
+		} else if (allow === 'number') {
+			if (value_ >= min && value_ <= max) {
+				valid = true;
+			} else {
+				valid = false;
+				setError(`กรุณาใส่ค่าในช่วง ${min} ถึง ${max}`);
+			}
+		}
+
+		if (valid) {
+			setError();
+			e.target.error = false;
+			// console.log('clear!');
+		} else {
+			e.target.error = true;
+		}
+		onChange(e);
+	};
+
+	const onChangeHandleDropdown = (e) => {
+		// console.log(e.target.value);
+		onChange(e);
 	};
 
 	return (
@@ -19,10 +87,11 @@ function Input({ children, ext, placeholder, type }) {
 			<div className='input_box'>
 				{type !== 'combobox' ? (
 					<input
+						id={id}
 						className='input_input'
 						placeholder={placeholder || ''}
 						value={value}
-						onChange={(e) => setValue(e.target.value)}
+						onChange={handleValidation}
 						type={type || 'input'}
 						onClick={() => {
 							type === 'date' && toggleDatePicker(!openDatePicker);
@@ -30,30 +99,35 @@ function Input({ children, ext, placeholder, type }) {
 						readonly={type === 'date' ? 'readonly' : false}
 					/>
 				) : (
-					<select className='testt'>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
+					<select
+						className='select_input'
+						onChange={onChangeHandleDropdown}
+						id={id}
+						value={value}
+					>
+						{options_.map((value, key) => {
+							return (
+								<option key={key} value={value}>
+									{value}
+								</option>
+							);
+						})}
 					</select>
 				)}
-				<div className='input_ext'>{ext}</div>
+				{type !== 'combobox' && <div className='input_ext'>{ext}</div>}
 			</div>
 			{openDatePicker && (
 				<Calendar
 					className='input_calendar'
 					maxDate={new Date()}
 					locale='th'
-					onChange={onChangeHandle}
-					value={new Date(value)}
+					onChange={onChangeHandleCalendar}
+					value={typeof value === 'string' ? new Date(value) : value}
 				/>
 			)}
+			{error && <div className='input_error_box'>{error}</div>}
 		</div>
 	);
-}
-function convertDate(date) {
-	var mnth = ('0' + (date.getMonth() + 1)).slice(-2),
-		day = ('0' + date.getDate()).slice(-2);
-	return [date.getFullYear(), mnth, day].join('-');
 }
 
 export default Input;

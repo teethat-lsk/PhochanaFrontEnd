@@ -24,14 +24,18 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
 	function (response) {
-		console.log(response);
+		// console.log(response);
 		return response;
 	},
 	function (error) {
-		if (error.response.status == 401) {
-			alert('Invalid token, please login');
-			removeToken();
-			window.location.reload();
+		try {
+			if (error.response.status == 401) {
+				alert('Invalid token, please login');
+				removeToken();
+				window.location.reload();
+			}
+		} catch (err) {
+			console.log('fetch backend fail :(');
 		}
 		return Promise.reject(error);
 	}
