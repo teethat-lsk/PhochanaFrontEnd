@@ -20,6 +20,19 @@ Install package.
 yarn install
 ```
 
+Config (Need when you dev)
+
+1.  Create dev.js in ./src/config/
+2.  PUT (dev.js)
+
+```
+ module.exports = {
+   backend: `http://localhost:5000`,
+ };
+```
+
+3. replace localhost with your server ip (or your local ip ex: 192.168.1.5) :)
+
 Run **debug** mode.
 
 ```shell
@@ -36,4 +49,4 @@ yarn build
 
 ### Link
 
- ⚛ React documentation [Click Here](https://reactjs.org/docs/getting-started.html) to visit site.
+⚛ React documentation [Click Here](https://reactjs.org/docs/getting-started.html) to visit site.
