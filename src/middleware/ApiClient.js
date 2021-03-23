@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { backend } from '../config';
 import { getToken, setToken, removeToken } from './Cookie';
-// request
 
+// request
 axios.interceptors.request.use(
 	function (config) {
 		config = {
 			...config,
-			url: `${backend}` + config.url,
+			url: `${backend}/api/v1` + config.url,
 			headers: {
 				...config.headers,
 				Authorization: getToken(),
@@ -23,7 +23,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
 	function (response) {
-		// console.log(response);
+		// console.log(response.data);
 		return response;
 	},
 	function (error) {
