@@ -37,9 +37,9 @@ export function ShowProfile(props) {
 			let BMR = '*';
 			let BMI = '*';
 			if (res.gender === 'G') {
-				BMR = 65 + 9.6 * res.weight + 1.8 * res.height - 4.7 * age;
+				BMR = (65 + 9.6 * res.weight + 1.8 * res.height - 4.7 * age).toFixed(1);
 			} else if (res.gender === 'B') {
-				BMR = 66 + 13.7 * res.weight + 5 * res.height - 6.8 * age;
+				BMR = (66 + 13.7 * res.weight + 5 * res.height - 6.8 * age).toFixed(1);
 			}
 
 			// BMI Calculator
