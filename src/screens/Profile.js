@@ -17,6 +17,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 export function ShowProfile(props) {
 	// const username = 'kookza01';
 	const username = props.match.params.username || 'me';
+	const [isOwner, setIsOwner] = useState();
 	const [userData, setUserData] = useState({
 		username: null,
 		displayname: 'hello world',
@@ -28,8 +29,10 @@ export function ShowProfile(props) {
 	});
 
 	useEffect(async () => {
-		const res = await getUserProfile(username);
+		const res_ = await getUserProfile(username);
+		const res = res_.user;
 		if (res) {
+			setIsOwner(res_.isowner);
 			const img = await GetImage(res.urlprofile);
 			const age = getYears(res.birthday);
 
@@ -37,9 +40,9 @@ export function ShowProfile(props) {
 			let BMR = '*';
 			let BMI = '*';
 			if (res.gender === 'G') {
-				BMR = 65 + 9.6 * res.weight + 1.8 * res.height - 4.7 * age;
+				BMR = (65 + 9.6 * res.weight + 1.8 * res.height - 4.7 * age).toFixed(1);
 			} else if (res.gender === 'B') {
-				BMR = 66 + 13.7 * res.weight + 5 * res.height - 6.8 * age;
+				BMR = (66 + 13.7 * res.weight + 5 * res.height - 6.8 * age).toFixed(1);
 			}
 
 			// BMI Calculator
@@ -69,16 +72,16 @@ export function ShowProfile(props) {
 				</Link>
 			</div>
 			<div className='profile_container'>
-				<ProfileHeader userData={userData} />
+				<ProfileHeader userData={userData} isOwner={isOwner} />
 				<div className='profile_body_container'>
-					<Shortcut_Box />
+					{isOwner && <Shortcut_Box />}
 				</div>
 			</div>
 		</div>
 	);
 }
 
-const ProfileHeader = ({ userData }) => {
+const ProfileHeader = ({ userData, isOwner }) => {
 	return (
 		<div className='profile_header_container'>
 			<div className='profile_header_sec1'>
@@ -117,10 +120,12 @@ const ProfileHeader = ({ userData }) => {
 				</div>
 			</div>
 			<div className='profile_header_sec4'>
-				<Link className='profile_edit_btn' to='/editprofile'>
-					<i className='fa fa-pencil' aria-hidden='true' />
-					<p style={{ paddingLeft: '5px' }}>Edit</p>
-				</Link>
+				{isOwner && (
+					<Link className='profile_edit_btn' to='/editprofile'>
+						<i className='fa fa-pencil' aria-hidden='true' />
+						<p style={{ paddingLeft: '5px' }}>Edit</p>
+					</Link>
+				)}
 			</div>
 		</div>
 	);
@@ -173,7 +178,8 @@ export function EditProfile(props) {
 	const backToProfile = useRef(null);
 
 	useEffect(async () => {
-		const res = await getUserProfile(username);
+		const res_ = await getUserProfile(username);
+		const res = res_.user;
 		if (res) {
 			const img = await GetImage(res.urlprofile);
 
@@ -414,7 +420,7 @@ const getUserProfile = async (username) => {
 	};
 	try {
 		const res = await apiClient(config);
-		if (res.data.status == 'success') return res.data.message.user;
+		if (res.data.status == 'success') return res.data.message;
 		else return null;
 	} catch (error) {
 		console.log(error);
