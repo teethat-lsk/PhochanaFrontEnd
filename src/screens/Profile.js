@@ -1,5 +1,5 @@
 import react, { useState, useEffect, useRef, useDebugValue } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import apiClient from '../middleware/ApiClient';
 import moment from 'moment';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -17,6 +17,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 export function ShowProfile(props) {
 	// const username = 'kookza01';
 	const username = props.match.params.username || 'me';
+	const history = useHistory();
 	const [isOwner, setIsOwner] = useState();
 	const [userData, setUserData] = useState({
 		username: null,
@@ -29,9 +30,9 @@ export function ShowProfile(props) {
 	});
 
 	useEffect(async () => {
-		const res_ = await getUserProfile(username);
-		const res = res_.user;
-		if (res) {
+		const res_ = await getUserProfile(username, history);
+		if (res_) {
+			const res = res_.user;
 			setIsOwner(res_.isowner);
 			const img = await GetImage(res.urlprofile);
 			const age = getYears(res.birthday);
@@ -161,6 +162,7 @@ function getYears(birthday) {
 export function EditProfile(props) {
 	const username = props.match.params.username || 'me';
 	const inputFile = useRef(null);
+	const history = useHistory();
 	const [tempFile, setTempFile] = useState(null);
 	const [userData, setUserData] = useState({
 		username: null,
@@ -178,9 +180,9 @@ export function EditProfile(props) {
 	const backToProfile = useRef(null);
 
 	useEffect(async () => {
-		const res_ = await getUserProfile(username);
-		const res = res_.user;
-		if (res) {
+		const res_ = await getUserProfile(username, history);
+		if (res_) {
+			const res = res_.user;
 			const img = await GetImage(res.urlprofile);
 
 			setUserData({
@@ -413,7 +415,7 @@ export function EditProfile(props) {
 	);
 }
 
-const getUserProfile = async (username) => {
+const getUserProfile = async (username, history) => {
 	const config = {
 		method: 'get',
 		url: `/users/profile?username=${username}`,
@@ -421,9 +423,12 @@ const getUserProfile = async (username) => {
 	try {
 		const res = await apiClient(config);
 		if (res.data.status == 'success') return res.data.message;
-		else return null;
+		return null;
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
+		if (error.response.status == 404) {
+			history.push('/404');
+		}
 		// alert(error);
 		return null;
 	}
