@@ -33,11 +33,35 @@ function Input({
     let valid = true;
     let value_ = e.target.value;
 
-    if (value_.length < minLength) {
+    if (
+      value_.length < minLength &&
+      allow != "password" &&
+      allow !== "username"
+    ) {
       valid = false;
       setError(`ความยาวต้องมากกว่า ${minLength} ตัวอักษร`);
-    } else if (value_.length > maxLength) {
+    } else if (
+      value_.length > maxLength &&
+      allow !== "password" &&
+      allow !== "username"
+    ) {
       setError(`ความยาวห้ามเกิน ${maxLength} ตัวอักษร`);
+      valid = false;
+    } else if (
+      (value_.length < minLength || value_.length > maxLength) &&
+      allow === "password"
+    ) {
+      setError(
+        `รหัสผ่านต้องมีความยาวมากกว่า ${minLength} ตัวอักษร และไม่เกิน ${maxLength} ตัวอักษร`
+      );
+      valid = false;
+    } else if (
+      (value_.length < minLength || value_.length > maxLength) &&
+      allow === "username"
+    ) {
+      setError(
+        `ชื่อผู้ใช้ต้องมีความยาวมากกว่า ${minLength} ตัวอักษร และไม่เกิน ${maxLength} ตัวอักษร`
+      );
       valid = false;
     } else if (allow === "email") {
       // console.log(validator.isEmail(e.target.value), e.target.value);
@@ -57,6 +81,9 @@ function Input({
         setError(`ต้องมีตัวอักษรภาษาอังกฤษตัวพิมพ์อย่างน้อย 1 ตัว`);
         // console.log('no');
         valid = false;
+      } else if (value_.includes(" ") === true) {
+        valid = false;
+        setError("ชื่อผู้ใช้เว้นว่างไม่ได้");
       } else {
         // console.log('yes');
         valid = true;
@@ -67,6 +94,24 @@ function Input({
       } else {
         valid = false;
         setError(`กรุณาใส่ค่าในช่วง ${min} ถึง ${max}`);
+      }
+    } else if (allow === "password") {
+      if (value_.includes(" ") === true) {
+        valid = false;
+        setError("รหัสผ่านเว้นว่างไม่ได้");
+      } else if (!/^[a-z0-9_]+$/.test(value_)) {
+        valid = false;
+        setError(
+          `รหัสผ่านต้องมีตัวอักษรพิมพ์เล็ก, พิมพ์ใหญ่ ตัวเลข และสัญลักษณ์อย่างน้อย 1 ตัว`
+        );
+      } else if (!/[a-z]/g.test(value_) || !/[A-Z]/g.test(value_)) {
+        setError(
+          `รหัสผ่านต้องมีตัวอักษรพิมพ์เล็ก, พิมพ์ใหญ่ ตัวเลข และสัญลักษณ์อย่างน้อย 1 ตัว`
+        );
+        // console.log('no');
+        valid = false;
+      } else {
+        valid = true;
       }
     }
 
