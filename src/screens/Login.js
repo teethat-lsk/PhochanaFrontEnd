@@ -67,7 +67,7 @@ class Login extends Component {
                 value={this.state.username}
                 onChange={this.handleUsernameChange}
                 allow='username'
-                minLength={1}
+                minLength={6}
                 maxLength={20}
               ></Input>
             </div>
