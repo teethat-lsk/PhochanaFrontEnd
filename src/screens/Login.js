@@ -3,6 +3,7 @@ import "../styles/Login.css";
 import apiClient from "../middleware/ApiClient";
 import { setToken } from "../middleware/Cookie";
 import { withRouter } from "react-router-dom";
+import Input from "../components/Input";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -57,21 +58,35 @@ class Login extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className='username'>
               <label className='textUser'>ชื่อผู้ใช้ </label>
-              <input
+              {/* <input
                 type='text'
                 value={this.state.username}
                 onChange={this.handleUsernameChange}
-                className='userBox'
-              />
+                className='userBox' */}
+              <Input
+                value={this.state.username}
+                onChange={this.handleUsernameChange}
+                allow='username'
+                minLength={1}
+                maxLength={20}
+              ></Input>
             </div>
             <div className='password'>
               <label className='textPass'>รหัสผ่าน</label>
-              <input
+              {/* <input
                 type='password'
                 value={this.state.password}
                 onChange={this.handlePasswordChange}
                 className='passBox'
-              />
+              /> */}
+              <Input
+                value={this.state.password}
+                onChange={this.handlePasswordChange}
+                allow='password'
+                minLength={8}
+                maxLength={30}
+                type='password'
+              ></Input>
             </div>
           </form>
         </div>
