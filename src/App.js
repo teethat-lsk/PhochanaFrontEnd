@@ -7,7 +7,10 @@ import {
 import Home from './screens/Home';
 import Agreement from './screens/Agreement';
 import Login from './screens/Login';
-import Main from './screens/Main';
+import { Main } from './screens/Main';
+// Friend zone
+import FriendsView from './screens/Friends/FriendsView';
+
 import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
 import { isLoggedIn } from './middleware/Cookie';
@@ -24,7 +27,7 @@ const App = () => {
 					<Route path='/register'>{/* <About /> */}</Route>
 					<Route path='/agreement' component={Agreement} />
 					<Route path='/login' component={Login} />
-					<PrivateRoute path='/main' component={Main} />
+					<PrivateRoute path='/friends' component={FriendsView} />
 					<PrivateRoute
 						path='/profile/:username'
 						component={(props) => <ShowProfile {...props} />}
@@ -33,6 +36,7 @@ const App = () => {
 						path='/editprofile'
 						component={(props) => <EditProfile {...props} />}
 					/>
+					<PrivateRoute extra path='/' component={Main} />
 					<Route path='/404'>{<NotFoundPage />}</Route>
 					<Redirect to='/404' />
 				</Switch>
@@ -51,9 +55,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 				isLogged ? (
 					<Component {...props} />
 				) : (
-					<Redirect
-						to={{ pathname: '/login', state: { from: props.location } }}
-					/>
+					<Redirect to={{ pathname: '/', state: { from: props.location } }} />
 				)
 			}
 		/>
