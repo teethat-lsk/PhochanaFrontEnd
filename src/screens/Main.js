@@ -34,7 +34,7 @@ const MainScore = () => {
 	);
 };
 
-const MainHeaderContainer = () => {
+const MainHeaderContainer = ({ title = 'PhoChana' }) => {
 	const [showMenu, toggleMenu] = useState(false);
 	const [menuWidth, setMenuWidth] = useState('0%');
 	const toggleMenuHandle = () => {
@@ -49,7 +49,7 @@ const MainHeaderContainer = () => {
 			<div className='main_header_left' onClick={toggleMenuHandle}>
 				<i className='fa fa-bars' aria-hidden='true'></i>
 			</div>
-			<div className='main_header_center noselect'>PhoChana</div>
+			<div className='main_header_center noselect'>{title}</div>
 			<div className='main_header_right'>
 				<img style={{ width: '25px' }} src={calendarIcon} />
 				{/* <i className='fa fa-calendar' aria-hidden='true'></img> */}
@@ -163,4 +163,4 @@ const MainFooterBox = () => {
 	);
 };
 
-export default Main;
+export { Main, MainFooterBox, MainHeaderContainer };
