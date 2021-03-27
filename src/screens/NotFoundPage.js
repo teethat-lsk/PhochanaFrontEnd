@@ -18,16 +18,7 @@ const PageNotFound = () => {
       <div className='page_not_found_btn noselect'>
         <Link to='/main'>HOME</Link>
       </div>
-      {
-        <Input
-          value={value}
-          onChange={handleOnChange}
-          allow='username'
-          minLength={8}
-        >
-          username
-        </Input>
-      }
+      {}
     </div>
   );
 };
