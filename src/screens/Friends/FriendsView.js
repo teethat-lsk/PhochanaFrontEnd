@@ -5,7 +5,7 @@ import '../../styles/Friends/FriendsView.css';
 function FriendsView() {
 	return (
 		<div>
-			<MainHeaderContainer title={'Friends'} />
+			<MainHeaderContainer title={'Friends'} right='friend' />
 
 			<MainFooterBox />
 		</div>

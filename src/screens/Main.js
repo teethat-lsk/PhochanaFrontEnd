@@ -12,7 +12,7 @@ import calendarIcon from '../images/calendar.png';
 function Main() {
 	return (
 		<div className='main_container'>
-			<MainHeaderContainer />
+			<MainHeaderContainer right={'calendar'} />
 			<div className='main_body_container'>
 				<HomeLogo />
 				<MainScore />
@@ -34,9 +34,21 @@ const MainScore = () => {
 	);
 };
 
-const MainHeaderContainer = ({ title = 'PhoChana' }) => {
+const MainHeaderContainer = ({ title = 'PhoChana', right = 'none' }) => {
 	const [showMenu, toggleMenu] = useState(false);
 	const [menuWidth, setMenuWidth] = useState('0%');
+	const list = {
+		none: () => {
+			return <div></div>;
+		},
+		calendar: () => {
+			return <img style={{ width: '25px' }} src={calendarIcon} />;
+		},
+		friend: () => {
+			return <i className='fa fa-user-plus' aria-hidden='true' />;
+		},
+	};
+	console.log(list[right]);
 	const toggleMenuHandle = () => {
 		toggleMenu(!showMenu);
 		if (!showMenu) setMenuWidth('60%');
@@ -50,10 +62,7 @@ const MainHeaderContainer = ({ title = 'PhoChana' }) => {
 				<i className='fa fa-bars' aria-hidden='true'></i>
 			</div>
 			<div className='main_header_center noselect'>{title}</div>
-			<div className='main_header_right'>
-				<img style={{ width: '25px' }} src={calendarIcon} />
-				{/* <i className='fa fa-calendar' aria-hidden='true'></img> */}
-			</div>
+			<div className='main_header_right'>{list[right]()}</div>
 		</div>
 	);
 };
