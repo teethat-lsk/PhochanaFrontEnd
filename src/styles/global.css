@@ -41,6 +41,10 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
+input {
+	font-family: 'Kanit', sans-serif;
+}
+
 /* Firefox */
 input[type='number'] {
 	-moz-appearance: textfield;

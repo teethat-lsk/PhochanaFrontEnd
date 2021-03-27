@@ -1,5 +1,5 @@
-import react, { useState, useEffect, useRef, useDebugValue } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import react, { useState, useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import apiClient from '../middleware/ApiClient';
 import moment from 'moment';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -9,8 +9,8 @@ import cupIcon from '../images/cup.png';
 import excerciseIcon from '../images/excercise.png';
 import GetImage from '../middleware/GetImage';
 import Input from '../components/Input';
-import '../styles/profile.css';
 import Loader from 'react-loader-spinner';
+import '../styles/profile.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
@@ -101,7 +101,7 @@ const ProfileHeader = ({ userData, isOwner }) => {
 					src={userData.imgpath}
 					style={{
 						height: '200px',
-						weight: '200px',
+						width: '200px',
 						minHeight: '200px',
 						minWidth: '200px',
 						maxHeight: '200px',
@@ -308,7 +308,7 @@ export function EditProfile(props) {
 				<img
 					style={{
 						height: '130px',
-						weight: '130px',
+						width: '130px',
 						minHeight: '130px',
 						minWidth: '130px',
 						maxHeight: '130px',

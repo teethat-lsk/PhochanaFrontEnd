@@ -48,7 +48,7 @@ const MainHeaderContainer = ({ title = 'PhoChana', right = 'none' }) => {
 			return <i className='fa fa-user-plus' aria-hidden='true' />;
 		},
 	};
-	console.log(list[right]);
+	// console.log(list[right]);
 	const toggleMenuHandle = () => {
 		toggleMenu(!showMenu);
 		if (!showMenu) setMenuWidth('60%');
