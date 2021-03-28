@@ -7,7 +7,12 @@ import '../../styles/Friends/ManageRequest.css';
 const ManageFriendRequest = (props) => {
 	return (
 		<div>
-			<MainHeaderContainer menu={false} title={'Requests'} right='friend' />
+			<MainHeaderContainer
+				menu={false}
+				backwardTo='/friends'
+				title={'Requests'}
+				right='friend'
+			/>
 			{<ManagerFriendRequestBody pageState={props.match.params.pagestate} />}
 			<ManagerFriendRequestFooter />
 		</div>
@@ -15,7 +20,7 @@ const ManageFriendRequest = (props) => {
 };
 
 const ManagerFriendRequestBody = ({ pageState }) => {
-	console.log(pageState);
+	// console.log(pageState);
 	const [requests, setRequests] = useState([
 		{ username: 'test', display_name: 'yayy' },
 		{ username: 'test2', display_name: 'yayy2' },

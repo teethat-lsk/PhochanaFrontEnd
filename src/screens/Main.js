@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
 import CalendarFood from '../components/CalendarFood';
 import HomeLogo from '../components/HomeLogo';
 import { getToken, setToken, removeToken } from '../middleware/Cookie';
@@ -36,6 +36,7 @@ const MainScore = () => {
 
 const MainHeaderContainer = ({
 	menu = true, // true: menu, false: backward
+	backwardTo = '',
 	title = 'PhoChana',
 	right = 'none',
 	to = '/',
@@ -79,7 +80,9 @@ const MainHeaderContainer = ({
 			) : (
 				<div
 					className='btn_back_ward btn_backward_global'
-					onClick={() => history.goBack()}
+					onClick={() =>
+						backwardTo === '' ? history.goBack() : history.push(backwardTo)
+					}
 				>
 					<i className='fa fa-chevron-circle-left' aria-hidden='true'></i>
 					<p style={{ paddingLeft: '5px' }}>back</p>
