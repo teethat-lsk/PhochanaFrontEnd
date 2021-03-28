@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import '../styles/main.css';
+import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
 import CalendarFood from '../components/CalendarFood';
 import HomeLogo from '../components/HomeLogo';
 import { getToken, setToken, removeToken } from '../middleware/Cookie';
 import calendarIcon from '../images/calendar.png';
+import '../styles/main.css';
 
 // var axios = require('axios');
 // icon here https://fontawesome.com/v4.7.0/icons/
@@ -34,21 +34,36 @@ const MainScore = () => {
 	);
 };
 
-const MainHeaderContainer = ({ title = 'PhoChana', right = 'none' }) => {
+const MainHeaderContainer = ({
+	menu = true, // true: menu, false: backward
+	backwardTo = '',
+	title = 'PhoChana',
+	right = 'none',
+	to = '/',
+}) => {
 	const [showMenu, toggleMenu] = useState(false);
 	const [menuWidth, setMenuWidth] = useState('0%');
-	const list = {
+	const history = useHistory();
+	const listRight = {
 		none: () => {
 			return <div></div>;
 		},
 		calendar: () => {
-			return <img style={{ width: '25px' }} src={calendarIcon} />;
+			return (
+				<Link to={to}>
+					<img style={{ width: '25px' }} src={calendarIcon} />
+				</Link>
+			);
 		},
 		friend: () => {
-			return <i className='fa fa-user-plus' aria-hidden='true' />;
+			return (
+				<Link to={to}>
+					<i className='fa fa-user-plus' aria-hidden='true' />
+				</Link>
+			);
 		},
 	};
-	console.log(list[right]);
+	// console.log(list[right]);
 	const toggleMenuHandle = () => {
 		toggleMenu(!showMenu);
 		if (!showMenu) setMenuWidth('60%');
@@ -58,11 +73,23 @@ const MainHeaderContainer = ({ title = 'PhoChana', right = 'none' }) => {
 	return (
 		<div className='main_header_container'>
 			<Menu widthMenu={menuWidth} toggleMenu={toggleMenuHandle} />
-			<div className='main_header_left' onClick={toggleMenuHandle}>
-				<i className='fa fa-bars' aria-hidden='true'></i>
-			</div>
+			{menu ? (
+				<div className='main_header_left' onClick={toggleMenuHandle}>
+					<i className='fa fa-bars' aria-hidden='true'></i>
+				</div>
+			) : (
+				<div
+					className='btn_back_ward btn_backward_global'
+					onClick={() =>
+						backwardTo === '' ? history.goBack() : history.push(backwardTo)
+					}
+				>
+					<i className='fa fa-chevron-circle-left' aria-hidden='true'></i>
+					<p style={{ paddingLeft: '5px' }}>back</p>
+				</div>
+			)}
 			<div className='main_header_center noselect'>{title}</div>
-			<div className='main_header_right'>{list[right]()}</div>
+			<div className='main_header_right'>{listRight[right]()}</div>
 		</div>
 	);
 };
