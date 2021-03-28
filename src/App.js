@@ -10,6 +10,7 @@ import Login from './screens/Login';
 import { Main } from './screens/Main';
 // Friend zone
 import FriendsView from './screens/Friends/FriendsView';
+import { ManageFriendRequest } from './screens/Friends/ManageRequest';
 
 import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
@@ -23,9 +24,14 @@ const App = () => {
 		<Router>
 			<div className='App'>
 				<Switch>
+					<PrivateRoute exact path='/' component={Main} />
 					<Route path='/home' component={Home}></Route>
 					<Route path='/register'>{/* <About /> */}</Route>
 					<Route path='/agreement' component={Agreement} />
+					<PrivateRoute
+						path='/friends/:pagestate'
+						component={ManageFriendRequest}
+					/>
 					<Route path='/login' component={Login} />
 					<PrivateRoute path='/friends' component={FriendsView} />
 					<PrivateRoute
@@ -36,9 +42,7 @@ const App = () => {
 						path='/editprofile'
 						component={(props) => <EditProfile {...props} />}
 					/>
-					<PrivateRoute extra path='/' component={Main} />
-					<Route path='/404'>{<NotFoundPage />}</Route>
-					<Redirect to='/404' />
+					<Route component={NotFoundPage} />
 				</Switch>
 			</div>
 		</Router>

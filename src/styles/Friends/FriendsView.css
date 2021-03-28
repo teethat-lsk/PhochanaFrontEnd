@@ -42,7 +42,7 @@
 }
 
 .user_card_display {
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -51,7 +51,8 @@
 }
 
 .user_card_display:active {
-	background-color: var(--bt);
+	/* background-color: var(--bt); */
+	opacity: 50%;
 }
 
 .user_profile_img {
@@ -136,4 +137,22 @@
 	to {
 		opacity: 1;
 	}
+}
+
+.friend_body_length_zero {
+	background-color: var(--bt);
+	color: white;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 50%;
+	height: 9vh;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+.friend_body_length_zero:active {
+	opacity: 50%;
+	/* background-color: var(--bt_active); */
 }

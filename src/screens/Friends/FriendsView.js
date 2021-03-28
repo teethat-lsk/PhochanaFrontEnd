@@ -2,12 +2,18 @@ import react, { useState, useEffect } from 'react';
 import { MainHeaderContainer, MainFooterBox } from '../Main';
 import { useLongPress } from '../../middleware/LongPress';
 import GetImage from '../../middleware/GetImage';
+import apiClient from '../../middleware/ApiClient';
+import { Link } from 'react-router-dom';
 import '../../styles/Friends/FriendsView.css';
 
 function FriendsView() {
 	return (
 		<div>
-			<MainHeaderContainer title={'Friends'} right='friend' />
+			<MainHeaderContainer
+				title={'Friends'}
+				right='friend'
+				to='/friends/income'
+			/>
 			<FriendBody />
 			<MainFooterBox />
 		</div>
@@ -15,14 +21,27 @@ function FriendsView() {
 }
 
 const FriendBody = () => {
-	const [userData, setUserData] = useState([
-		{ profile: 'path/to/profile', display_name: 'test1', score: 1000 },
-		{ profile: 'path/to/profile', display_name: 'test2', score: 2000 },
-		{ profile: 'path/to/profile', display_name: 'test3', score: 3000 },
-		{ profile: 'path/to/profile', display_name: 'test4', score: 4000 },
-	]);
+	const [userData, setUserData] = useState([]);
 
 	const [search, setSearch] = useState(null);
+
+	useEffect(async () => {
+		var config = {
+			method: 'get',
+			url: '/friends?limit=20&skip=0',
+		};
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			if (res.data.message.users.length !== 0) {
+				// console.log('have user', res.data.message.users);
+				setUserData(res.data.message.users);
+			} else {
+				// console.log('no have user');
+			}
+		} else {
+			// console.log('something wrong');
+		}
+	}, []);
 
 	const searchSpace = (event) => {
 		let keyword = event.target.value;
@@ -56,29 +75,40 @@ const FriendBody = () => {
 					.map((element) => {
 						return (
 							<UserCard
-								profile={element.profile}
+								profile={element.url_profile}
 								display_name={element.display_name}
 								score={element.score}
+								username={element.username}
 							/>
 						);
 					})}
+				{userData.length === 0 && (
+					<Link className='friend_body_length_zero' to='/friends/income'>
+						<p>ไม่พบรายชื่อเพื่อน</p>
+						<p>ค้นหาเพื่อนใหม่?</p>
+					</Link>
+				)}
 			</div>
 		</div>
 	);
 };
 
-const UserCard = ({ profile, display_name, score }) => {
+const UserCard = ({ profile, display_name, score, username }) => {
 	const [imgProfile, setProfile] = useState(null);
 	const [showPopup, togglePopup] = useState(false);
 
 	react.useEffect(async () => {
 		const res = await GetImage(profile);
+		// console.log(res);
 		setProfile(res);
-	}, []);
+	}, [profile]);
 
 	const longPressProps = useLongPress({
 		onClick: (ev) => {
 			if (showPopup) togglePopup(!showPopup);
+			else {
+				return <Link to='test' />;
+			}
 		},
 		onLongPress: (ev) => {
 			togglePopup(!showPopup);
@@ -88,10 +118,10 @@ const UserCard = ({ profile, display_name, score }) => {
 
 	return (
 		<div className='user_card_display' {...longPressProps}>
-			<div className='user_profile_box1'>
+			<Link className='user_profile_box1' to={'/profile/' + username}>
 				<img className='user_profile_img' src={imgProfile} />
 				<p className='user_profile_name'>{display_name}</p>
-			</div>
+			</Link>
 			<div className='user_profile_score'>
 				<p>{score}</p>
 			</div>

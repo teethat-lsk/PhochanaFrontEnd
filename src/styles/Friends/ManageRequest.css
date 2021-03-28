@@ -1,0 +1,123 @@
+.manager_friend_request_footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	height: 7vh;
+	width: 100%;
+	background-color: var(--bt);
+	color: white;
+	font-size: 2.5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.manager_friend_request_footer:active {
+	opacity: 50%;
+}
+
+.manager_friend_request_body_container {
+	/* background-color: blue; */
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.manager_friend_request_button {
+	margin-top: 2vh;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.btn_friend_request {
+	color: white;
+	text-align: center;
+	background-color: var(--bg2);
+	width: 40%;
+	font-size: 14px;
+	height: 5vh;
+}
+
+.bfq_active {
+	background-color: var(--bg2_active);
+}
+
+.btn_friend_request:active {
+	opacity: 50%;
+	/* background-color: var(--bg2_active); */
+}
+
+.manager_friend_request_body {
+	/* background-color: aqua; */
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.friend_request_card_container {
+	/* margin-top: 10px; */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+	margin-bottom: 10px;
+	height: 7vh;
+	width: 95%;
+	/* background-color: red; */
+}
+
+.friend_request_box1 {
+	width: 70%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	/* width: 80%; */
+	padding-top: 5px;
+	padding-bottom: 5px;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: none;
+}
+
+.btn_action_container {
+	border: none;
+	font-size: 12px;
+	padding: 4px;
+	height: 100%;
+	width: 30%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn_action {
+	width: 40%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	color: white;
+}
+
+._accept {
+	background-color: chartreuse;
+}
+
+._decline {
+	background-color: coral;
+}
+
+.btn_action:active {
+	opacity: 50%;
+}
