@@ -23,31 +23,26 @@ const App = () => {
 	console.log(`User had been logged ==> ${isLoggedIn()}`);
 	return (
 		<Router>
-			<div className='App'>
-				<Switch>
-					<PrivateRoute exact path='/' component={Main} />
-					<Route path='/home' component={Home}></Route>
-					<Route path='/register'>{/* <About /> */}</Route>
-					<Route path='/agreement' component={Agreement} />
-					<PrivateRoute
-						path='/friends/:pagestate'
-						component={ManageFriendRequest}
-					/>
-					<Route path='/login' component={Login} />
-					<PrivateRoute path='/friends' component={FriendsView} />
-					<PrivateRoute path='/books' component={KnowledgeMain} />
-					<PrivateRoute
-						path='/profile/:username'
-						component={(props) => <ShowProfile {...props} />}
-					/>
-					<PrivateRoute to='/knowledge' component={KnowledgeMain} />
-					<PrivateRoute
-						path='/editprofile'
-						component={(props) => <EditProfile {...props} />}
-					/>
-					<Route component={NotFoundPage} />
-				</Switch>
-			</div>
+			<Switch>
+				<PrivateRoute path='/' exact component={Main} />
+				<Route path='/home' component={Home}></Route>
+				<Route path='/register'>{/* <About /> */}</Route>
+				<Route path='/agreement' component={Agreement} />
+				<Route path='/login' component={Login} />
+				<Route path='/friends/:pagestate' component={ManageFriendRequest} />
+				<PrivateRoute path='/friends' component={FriendsView} />
+				<PrivateRoute
+					path='/profile/:username'
+					component={(props) => <ShowProfile {...props} />}
+				/>
+				<PrivateRoute path='/knowledge' component={KnowledgeMain} />
+				<PrivateRoute
+					path='/editprofile'
+					component={(props) => <EditProfile {...props} />}
+				/>
+				<Route path='/404' component={NotFoundPage} />
+				<Redirect to='/404' />
+			</Switch>
 		</Router>
 	);
 };
