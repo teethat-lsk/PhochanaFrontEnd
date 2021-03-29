@@ -11,6 +11,7 @@ import { Main } from './screens/Main';
 // Friend zone
 import FriendsView from './screens/Friends/FriendsView';
 import { ManageFriendRequest } from './screens/Friends/ManageRequest';
+import { MyInformation } from './screens/Friends/MyInfomation';
 
 import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
@@ -29,8 +30,12 @@ const App = () => {
 				<Route path='/register'>{/* <About /> */}</Route>
 				<Route path='/agreement' component={Agreement} />
 				<Route path='/login' component={Login} />
-				<Route path='/friends/:pagestate' component={ManageFriendRequest} />
+				<PrivateRoute
+					path='/friends/:pagestate'
+					component={ManageFriendRequest}
+				/>
 				<PrivateRoute path='/friends' component={FriendsView} />
+				<PrivateRoute path='/myinformation' component={MyInformation} />
 				<PrivateRoute
 					path='/profile/:username'
 					component={(props) => <ShowProfile {...props} />}

@@ -161,9 +161,9 @@ const RequestCardOutcome = ({ profile, display_name, username }) => {
 
 const ManagerFriendRequestFooter = () => {
 	return (
-		<div className='manager_friend_request_footer'>
+		<Link className='manager_friend_request_footer' to='/myinformation'>
 			<p>ข้อมูลของฉัน</p>
-		</div>
+		</Link>
 	);
 };
 
