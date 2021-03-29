@@ -118,6 +118,11 @@
 	background-color: coral;
 }
 
+._wait {
+	background-color: cornflowerblue;
+	width: 80%;
+}
+
 .btn_action:active {
 	opacity: 50%;
 }
