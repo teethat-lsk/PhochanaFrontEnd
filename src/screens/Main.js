@@ -159,7 +159,7 @@ const MainFooterBox = () => {
 				</NavLink>
 				<NavLink
 					className='main_footer_button'
-					to='/books'
+					to='/knowledge'
 					activeClassName='mfb_active'
 				>
 					<i
