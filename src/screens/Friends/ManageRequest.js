@@ -12,7 +12,8 @@ const ManageFriendRequest = (props) => {
 				menu={false}
 				backwardTo='/friends'
 				title={'Requests'}
-				right='friend'
+				right='addfriend'
+				to='/addfriend'
 			/>
 			{<ManagerFriendRequestBody pageState={props.match.params.pagestate} />}
 			<ManagerFriendRequestFooter />
@@ -52,10 +53,12 @@ const ManagerFriendRequestBody = ({ pageState }) => {
 		};
 		// console.log(config);
 		const res = await apiClient(config);
-		if (res.data.status === 'success') {
-			// console.log('message res', res.data.message.users);
-			setRequests(res.data.message.users);
-		}
+		try {
+			if (res.data.status === 'success' && res.data.message.users.length) {
+				// console.log('message res', res.data.message.users);
+				setRequests(res.data.message.users);
+			}
+		} catch (err) {}
 	};
 
 	useEffect(async () => {
@@ -167,4 +170,4 @@ const ManagerFriendRequestFooter = () => {
 	);
 };
 
-export { ManageFriendRequest };
+export { ManageFriendRequest, ManagerFriendRequestFooter };

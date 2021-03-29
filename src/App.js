@@ -12,6 +12,7 @@ import { Main } from './screens/Main';
 import FriendsView from './screens/Friends/FriendsView';
 import { ManageFriendRequest } from './screens/Friends/ManageRequest';
 import { MyInformation } from './screens/Friends/MyInfomation';
+import { AddFriend } from './screens/Friends/AddFriend';
 
 import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
@@ -36,6 +37,7 @@ const App = () => {
 				/>
 				<PrivateRoute path='/friends' component={FriendsView} />
 				<PrivateRoute path='/myinformation' component={MyInformation} />
+				<PrivateRoute path='/addfriend' component={AddFriend} />
 				<PrivateRoute
 					path='/profile/:username'
 					component={(props) => <ShowProfile {...props} />}

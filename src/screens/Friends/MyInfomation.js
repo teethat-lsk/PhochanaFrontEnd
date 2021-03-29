@@ -26,7 +26,7 @@ const MyInformation = () => {
 
 	const downloadQR = () => {
 		const canvas = document.getElementById('react-qrcode-logo');
-		console.log(canvas);
+		// console.log(canvas);
 		const pngUrl = canvas
 			.toDataURL('image/png')
 			.replace('image/png', 'image/octet-stream');

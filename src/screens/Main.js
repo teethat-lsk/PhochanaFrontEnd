@@ -58,6 +58,13 @@ const MainHeaderContainer = ({
 		friend: () => {
 			return (
 				<Link to={to}>
+					<i className='fa fa-users' aria-hidden='true' />
+				</Link>
+			);
+		},
+		addfriend: () => {
+			return (
+				<Link to={to}>
 					<i className='fa fa-user-plus' aria-hidden='true' />
 				</Link>
 			);
