@@ -137,7 +137,7 @@ const MainFooterBox = () => {
 			<div className='main_footer_box'>
 				<NavLink
 					className='main_footer_button'
-					to='/main'
+					to='/'
 					activeClassName='mfb_active'
 				>
 					<i
