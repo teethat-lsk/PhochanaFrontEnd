@@ -44,6 +44,7 @@ const App = () => {
           component={(props) => <ShowProfile {...props} />}
         />
         <PrivateRoute path='/knowledge' component={KnowledgeMain} />
+        <PrivateRoute path='/exercise' component={ExerciseMain} />
         <PrivateRoute
           path='/editprofile'
           component={(props) => <EditProfile {...props} />}
