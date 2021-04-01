@@ -4,8 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import "../../styles/Knowledges/knowDeco.css";
 import dataArray from "./KnowledgeData.js";
-// var data = dataArray.sort(() => Math.random() - 0.5);
-var data = dataArray;
+import SwiperCore, { EffectFade, EffectFlip } from "swiper";
+var data = dataArray.sort(() => Math.random() - 0.5);
+// var data = dataArray;
+SwiperCore.use([EffectFlip]);
 function KnowledgeMain() {
   return (
     <div>

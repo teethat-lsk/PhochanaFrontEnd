@@ -1,9 +1,10 @@
 :root {
-	--bg: #26979f;
-	--bg1: #c8f0ef;
-	--bg2: #00587a;
-	--bg2_active: #00364c;
-	--bt: #ff6e69;
-	--bt_active: #7e0400;
-	--bt_hover: #ff2f28;
+  --bg: #26979f;
+  --bg1: #c8f0ef;
+  --bg2: #00587a;
+  --bg2_active: #00364c;
+  --bt: #ff6e69;
+  --bt_active: #7e0400;
+  --bt_hover: #ff2f28;
+  --bt_ex: #faebd7;
 }
