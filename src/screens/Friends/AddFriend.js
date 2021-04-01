@@ -1,20 +1,23 @@
 import react, { useState, useRef } from 'react';
 import { ManagerFriendRequestFooter } from './ManageRequest';
 import { MainHeaderContainer } from '../Main';
+import apiClient from '../../middleware/ApiClient';
 import QrReader from 'react-qr-reader';
 import '../../styles/Friends/AddFriend.css';
 
-const AddFriend = () => {
+const AddFriend = (props) => {
+	const usernameToFind = props.match.params.username || null;
+	console.log('username =>', usernameToFind);
 	return (
 		<div>
 			<MainHeaderContainer menu={false} title={'New Request'} />
-			<AddFriendBody />
+			<AddFriendBody usernameToFind={usernameToFind} />
 			<ManagerFriendRequestFooter />
 		</div>
 	);
 };
 
-const AddFriendBody = () => {
+const AddFriendBody = (usernameToFind) => {
 	const [isUsername, Toggle] = useState(true);
 	const ref1 = useRef(null);
 	const ref2 = useRef(null);
@@ -65,15 +68,41 @@ const AddFriendBody = () => {
 };
 
 const FindWithUsername = () => {
+	const [value, setValue] = useState('');
+	const [userdata, setUserdata] = useState(null);
+	const [error, setError] = useState('');
+
+	const handleOnChange = (event) => {
+		setValue(event.target.value);
+	};
+
+	const handleOnSubmit = async (event) => {
+		if (value != '') {
+			// console.log('yayy you can submit');
+			const res = await manageRequest(value);
+			if (res) {
+				console.log(res);
+			} else {
+				// console.log('user not found!');
+				setError('User not found!');
+			}
+		}
+	};
+
 	return (
 		<div className='find_with_username_container'>
 			<div className='textbox_input_container'>
-				<input className='textbox_input' type='input'></input>
-				<div className='icon_here'>
+				<input
+					className='textbox_input'
+					type='input'
+					value={value}
+					onChange={handleOnChange}
+				></input>
+				<div className='icon_here' onClick={handleOnSubmit}>
 					<i className='fa fa-search' aria-hidden='true'></i>
 				</div>
 			</div>
-			<DisplayUser />
+			<DisplayUser message={error} />
 		</div>
 	);
 };
@@ -84,7 +113,7 @@ const FindWithQRCode = () => {
 
 	const handleScan = (data) => {
 		if (data) {
-			console.log(data);
+			// console.log(data);
 			setResult(data);
 		}
 	};
@@ -115,14 +144,48 @@ const FindWithQRCode = () => {
 	);
 };
 
-const DisplayUser = () => {
+const DisplayUser = ({ profile, display_name, message }) => {
+	console.log(message);
 	return (
 		<div className='display_user_container'>
-			<img className='display_user_profile_img' src={''} />
-			<div className='display_uesr_profile_name'>Here name</div>
-			<div className='display_user_action'>Add</div>
+			{message != '' &&
+				(message == '' ? (
+					<div>
+						<img className='display_user_profile_img' src={profile} />
+						<div className='display_uesr_profile_name'>{display_name}</div>
+						<div className='display_user_action'>Add</div>
+					</div>
+				) : (
+					<div>User not found</div>
+				))}
 		</div>
 	);
+};
+
+const manageRequest = async (target) => {
+	var data = JSON.stringify({
+		target: target,
+	});
+
+	const config = {
+		method: 'post',
+		url: '/friends',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		data: data,
+	};
+
+	try {
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			return res.data.message;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		return null;
+	}
 };
 
 export { AddFriend };

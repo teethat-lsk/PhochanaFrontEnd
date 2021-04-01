@@ -37,7 +37,10 @@ const App = () => {
 				/>
 				<PrivateRoute path='/friends' component={FriendsView} />
 				<PrivateRoute path='/myinformation' component={MyInformation} />
-				<PrivateRoute path='/addfriend' component={AddFriend} />
+				<PrivateRoute
+					path='/addfriend/:username?'
+					component={(props) => <AddFriend {...props} />}
+				/>
 				<PrivateRoute
 					path='/profile/:username'
 					component={(props) => <ShowProfile {...props} />}
