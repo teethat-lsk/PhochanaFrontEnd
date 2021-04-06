@@ -1,9 +1,11 @@
 import react, { useState, useRef, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ManagerFriendRequestFooter } from './ManageRequest';
 import { MainHeaderContainer } from '../Main';
 import apiClient from '../../middleware/ApiClient';
 import QrReader from 'react-qr-reader';
 import GetImage from '../../middleware/GetImage';
+import { frontend } from '../../config';
 import '../../styles/Friends/AddFriend.css';
 
 const AddFriend = (props) => {
@@ -151,18 +153,27 @@ const FindWithUsername = ({ usernameToFind }) => {
 };
 
 const FindWithQRCode = () => {
+	const history = useHistory();
+
 	const [result, setResult] = useState('No result');
 	const refReader = useRef(null);
 
 	const handleScan = (data) => {
 		if (data) {
 			// console.log(data);
-			setResult(data);
+			if (data.startsWith(`${frontend}/addfriend/`)) {
+				setResult(data);
+				history.push(`/addfriend/` + data.split('/').slice(-1).pop());
+				window.location.reload();
+			} else {
+				// TODO alert here
+				console.log('Invalid QRCode');
+			}
 		}
 	};
 
 	const handleError = (err) => {
-		console.error(err);
+		// console.error(err);
 	};
 
 	const openImageDialog = () => {

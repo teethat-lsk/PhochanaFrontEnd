@@ -27,33 +27,33 @@ const App = () => {
 	return (
 		<Router>
 			<Switch>
-				<PrivateRoute path="/" exact component={Main} />
-				<Route path="/home" component={Home}></Route>
-				<Route path="/register">{/* <About /> */}</Route>
-				<Route path="/agreement" component={Agreement} />
-				<Route path="/login" component={Login} />
+				<PrivateRoute path='/' exact component={Main} />
+				<Route path='/home' component={Home}></Route>
+				<Route path='/register'>{/* <About /> */}</Route>
+				<Route path='/agreement' component={Agreement} />
+				<Route path='/login' component={Login} />
 				<PrivateRoute
-					path="/friends/:pagestate"
+					path='/friends/:pagestate'
 					component={ManageFriendRequest}
 				/>
-				<PrivateRoute path="/friends" component={FriendsView} />
-				<PrivateRoute path="/myinformation" component={MyInformation} />
-				<PrivateRoute path="/exercise" component={ExerciseMain} />
+				<PrivateRoute path='/friends' component={FriendsView} />
+				<PrivateRoute path='/myinformation' component={MyInformation} />
+				<PrivateRoute path='/exercise' component={ExerciseMain} />
 				<PrivateRoute
-					path="/addfriend/:username?"
+					path='/addfriend/:username?'
 					component={(props) => <AddFriend {...props} />}
 				/>
 				<PrivateRoute
-					path="/profile/:username"
+					path='/profile/:username'
 					component={(props) => <ShowProfile {...props} />}
 				/>
-				<PrivateRoute path="/knowledge" component={KnowledgeMain} />
+				<PrivateRoute path='/knowledge' component={KnowledgeMain} />
 				<PrivateRoute
-					path="/editprofile"
+					path='/editprofile'
 					component={(props) => <EditProfile {...props} />}
 				/>
-				<Route path="/404" component={NotFoundPage} />
-				<Redirect to="/404" />
+				<Route path='/404' component={NotFoundPage} />
+				<Redirect to='/404' />
 			</Switch>
 		</Router>
 	);
@@ -69,7 +69,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 				isLogged ? (
 					<Component {...props} />
 				) : (
-					<Redirect to={{ pathname: '/', state: { from: props.location } }} />
+					<Redirect
+						to={{ pathname: '/login', state: { from: props.location } }}
+					/>
 				)
 			}
 		/>

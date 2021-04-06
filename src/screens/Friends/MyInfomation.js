@@ -2,6 +2,7 @@ import react, { useState, useEffect } from 'react';
 import { QRCode } from 'react-qrcode-logo';
 import { useHistory } from 'react-router-dom';
 import apiClient from '../../middleware/ApiClient';
+import { frontend } from '../../config';
 import HomeLogoImage from '../../images/logo_home.png';
 
 import '../../styles/Friends/MyInfomation.css';
@@ -41,7 +42,7 @@ const MyInformation = () => {
 	return (
 		<div className='my_info_container'>
 			<QRCode
-				value={`path/to/add/${username}`}
+				value={`${frontend}/addfriend/${username}`}
 				logoImage={HomeLogoImage}
 				size='200'
 			/>

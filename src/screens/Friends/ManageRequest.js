@@ -5,6 +5,7 @@ import GetImage from '../../middleware/GetImage';
 import apiClient from '../../middleware/ApiClient';
 import '../../styles/Friends/ManageRequest.css';
 
+// TODO เพิ่มปุ่ม > < เพื่อให้แสดงทีละ 20 User/Page
 const ManageFriendRequest = (props) => {
 	return (
 		<div>
@@ -41,6 +42,7 @@ const ManagerFriendRequestBody = ({ pageState }) => {
 			if (state !== lastState) {
 				// console.log('doooo');
 				_pageState = pageState === 'income' ? 'outcome' : 'income';
+				// console.log('updated');
 				setLastState(_pageState);
 			} else {
 				_pageState = pageState;
@@ -57,6 +59,8 @@ const ManagerFriendRequestBody = ({ pageState }) => {
 			if (res.data.status === 'success' && res.data.message.users.length) {
 				// console.log('message res', res.data.message.users);
 				setRequests(res.data.message.users);
+			} else {
+				setRequests([]);
 			}
 		} catch (err) {}
 	};
@@ -66,6 +70,7 @@ const ManagerFriendRequestBody = ({ pageState }) => {
 		// console.log(requests);
 		setRequestComponent(
 			requests.map((element) => {
+				// console.log(element);
 				return pageState === 'income' ? (
 					<RequestCardIncome
 						display_name={element.owner.display_name}
