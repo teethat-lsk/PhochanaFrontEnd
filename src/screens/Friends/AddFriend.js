@@ -1,8 +1,9 @@
-import react, { useState, useRef } from 'react';
+import react, { useState, useRef, useEffect } from 'react';
 import { ManagerFriendRequestFooter } from './ManageRequest';
 import { MainHeaderContainer } from '../Main';
 import apiClient from '../../middleware/ApiClient';
 import QrReader from 'react-qr-reader';
+import GetImage from '../../middleware/GetImage';
 import '../../styles/Friends/AddFriend.css';
 
 const AddFriend = (props) => {
@@ -17,7 +18,8 @@ const AddFriend = (props) => {
 	);
 };
 
-const AddFriendBody = (usernameToFind) => {
+const AddFriendBody = ({ usernameToFind }) => {
+	// console.log('body updated!');
 	const [isUsername, Toggle] = useState(true);
 	const ref1 = useRef(null);
 	const ref2 = useRef(null);
@@ -62,14 +64,22 @@ const AddFriendBody = (usernameToFind) => {
 					</div>
 				</div>
 			</div>
-			{isUsername ? <FindWithUsername /> : <FindWithQRCode />}
+			{isUsername ? (
+				<FindWithUsername usernameToFind={usernameToFind} />
+			) : (
+				<FindWithQRCode />
+			)}
 		</div>
 	);
 };
 
-const FindWithUsername = () => {
-	const [value, setValue] = useState('');
+const FindWithUsername = ({ usernameToFind }) => {
+	// console.log('find with username had been updated!');
+	// console.log(usernameToFind);
+
+	const [value, setValue] = useState(usernameToFind || '');
 	const [userdata, setUserdata] = useState(null);
+	const [type, setType] = useState(null);
 	const [error, setError] = useState('');
 
 	const handleOnChange = (event) => {
@@ -77,17 +87,42 @@ const FindWithUsername = () => {
 	};
 
 	const handleOnSubmit = async (event) => {
+		// console.log('do');
 		if (value != '') {
 			// console.log('yayy you can submit');
-			const res = await manageRequest(value);
+			const res = await getInfo(value);
+
 			if (res) {
-				console.log(res);
+				setUserdata(res.user);
+				if (res.type === 'new') {
+					setType(res.type);
+				} else if (
+					res.is_accept === false &&
+					res.is_decline === false &&
+					res.is_delete === false
+				) {
+					setType('wait');
+				} else if (
+					res.is_accept === true &&
+					res.is_decline === false &&
+					res.is_delete === false
+				) {
+					setType('profile');
+				}
+				console.log('found!', res);
+				setError('');
 			} else {
 				// console.log('user not found!');
 				setError('User not found!');
 			}
 		}
 	};
+
+	useEffect(() => {
+		if (usernameToFind) {
+			handleOnSubmit();
+		}
+	}, [usernameToFind]);
 
 	return (
 		<div className='find_with_username_container'>
@@ -102,7 +137,15 @@ const FindWithUsername = () => {
 					<i className='fa fa-search' aria-hidden='true'></i>
 				</div>
 			</div>
-			<DisplayUser message={error} />
+			{(userdata || error) && (
+				<DisplayUser
+					message={error != '' && error}
+					profile={userdata && userdata.url_profile}
+					display_name={userdata && userdata.display_name}
+					username={userdata && userdata.username}
+					type={type}
+				/>
+			)}
 		</div>
 	);
 };
@@ -144,27 +187,103 @@ const FindWithQRCode = () => {
 	);
 };
 
-const DisplayUser = ({ profile, display_name, message }) => {
-	console.log(message);
+const DisplayUser = ({ profile, display_name, username, message, type }) => {
+	// console.log('updated!!!!!!');
+
+	const [loading, setLoading] = useState(false);
+	const [imgProfile, setProfile] = useState('');
+
+	useEffect(async () => {
+		const temp = await GetImage(profile);
+		// console.log(temp);
+		setProfile(temp);
+	}, [profile]);
+
+	const handleSubmit = async () => {
+		// console.log(loading);
+		if (!loading) {
+			setLoading(true);
+			let res = null;
+
+			switch (type) {
+				case 'new': {
+					// console.log('new !');
+					res = await createRequest(username);
+					if (res.msg === 'created a new request successfully') {
+						console.log('create successfully');
+					} else {
+						console.log('duplicate request');
+					}
+					// console.log(res);
+					break;
+				}
+				case 'wait': {
+					console.log('wait');
+					break;
+				}
+				case 'profile': {
+					console.log('profile');
+					break;
+				}
+			}
+			setLoading(false);
+		}
+	};
+
+	// console.log(profile, display_name, message);
 	return (
 		<div className='display_user_container'>
-			{message != '' &&
-				(message == '' ? (
-					<div>
-						<img className='display_user_profile_img' src={profile} />
-						<div className='display_uesr_profile_name'>{display_name}</div>
-						<div className='display_user_action'>Add</div>
-					</div>
-				) : (
-					<div>User not found</div>
-				))}
+			{message == '' ? (
+				<div className='display_user_sub'>
+					<img className='display_user_profile_img' src={imgProfile} />
+					<div className='display_uesr_profile_name'>{display_name}</div>
+					{type === 'new' && (
+						<div className='display_user_action' onClick={handleSubmit}>
+							<i className='fa fa-user-plus' aria-hidden='true'></i>
+						</div>
+					)}
+					{type === 'wait' && (
+						<div className='display_user_action' onClick={handleSubmit}>
+							<i className='fa fa-clock-o' aria-hidden='true'></i>
+						</div>
+					)}
+					{type === 'profile' && (
+						<div className='display_user_action' onClick={handleSubmit}>
+							<i className='fa fa-user' aria-hidden='true'></i>
+						</div>
+					)}
+				</div>
+			) : (
+				<div className='display_user_not_found'>User not found</div>
+			)}
 		</div>
 	);
 };
 
-const manageRequest = async (target) => {
+const getInfo = async (username) => {
+	const config = {
+		method: 'get',
+		url: `/friend?target=${username}`,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	try {
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			return res.data.message;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		return null;
+	}
+};
+
+const createRequest = async (username) => {
 	var data = JSON.stringify({
-		target: target,
+		target: username,
 	});
 
 	const config = {

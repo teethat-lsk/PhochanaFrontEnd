@@ -1,7 +1,3 @@
-.swiper-wrapper {
-  /* display: block; */
-}
-
 .kBox {
   height: 110vh;
   width: 100vw;
@@ -75,7 +71,7 @@
 .textContent {
   background-color: #00587a;
   width: 100%;
-  height: 100%;
+  height: 90%;
   padding: 10px;
   color: white;
   font-size: 15px;

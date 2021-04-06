@@ -17,6 +17,7 @@ import { AddFriend } from './screens/Friends/AddFriend';
 import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
 import KnowledgeMain from './screens/Knowledge/KnowledgeMain';
+import ExerciseMain from './screens/Exercise/ExerciseMain';
 import { isLoggedIn } from './middleware/Cookie';
 
 console.warn = console.error = () => {}; // Something bad happened 🌠
@@ -26,32 +27,33 @@ const App = () => {
 	return (
 		<Router>
 			<Switch>
-				<PrivateRoute path='/' exact component={Main} />
-				<Route path='/home' component={Home}></Route>
-				<Route path='/register'>{/* <About /> */}</Route>
-				<Route path='/agreement' component={Agreement} />
-				<Route path='/login' component={Login} />
+				<PrivateRoute path="/" exact component={Main} />
+				<Route path="/home" component={Home}></Route>
+				<Route path="/register">{/* <About /> */}</Route>
+				<Route path="/agreement" component={Agreement} />
+				<Route path="/login" component={Login} />
 				<PrivateRoute
-					path='/friends/:pagestate'
+					path="/friends/:pagestate"
 					component={ManageFriendRequest}
 				/>
-				<PrivateRoute path='/friends' component={FriendsView} />
-				<PrivateRoute path='/myinformation' component={MyInformation} />
+				<PrivateRoute path="/friends" component={FriendsView} />
+				<PrivateRoute path="/myinformation" component={MyInformation} />
+				<PrivateRoute path="/exercise" component={ExerciseMain} />
 				<PrivateRoute
-					path='/addfriend/:username?'
+					path="/addfriend/:username?"
 					component={(props) => <AddFriend {...props} />}
 				/>
 				<PrivateRoute
-					path='/profile/:username'
+					path="/profile/:username"
 					component={(props) => <ShowProfile {...props} />}
 				/>
-				<PrivateRoute path='/knowledge' component={KnowledgeMain} />
+				<PrivateRoute path="/knowledge" component={KnowledgeMain} />
 				<PrivateRoute
-					path='/editprofile'
+					path="/editprofile"
 					component={(props) => <EditProfile {...props} />}
 				/>
-				<Route path='/404' component={NotFoundPage} />
-				<Redirect to='/404' />
+				<Route path="/404" component={NotFoundPage} />
+				<Redirect to="/404" />
 			</Switch>
 		</Router>
 	);
