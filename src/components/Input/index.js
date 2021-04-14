@@ -88,6 +88,23 @@ function Input({
         // console.log('yes');
         valid = true;
       }
+    } else if (allow === "displayName") {
+      // console.log(!/^[a-z0-9_]+$/.test(value_), !/[a-z]/g.test(value_));
+      if (!/^[a-z0-9_]+$/.test(value_)) {
+        setError(`อนุญาติ a-z, 0-9, _ เท่านั้น`);
+        // console.log('no');
+        valid = false;
+      } else if (!/[a-z]/g.test(value_)) {
+        setError(`ต้องมีตัวอักษรภาษาอังกฤษตัวพิมพ์อย่างน้อย 1 ตัว`);
+        // console.log('no');
+        valid = false;
+      } else if (value_.includes(" ") === true) {
+        valid = false;
+        setError("ชื่อที่ใช้แสดงเว้นว่างไม่ได้");
+      } else {
+        // console.log('yes');
+        valid = true;
+      }
     } else if (allow === "number") {
       if (value_ >= min && value_ <= max) {
         valid = true;
