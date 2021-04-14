@@ -1,0 +1,38 @@
+.my_info_container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.my_info_username {
+	padding-top: 2vh;
+	font-size: 5vh;
+}
+
+.my_info_save {
+	font-size: 2.5vh;
+	color: darkblue;
+	padding-top: 5vh;
+}
+
+.my_info_close {
+	position: fixed;
+	z-index: 2;
+	left: 0;
+	bottom: 0;
+	height: 7vh;
+	font-size: 3vh;
+	width: 100%;
+	background-color: var(--bt);
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.my_info_close:active {
+	opacity: 50%;
+}

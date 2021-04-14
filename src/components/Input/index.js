@@ -47,13 +47,14 @@ function Input({
     ) {
       setError(`ความยาวห้ามเกิน ${maxLength} ตัวอักษร`);
       valid = false;
-    } else if (
-      (value_.length < minLength || value_.length > maxLength) &&
-      allow === "password"
-    ) {
-      setError(
-        `รหัสผ่านต้องมีความยาวมากกว่า ${minLength} ตัวอักษร และไม่เกิน ${maxLength} ตัวอักษร`
-      );
+    } else if (value_.includes(" ") === true && allow === "password") {
+      valid = false;
+      setError("ชื่อผู้ใช้งานเว้นว่างไม่ได้");
+    } else if (value_.includes(" ") === true && allow === "password") {
+      valid = false;
+      setError("รหัสผ่านเว้นว่างไม่ได้");
+    } else if (value_.length < minLength && allow === "password") {
+      setError(`รหัสผ่านต้องมีความยาวมากกว่า ${minLength} ตัวอักษร`);
       valid = false;
     } else if (
       (value_.length < minLength || value_.length > maxLength) &&
@@ -74,11 +75,13 @@ function Input({
     } else if (allow === "username") {
       // console.log(!/^[a-z0-9_]+$/.test(value_), !/[a-z]/g.test(value_));
       if (!/^[a-z0-9_]+$/.test(value_)) {
-        setError(`อนุญาติ a-z, 0-9, _ เท่านั้น`);
+        setError(`ชื่อผู้ใช้งาน อนุญาติให้ใช้ a-z, 0-9, _ เท่านั้น`);
         // console.log('no');
         valid = false;
       } else if (!/[a-z]/g.test(value_)) {
-        setError(`ต้องมีตัวอักษรภาษาอังกฤษตัวพิมพ์อย่างน้อย 1 ตัว`);
+        setError(
+          `ชื่อผู้ใช้งาน ต้องมีตัวอักษรภาษาอังกฤษตัวพิมพ์อย่างน้อย 1 ตัว`
+        );
         // console.log('no');
         valid = false;
       } else if (value_.includes(" ") === true) {
@@ -113,19 +116,10 @@ function Input({
         setError(`กรุณาใส่ค่าในช่วง ${min} ถึง ${max}`);
       }
     } else if (allow === "password") {
-      if (value_.includes(" ") === true) {
-        valid = false;
-        setError("รหัสผ่านเว้นว่างไม่ได้");
-      } else if (!/^[a-z0-9_]+$/.test(value_)) {
-        valid = false;
+      if (!checkSymbolPassword(value_) === true) {
         setError(
           `รหัสผ่านต้องมีตัวอักษรพิมพ์เล็ก, พิมพ์ใหญ่ ตัวเลข และสัญลักษณ์อย่างน้อย 1 ตัว`
         );
-      } else if (!/[a-z]/g.test(value_) || !/[A-Z]/g.test(value_)) {
-        setError(
-          `รหัสผ่านต้องมีตัวอักษรพิมพ์เล็ก, พิมพ์ใหญ่ ตัวเลข และสัญลักษณ์อย่างน้อย 1 ตัว`
-        );
-        // console.log('no');
         valid = false;
       } else {
         valid = true;
@@ -142,6 +136,32 @@ function Input({
     onChange(e);
   };
 
+  const checkSymbolPassword = (v) => {
+    var lower = false;
+    var upper = false;
+    var number = false;
+    var symbol = false;
+    for (var i = 0; i < v.length; i++) {
+      if (v[i].match(/[a-z]/g)) {
+        lower = true;
+      } else if (v[i].match(/[A-Z]/g)) {
+        upper = true;
+      }
+      // if (v[i].match(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/)) {
+      else if (v[i].match(/[0-9]/g)) {
+        number = true;
+      } else if (v[i].match(/[-!$%^&*()_+|~=`@{}\[\]:";'<>?,.\/]/)) {
+        symbol = true;
+      }
+    }
+
+    if (lower && upper && number && symbol) {
+      return true;
+    } else {
+      console.log("pass");
+      return false;
+    }
+  };
   const onChangeHandleDropdown = (e) => {
     // console.log(e.target.value);
     onChange(e);

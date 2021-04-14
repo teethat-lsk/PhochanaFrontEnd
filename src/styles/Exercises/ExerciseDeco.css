@@ -1,0 +1,54 @@
+@import "../Color.css";
+.windowE {
+  height: 100vh;
+}
+
+.eBox {
+  height: 15%;
+  width: 100vw;
+}
+.boxSlide {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.slide-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.exerciseButton {
+  height: 100%;
+  width: 80%;
+  background-color: var(--bt_ex);
+  box-shadow: 0px;
+}
+
+.textExercise {
+  font-size: 20px;
+  font-family: "Kanit", sans-serif;
+}
+
+.table {
+  width: 100%;
+  height: 38%;
+  background-color: red;
+  display: flex;
+  align-content: center;
+}
+
+.caloryCal {
+  width: 100%;
+  height: 35%;
+  background-color: aqua;
+}

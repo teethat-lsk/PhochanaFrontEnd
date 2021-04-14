@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import '../styles/main.css';
+import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
 import CalendarFood from '../components/CalendarFood';
 import HomeLogo from '../components/HomeLogo';
 import { getToken, setToken, removeToken } from '../middleware/Cookie';
 import calendarIcon from '../images/calendar.png';
+import '../styles/main.css';
 
 // var axios = require('axios');
 // icon here https://fontawesome.com/v4.7.0/icons/
@@ -12,7 +12,7 @@ import calendarIcon from '../images/calendar.png';
 function Main() {
 	return (
 		<div className='main_container'>
-			<MainHeaderContainer />
+			<MainHeaderContainer right={'calendar'} />
 			<div className='main_body_container'>
 				<HomeLogo />
 				<MainScore />
@@ -34,9 +34,43 @@ const MainScore = () => {
 	);
 };
 
-const MainHeaderContainer = () => {
+const MainHeaderContainer = ({
+	menu = true, // true: menu, false: backward
+	backwardTo = '',
+	title = 'PhoChana',
+	right = 'none',
+	to = '/',
+}) => {
 	const [showMenu, toggleMenu] = useState(false);
 	const [menuWidth, setMenuWidth] = useState('0%');
+	const history = useHistory();
+	const listRight = {
+		none: () => {
+			return <div></div>;
+		},
+		calendar: () => {
+			return (
+				<Link to={to}>
+					<img style={{ width: '25px' }} src={calendarIcon} />
+				</Link>
+			);
+		},
+		friend: () => {
+			return (
+				<Link to={to}>
+					<i className='fa fa-users' aria-hidden='true' />
+				</Link>
+			);
+		},
+		addfriend: () => {
+			return (
+				<Link to={to}>
+					<i className='fa fa-user-plus' aria-hidden='true' />
+				</Link>
+			);
+		},
+	};
+	// console.log(list[right]);
 	const toggleMenuHandle = () => {
 		toggleMenu(!showMenu);
 		if (!showMenu) setMenuWidth('60%');
@@ -46,14 +80,23 @@ const MainHeaderContainer = () => {
 	return (
 		<div className='main_header_container'>
 			<Menu widthMenu={menuWidth} toggleMenu={toggleMenuHandle} />
-			<div className='main_header_left' onClick={toggleMenuHandle}>
-				<i className='fa fa-bars' aria-hidden='true'></i>
-			</div>
-			<div className='main_header_center noselect'>PhoChana</div>
-			<div className='main_header_right'>
-				<img style={{ width: '25px' }} src={calendarIcon} />
-				{/* <i className='fa fa-calendar' aria-hidden='true'></img> */}
-			</div>
+			{menu ? (
+				<div className='main_header_left' onClick={toggleMenuHandle}>
+					<i className='fa fa-bars' aria-hidden='true'></i>
+				</div>
+			) : (
+				<div
+					className='btn_back_ward btn_backward_global'
+					onClick={() =>
+						backwardTo === '' ? history.goBack() : history.push(backwardTo)
+					}
+				>
+					<i className='fa fa-chevron-circle-left' aria-hidden='true'></i>
+					<p style={{ paddingLeft: '5px' }}>back</p>
+				</div>
+			)}
+			<div className='main_header_center noselect'>{title}</div>
+			<div className='main_header_right'>{listRight[right]()}</div>
 		</div>
 	);
 };
@@ -101,7 +144,8 @@ const MainFooterBox = () => {
 			<div className='main_footer_box'>
 				<NavLink
 					className='main_footer_button'
-					to='/main'
+					exact
+					to='/'
 					activeClassName='mfb_active'
 				>
 					<i
@@ -123,7 +167,7 @@ const MainFooterBox = () => {
 				</NavLink>
 				<NavLink
 					className='main_footer_button'
-					to='/books'
+					to='/knowledge'
 					activeClassName='mfb_active'
 				>
 					<i
@@ -163,4 +207,4 @@ const MainFooterBox = () => {
 	);
 };
 
-export default Main;
+export { Main, MainFooterBox, MainHeaderContainer };

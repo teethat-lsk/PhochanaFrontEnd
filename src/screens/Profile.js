@@ -1,5 +1,5 @@
-import react, { useState, useEffect, useRef, useDebugValue } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import react, { useState, useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import apiClient from '../middleware/ApiClient';
 import moment from 'moment';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -9,8 +9,8 @@ import cupIcon from '../images/cup.png';
 import excerciseIcon from '../images/excercise.png';
 import GetImage from '../middleware/GetImage';
 import Input from '../components/Input';
-import '../styles/profile.css';
 import Loader from 'react-loader-spinner';
+import '../styles/profile.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
@@ -21,7 +21,7 @@ export function ShowProfile(props) {
 	const [isOwner, setIsOwner] = useState();
 	const [userData, setUserData] = useState({
 		username: null,
-		displayname: 'hello world',
+		display_name: 'hello world',
 		weight: '*',
 		bmi: '*',
 		height: '*',
@@ -34,7 +34,7 @@ export function ShowProfile(props) {
 		if (res_) {
 			const res = res_.user;
 			setIsOwner(res_.isowner);
-			const img = await GetImage(res.urlprofile);
+			const img = await GetImage(res.url_profile);
 			const age = getYears(res.birthday);
 
 			// BMR Calculator
@@ -53,7 +53,7 @@ export function ShowProfile(props) {
 			setUserData({
 				...userData,
 				username: res.username || 'Unknow',
-				displayname: res.displayname || 'Unknow',
+				display_name: res.display_name || 'Unknow',
 				imgpath: img,
 				height: res.height || '*',
 				weight: res.weight || '*',
@@ -67,10 +67,10 @@ export function ShowProfile(props) {
 	return (
 		<div className='profile_container noselect c1'>
 			<div className='profile_navigation_container'>
-				<Link className='btn_back_ward' to={'/main'}>
+				<div className='btn_back_ward' onClick={() => history.goBack()}>
 					<i className='fa fa-chevron-circle-left' aria-hidden='true'></i>
-					<p style={{ paddingLeft: '5px' }}>หน้าหลัก</p>
-				</Link>
+					<p style={{ paddingLeft: '5px' }}>ย้อนกลับ</p>
+				</div>
 			</div>
 			<div className='profile_container'>
 				<ProfileHeader userData={userData} isOwner={isOwner} />
@@ -101,14 +101,14 @@ const ProfileHeader = ({ userData, isOwner }) => {
 					src={userData.imgpath}
 					style={{
 						height: '200px',
-						weight: '200px',
+						width: '200px',
 						minHeight: '200px',
 						minWidth: '200px',
 						maxHeight: '200px',
 						maxWidth: '200px',
 					}}
 				/>
-				<div style={{ fontSize: '16px' }}>{userData.displayname}</div>
+				<div style={{ fontSize: '16px' }}>{userData.display_name}</div>
 			</div>
 			<div className='profile_header_sec3'>
 				<div className='profile_sec1_1'>
@@ -166,7 +166,7 @@ export function EditProfile(props) {
 	const [tempFile, setTempFile] = useState(null);
 	const [userData, setUserData] = useState({
 		username: null,
-		displayname: 'hello world',
+		display_name: 'hello world',
 		weight: 0,
 		height: 0,
 		imgpath: null,
@@ -183,12 +183,12 @@ export function EditProfile(props) {
 		const res_ = await getUserProfile(username, history);
 		if (res_) {
 			const res = res_.user;
-			const img = await GetImage(res.urlprofile);
+			const img = await GetImage(res.url_profile);
 
 			setUserData({
 				...userData,
 				username: res.username,
-				displayname: res.displayname,
+				display_name: res.display_name,
 				imgpath: img,
 				height: res.height || 0,
 				weight: res.weight || 0,
@@ -245,7 +245,7 @@ export function EditProfile(props) {
 			setLodding(true);
 			let bodyFormData = new FormData();
 			bodyFormData.append('file', tempFile); //append the values with key, value pair
-			bodyFormData.append('displayname', newUserData.displayname);
+			bodyFormData.append('display_name', newUserData.display_name);
 			bodyFormData.append('job', newUserData.job);
 			bodyFormData.append('weight', newUserData.weight);
 			bodyFormData.append('height', newUserData.height);
@@ -299,16 +299,20 @@ export function EditProfile(props) {
 	return (
 		<div className='edit_profile_container'>
 			<div className='profile_navigation_container'>
-				<Link ref={backToProfile} className='btn_back_ward' to={'/profile/me'}>
+				<div
+					ref={backToProfile}
+					className='btn_back_ward'
+					onClick={() => history.goBack()}
+				>
 					<i className='fa fa-chevron-circle-left' aria-hidden='true'></i>
-					<p style={{ paddingLeft: '5px' }}>โปรไฟล์</p>
-				</Link>
+					<p style={{ paddingLeft: '5px' }}>ย้อนกลับ</p>
+				</div>
 			</div>
 			<div className='edit_profile_header'>
 				<img
 					style={{
 						height: '130px',
-						weight: '130px',
+						width: '130px',
 						minHeight: '130px',
 						minWidth: '130px',
 						maxHeight: '130px',
@@ -338,7 +342,7 @@ export function EditProfile(props) {
 			</div>
 			<div className='edit_profile_body'>
 				<Input
-					value={newUserData.displayname}
+					value={newUserData.display_name}
 					onChange={handleOnchange}
 					id='displayname'
 					allow='plain'

@@ -1,0 +1,158 @@
+@import '../Color.css';
+
+.friend_body_container {
+	background-color: rgba(255, 255, 255, 0.5);
+	/* height: 100vh; */
+	width: 100vw;
+	padding: 5px;
+}
+
+.friend_body_search_box {
+	background-color: white;
+	margin-top: 10px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: left;
+}
+
+.search_box_input {
+	width: 92%;
+	height: 7vh;
+	font-size: 20px;
+	padding: 5px;
+	border: none;
+}
+
+.search_box_input:focus {
+	border: none;
+	outline: none;
+}
+
+.search_box_icon {
+	font-size: 20px;
+	/* background-color: red; */
+}
+
+.friend_body_display {
+	/* background-color: green; */
+	padding-top: 10px;
+}
+
+.user_card_display {
+	/* margin-top: 10px; */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 10px;
+	height: 100%;
+}
+
+.user_card_display:active {
+	/* background-color: var(--bt); */
+	opacity: 50%;
+}
+
+.user_profile_img {
+	margin-left: 5px;
+	margin-right: 10px;
+	height: 40px;
+	width: 40px;
+	min-height: 40px;
+	min-width: 40px;
+	max-height: 40px;
+	max-width: 40px;
+	object-fit: cover;
+	/* border: 2px outset var(--bg2); */
+	border-radius: 50%;
+	background-color: black;
+}
+
+.user_profile_name {
+	font-size: 16px;
+	color: #111;
+}
+
+.user_profile_box1 {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 80%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	height: 7vh;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.user_profile_score {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-items: center;
+	justify-content: center;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 17%;
+	height: 7vh;
+	margin-left: 2%;
+}
+
+.popup_friend_manager_container {
+	color: white;
+	text-align: center;
+	background-color: rgb(131, 45, 45);
+	height: 7vh;
+	width: 20%;
+	margin-left: 2%;
+	/* position: absolute; */
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.popup_hide {
+	display: none;
+}
+
+.popup_show {
+	display: block;
+}
+
+@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.friend_body_length_zero {
+	background-color: var(--bt);
+	color: white;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 50%;
+	height: 9vh;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+.friend_body_length_zero:active {
+	opacity: 50%;
+	/* background-color: var(--bt_active); */
+}
