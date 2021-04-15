@@ -18,6 +18,8 @@ import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
 import KnowledgeMain from './screens/Knowledge/KnowledgeMain';
 import ExerciseMain from './screens/Exercise/ExerciseMain';
+import PhotoFood from './screens/FoodPhoto';
+import Register from './screens/Register';
 import { isLoggedIn } from './middleware/Cookie';
 
 console.warn = console.error = () => {}; // Something bad happened 🌠
@@ -29,7 +31,7 @@ const App = () => {
 			<Switch>
 				<PrivateRoute path='/' exact component={Main} />
 				<Route path='/home' component={Home}></Route>
-				<Route path='/register'>{/* <About /> */}</Route>
+				<Route path='/register'>{Register}</Route>
 				<Route path='/agreement' component={Agreement} />
 				<Route path='/login' component={Login} />
 				<PrivateRoute
@@ -52,6 +54,7 @@ const App = () => {
 					path='/editprofile'
 					component={(props) => <EditProfile {...props} />}
 				/>
+				<PrivateRoute path='/foodphoto' component={PhotoFood} />
 				<Route path='/404' component={NotFoundPage} />
 				<Redirect to='/404' />
 			</Switch>
