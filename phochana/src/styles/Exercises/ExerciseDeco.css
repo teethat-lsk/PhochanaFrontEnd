@@ -3,6 +3,11 @@
   height: 100vh;
 }
 
+.windowS {
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+}
 .eBox {
   height: 15%;
   width: 100vw;
@@ -32,23 +37,133 @@
   width: 80%;
   background-color: var(--bt_ex);
   box-shadow: 0px;
+  border: 0;
 }
 
 .textExercise {
-  font-size: 20px;
+  font-size: 17px;
   font-family: "Kanit", sans-serif;
 }
 
 .table {
   width: 100%;
-  height: 38%;
-  background-color: red;
+  height: 30%;
   display: flex;
-  align-content: center;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .caloryCal {
   width: 100%;
-  height: 35%;
-  background-color: aqua;
+  height: 300px;
+  padding-top: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.customers {
+  width: 95%;
+}
+
+.customers td,
+.customers th {
+  padding: 4px;
+  text-align: center;
+}
+
+.customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.customers tr:nth-child(odd) {
+  background-color: white;
+}
+
+.customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: var(--bg2_active);
+  color: white;
+}
+
+.cBox1 {
+  padding-top: 3%;
+  height: 60%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.cBox2 {
+  /* padding-top: 10%; */
+  height: 20%;
+  color: white;
+}
+
+.timeStart {
+  color: white;
+}
+
+.timeAll {
+  color: white;
+  padding-left: 5%;
+  padding-top: 0px;
+}
+
+.fAllTime {
+  padding-top: 2%;
+  height: 50px;
+}
+
+.burnAll {
+  padding-left: 10%;
+}
+
+.valBurn {
+  padding-left: 70px;
+}
+
+.cal1 {
+  padding-left: 10%;
+}
+
+.burnLeft {
+  padding-left: 10%;
+}
+
+.valLeft {
+  padding-left: 28px;
+}
+
+.cal2 {
+  padding-left: 10%;
+}
+
+.cTop {
+  padding-top: 30px;
+}
+
+.pickBox {
+  /* background-color: aliceblue; */
+  margin-right: 0%;
+  padding-right: 0%;
+  margin-right: 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.timeInput {
+  height: 40px;
+}
+
+.timeSubmit {
 }
