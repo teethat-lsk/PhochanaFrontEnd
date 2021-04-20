@@ -1,0 +1,74 @@
+.navigation_container {
+	/* background-color: red; */
+	overflow: hidden;
+}
+
+.navigation_top_container {
+	height: 6vh;
+	width: 100%;
+	background-color: #c4c4c4;
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+}
+
+.navigation_left_container {
+	position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+	z-index: 1; /* Stay on top */
+	top: 0; /* Stay at the top */
+	left: 0;
+	width: 5vw;
+	height: 100%;
+	background-color: #c4c4c4;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn_navigation_left {
+	width: 85%;
+	height: 5vh;
+	background-color: #00587a;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+	font-size: 18px;
+	color: white;
+	cursor: pointer;
+}
+
+.btn_navigation_left:active {
+	opacity: 50%;
+}
+
+.username_display {
+	/* background-color: blue; */
+	color: #00587a;
+	font-size: 18px;
+	/* width: 3vw; */
+}
+
+.logout_button {
+	background-color: #ff2f28;
+	width: 4vw;
+	height: 85%;
+	margin-right: 5px;
+	margin-left: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: white;
+}
+
+.logout_button:active {
+	opacity: 50%;
+}
