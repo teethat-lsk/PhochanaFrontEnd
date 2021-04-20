@@ -8,6 +8,8 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import './App.css';
 
+console.warn = console.error = () => {}; // Something bad happened 🌠
+
 function App() {
 	return (
 		<Router>

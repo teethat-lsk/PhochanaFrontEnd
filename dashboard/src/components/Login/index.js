@@ -10,7 +10,7 @@ const Login = () => {
 				</div>
 				<div className='line'></div>
 				<div className='login_input_container'>
-					<i class='fa fa-users icon' aria-hidden='true'></i>
+					<i className='fa fa-users icon' aria-hidden='true'></i>
 					<div className='input_container'>
 						<div>username</div>
 						<input className='custom_input'></input>
