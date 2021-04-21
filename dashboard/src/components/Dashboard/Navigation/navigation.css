@@ -72,3 +72,10 @@
 .logout_button:active {
 	opacity: 50%;
 }
+
+.header_title {
+	color: #00587a;
+	font-size: 20px;
+	position: relative;
+	left: -75%;
+}
