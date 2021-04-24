@@ -1,7 +1,10 @@
 import react, { useState } from 'react';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import './navigation.css';
 
 const Navigation = () => {
+	let { path, url } = useRouteMatch();
+
 	const [title, setTitle] = useState('จัดการเมนูอาหาร');
 	const [username, setUsername] = useState('kookzaza');
 	return (
@@ -12,9 +15,15 @@ const Navigation = () => {
 				<div className='header_title'>{title}</div>
 			</div>
 			<div className='navigation_left_container noselect'>
-				<div className='btn_navigation_left'>A</div>
-				<div className='btn_navigation_left'>B</div>
-				<div className='btn_navigation_left'>C</div>
+				<NavLink to={`${url}`} className='btn_navigation_left'>
+					หน้าหลัก
+				</NavLink>
+				<NavLink to={`${url}/foods`} className='btn_navigation_left'>
+					อาหาร
+				</NavLink>
+				<NavLink to={`${url}/reports`} className='btn_navigation_left'>
+					รายงาน
+				</NavLink>
 			</div>
 		</div>
 	);
