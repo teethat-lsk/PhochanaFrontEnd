@@ -8,14 +8,15 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import './App.css';
 
-console.warn = console.error = () => {}; // Something bad happened 🌠
+// console.warn = console.error = () => {}; // Something bad happened 🌠
 
 function App() {
 	return (
 		<Router>
 			<Switch>
-				<Route path='/' exact component={Dashboard} />
+				<Route path='/store' component={Dashboard} />
 				<Route path='/login' component={Login} />
+				<Redirect to='/store' />
 			</Switch>
 		</Router>
 	);
