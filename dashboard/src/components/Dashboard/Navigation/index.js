@@ -15,14 +15,27 @@ const Navigation = () => {
 				<div className='header_title'>{title}</div>
 			</div>
 			<div className='navigation_left_container noselect'>
-				<NavLink to={`${url}`} className='btn_navigation_left'>
-					หน้าหลัก
+				<NavLink
+					to={`${url}`}
+					exact
+					className='btn_navigation_left'
+					activeClassName='btn_n_l_active'
+				>
+					<i className='fa fa-home' aria-hidden='true'></i>
 				</NavLink>
-				<NavLink to={`${url}/foods`} className='btn_navigation_left'>
-					อาหาร
+				<NavLink
+					to={`${url}/foods`}
+					className='btn_navigation_left'
+					activeClassName='btn_n_l_active'
+				>
+					<i className='fa fa-cutlery' aria-hidden='true'></i>
 				</NavLink>
-				<NavLink to={`${url}/reports`} className='btn_navigation_left'>
-					รายงาน
+				<NavLink
+					to={`${url}/reports`}
+					className='btn_navigation_left'
+					activeClassName='btn_n_l_active'
+				>
+					<i className='fa fa-flag' aria-hidden='true'></i>
 				</NavLink>
 			</div>
 		</div>

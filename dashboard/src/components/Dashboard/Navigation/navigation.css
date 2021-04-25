@@ -53,6 +53,10 @@ a:active {
 	text-decoration: 'none';
 }
 
+.btn_n_l_active {
+	background-color: #002432;
+}
+
 .btn_navigation_left:active {
 	opacity: 50%;
 }

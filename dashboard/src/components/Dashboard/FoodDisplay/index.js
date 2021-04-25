@@ -128,7 +128,7 @@ const AddNewMenu = () => {
 						placeholder='กรุณาใส่ชื่ออาหาร'
 					></input>
 				</div>
-				<div className='input_menu_container'>
+				<div className='input_menu_container' style={{ marginLeft: '100px' }}>
 					<div className='menu_title'>ปริมาณแคลรอรี่ (กิโลแคล)</div>
 					<input
 						type='number'
@@ -207,7 +207,7 @@ const ShowMenu = ({
 						placeholder='กรุณาใส่ชื่ออาหาร'
 					></input>
 				</div>
-				<div className='input_menu_container'>
+				<div className='input_menu_container' style={{ marginLeft: '100px' }}>
 					<div className='menu_title'>ปริมาณแคลรอรี่ (กิโลแคล)</div>
 					<input
 						type='number'
