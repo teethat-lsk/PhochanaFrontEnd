@@ -184,7 +184,7 @@ export function EditProfile(props) {
 		if (res_) {
 			const res = res_.user;
 			const img = await GetImage(res.url_profile);
-
+			console.log(res_.user);
 			setUserData({
 				...userData,
 				username: res.username,
@@ -193,8 +193,8 @@ export function EditProfile(props) {
 				height: res.height || 0,
 				weight: res.weight || 0,
 				birthday: moment(res.birthday).format('YYYY-MM-DD'),
-				job: res.job,
-				gender: res.gender,
+				job: res.job || 'Programmer',
+				gender: res.gender || 'G',
 			});
 		}
 	}, []);
@@ -259,6 +259,7 @@ export function EditProfile(props) {
 				},
 				data: bodyFormData,
 			};
+			console.log(newUserData.job);
 			const res = await apiClient(config);
 			if (res.data.status === 'success') {
 				// console.log('yoo');

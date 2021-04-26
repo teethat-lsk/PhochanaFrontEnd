@@ -30,6 +30,11 @@ const FoodDisplay = () => {
 			cal_p_h: 500,
 			picture: './../images/ข้าวมันไก่.jpg',
 		},
+		{
+			name: 'ข้าวมันไก่ 6',
+			cal_p_h: 10000,
+			picture: './../images/ข้าวมันไก่.jpg',
+		},
 	]);
 
 	const callbackOnNameChange = (event) => {
