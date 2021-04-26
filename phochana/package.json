@@ -13,6 +13,7 @@
 		"date-fns": "^2.21.1",
 		"form-data": "^4.0.0",
 		"moment": "^2.29.1",
+		"node-sass": "^4.14.1",
 		"react": "^17.0.1",
 		"react-calendar": "^3.3.1",
 		"react-camera-pro": "^1.1.0",
@@ -24,6 +25,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.1",
 		"styled-components": "^5.2.3",
+		"sweetalert2-react": "^0.8.3",
 		"swiper": "^6.5.0",
 		"validator": "^13.5.2",
 		"web-vitals": "^0.2.4"
