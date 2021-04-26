@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import apiClient from "../../middleware/ApiClient";
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -67,8 +68,6 @@ function ExerciseMain() {
     },
   });
 
-  const [count, setCount] = useState(1050);
-
   // ---------------------------- Time Exercise ------------------------------------
   const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -109,33 +108,112 @@ function ExerciseMain() {
       },
     },
   };
+  const [userExercise, setUserExercise] = useState([]);
 
+  useEffect(async () => {
+    var config = {
+      method: "get",
+      url: "/exercise",
+    };
+    const res = await apiClient(config);
+    // if (res.data.status === "success") {
+    //   setUserExercise(res.data.message.exercises);
+    // }
+    setUserExercise(res.data.message.exercises);
+  }, []);
+  // return userExercise.map((element) => {
+  //   // console.log(element.name);
+  //   let name = element.name;
+  //   let id = element._id;
+  //   let desc = element.description;
+  //   let cal = element.cal_p_h;
+  //   return [name, id, desc, cal];
+  // });
+
+  // b.forEach((outer) => {
+  //   outer.forEach((inner) => console.log(inner));
+  // });
+  // var i = 0;
+  // var exName, exID, exDesc, exCal;
+  // exList.forEach((outer) => {
+  //   // console.log(outer);
+  //   if (i == 0) {
+  //     exName = outer;
+  //   } else if (i == 1) {
+  //     exID = outer;
+  //   } else if (i == 2) {
+  //     exDesc = outer;
+  //   } else if (i == 3) {
+  //     exCal = outer;
+  //   }
+  //   // console.log(i);
+  //   i++;
+  // });
+
+  const handleSubmitEx = async (e) => {
+    console.log("Ready?");
+    e.preventDefault();
+    const config = {
+      method: "post",
+      url: `/exercise/user`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify({
+        exercise_id: "6080423db6626c15d8852ba7",
+        // exercise_id: exID[0],
+        time: 333,
+      }),
+    };
+    const res = await apiClient(config);
+    console.log(res.data);
+    //alert(res.data);
+  };
+
+  const [count, setCount] = useState(0);
+  const [state, setState] = useState(0);
+  // var exName = backExData;
+  // var exID = backEx
   // ---------------------------- Calculate Burn ------------------------------------
 
   return (
     <div className='windowE'>
       <div className='windowS'>
         <MainHeaderContainer title={"Exercise"} />
+
         <Swiper
           spaceBetween={5}
           slidesPerView={3}
           freeMode={true}
           className='eBox'
+          virtual
         >
-          <SwiperSlide className='boxSlide'>
+          {userExercise &&
+            userExercise.map((x, index) => {
+              console.log(x);
+              return (
+                <SwiperSlide
+                  className='boxSlide'
+                  key={index}
+                  virtualIndex={index}
+                >
+                  <button
+                    onClick={() => {
+                      // setCount(1050), console.log(`${selectedDate.getHours()}`);
+                      setCount(), setState(1050);
+                    }}
+                    className='exerciseButton'
+                  >
+                    <label className='textExercise'>{x.name}</label>;
+                  </button>
+                  ;
+                </SwiperSlide>
+              );
+            })}
+          {/* <SwiperSlide className='boxSlide'>
             <button
               onClick={() => {
-                setCount(1050), console.log(`${selectedDate.getHours()}`);
-              }}
-              className='exerciseButton'
-            >
-              <label className='textExercise'>วิ่ง</label>
-            </button>
-          </SwiperSlide>
-          <SwiperSlide className='boxSlide'>
-            <button
-              onClick={() => {
-                setCount(425), console.log({ timeExerciseHr });
+                setCount(425), setState(1), console.log({ timeExerciseHr });
               }}
               className='exerciseButton'
             >
@@ -145,7 +223,7 @@ function ExerciseMain() {
           <SwiperSlide className='boxSlide'>
             <button
               onClick={() => {
-                setCount(600);
+                setCount(600), setState(2);
               }}
               className='exerciseButton'
             >
@@ -155,7 +233,7 @@ function ExerciseMain() {
           <SwiperSlide className='boxSlide'>
             <button
               onClick={() => {
-                setCount(510);
+                setCount(510), setState(3);
               }}
               className='exerciseButton'
             >
@@ -165,14 +243,15 @@ function ExerciseMain() {
           <SwiperSlide className='boxSlide'>
             <button
               onClick={() => {
-                setCount(300);
+                setCount(300), setState(4);
               }}
               className='exerciseButton'
             >
               <label className='textExercise'>วอลเล่ย์บอล</label>
             </button>
-          </SwiperSlide>
+          </SwiperSlide>*/}
         </Swiper>
+
         <div className='table'>
           <table className='customers'>
             <tr>
@@ -200,22 +279,7 @@ function ExerciseMain() {
         <div className='caloryCal'>
           <div className='cBox1'>
             <label className='timeStart'>เวลาที่เริ่มออกกำลังกาย</label>
-            {/* <form className={useStyles().container} noValidate>
-              <TextField
-                id='time'
-                type='time'
-                defaultValue={newCurrentDate}
-                className={useStyles().textField}
-                onChange={(date) => setSelectedDate(date)}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                  step: 300, // 5 min
-                }}
-              />
-              
-            </form> */}
+
             <div className='pickBox'>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container justify='space-around'>
@@ -236,16 +300,7 @@ function ExerciseMain() {
               </MuiPickersUtilsProvider>
             </div>
             <label className='timeAll'>เวลาทั้งหมดที่ใช้ในการออกกำลังกาย</label>
-            {/* <form onSubmit={handleSubmit} className='fAllTime'>
-              <input
-                type='text'
-                value={timeLength}
-                required
-                onChange={(e) => setTimeLength(e.target.value)}
-                className='timeInput'
-              />
-              <input type='submit' className='timeSubmit'></input>
-            </form> */}
+
             <div className='timeExerciseBox'>
               <div>
                 <FormControl className={classes.formControl}>
@@ -353,20 +408,36 @@ function ExerciseMain() {
             </div>
           </div>
           <div className='cBox2'>
-            <div className='cTop'>
-              <label className='burnAll'>เผาผลาญทั้งหมด</label>
-              <label className='valBurn'>
-                {((parseInt(timeExerciseHr, 10) * 60 +
-                  parseInt(timeExerciseMn, 10)) *
-                  count) /
-                  60}
-              </label>
-              <label className='cal1'>แคลอรี่</label>
-            </div>
-            <div className='cBottom'>
-              <label className='burnLeft'>เหลือที่ต้องเผาผลาญอีก</label>
-              <label className='valLeft'> ?? </label>
-              <label className='cal2'>แคลอรี่</label>
+            <div className='devideBox'>
+              <div className='c'>
+                <div className='cTop'>
+                  <label className='burnAll'>เผาผลาญทั้งหมด</label>
+                  <label className='valBurn'>
+                    {(
+                      ((parseInt(timeExerciseHr, 10) * 60 +
+                        parseInt(timeExerciseMn, 10)) *
+                        count) /
+                      60
+                    ).toFixed(2)}
+                  </label>
+                  <label className='cal1'>แคลอรี่</label>
+                </div>
+                <div className='cBottom'>
+                  <label className='burnLeft'>ต้องเผาผลาญอีก</label>
+                  <label className='valLeft'> ?? </label>
+                  <label className='cal2'>แคลอรี่</label>
+                </div>
+              </div>
+              <form onSubmit={handleSubmitEx}>
+                <button
+                  type='submit'
+                  className='exercise_btn_enter'
+
+                  // onClick={this.handleSubmit}
+                >
+                  บันทึก
+                </button>
+              </form>
             </div>
           </div>
         </div>
