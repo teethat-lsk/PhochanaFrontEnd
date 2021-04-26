@@ -39,11 +39,11 @@ const Navigation = () => {
 					<i className='fa fa-home' aria-hidden='true'></i>
 				</NavLink>
 				<NavLink
-					to={`${url}/foods`}
+					to={`${url}/stores`}
 					className='btn_navigation_left'
 					activeClassName='btn_n_l_active'
 				>
-					<i className='fa fa-cutlery' aria-hidden='true'></i>
+					<i className='fa fa-archive' aria-hidden='true'></i>
 				</NavLink>
 				<NavLink
 					to={`${url}/reports`}
