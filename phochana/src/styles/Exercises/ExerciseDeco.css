@@ -109,9 +109,9 @@
 .cBox2 {
   /* padding-top: 10%; */
   height: 30%;
-  width: 350px;
+  width: 100%;
   margin: 0%;
-  padding: 0%s;
+  padding: 0%;
   color: white;
 }
 
@@ -134,11 +134,11 @@
 }
 
 .valBurn {
-  padding-left: 16%;
+  padding-left: 8%;
 }
 
 .cal1 {
-  padding-left: 15%;
+  padding-left: 5%;
 }
 
 .burnLeft {
@@ -150,7 +150,7 @@
 }
 
 .cal2 {
-  padding-left: 14.5%;
+  padding-left: 5%;
 }
 
 .cTop {
@@ -173,11 +173,26 @@
   height: 40px;
 }
 
-.timeSubmit {
-}
-
 .timeExerciseBox {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: center;
+}
+
+.devideBox {
+  display: flex;
+  /* flex-direction: row; */
+  width: 100%;
+}
+
+.exercise_btn_enter {
+  width: 60px;
+  height: 60px;
+  background-color: var(--bg2_active);
+  color: white;
+  font-family: "Kanit", sans-serif;
+}
+
+.c {
+  width: 73%;
 }
