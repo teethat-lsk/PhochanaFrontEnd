@@ -1,22 +1,44 @@
-import react, { useState, useRef } from 'react';
-import { Camera } from 'react-camera-pro';
-import '../../styles/FoodPhoto/FoodPhoto.css';
+import React, { Fragment, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { Camera } from './camera';
+import { Root, Preview, Footer, GlobalStyle } from './styles';
 
-// TODO ref here https://www.npmjs.com/package/react-camera-pro
-
-const FoodPhoto = () => {
-	const camera = useRef(null);
-	const [image, setImage] = useState(null);
+function FoodPhoto() {
+	const [isCameraOpen, setIsCameraOpen] = useState(false);
+	const [cardImage, setCardImage] = useState();
 
 	return (
-		<div>
-			<Camera ref={camera} />
-			<button onClick={() => setImage(camera.current.takePhoto())}>
-				Take photo
-			</button>
-			<img src={image} alt='Taken photo' />
-		</div>
+		<Fragment>
+			<Root>
+				{isCameraOpen && (
+					<Camera
+						onCapture={(blob) => setCardImage(blob)}
+						onClear={() => setCardImage(undefined)}
+					/>
+				)}
+
+				{cardImage && (
+					<div>
+						<h2>Preview</h2>
+						<Preview src={cardImage && URL.createObjectURL(cardImage)} />
+					</div>
+				)}
+
+				<Footer>
+					<button onClick={() => setIsCameraOpen(true)}>Open Camera</button>
+					<button
+						onClick={() => {
+							setIsCameraOpen(false);
+							setCardImage(undefined);
+						}}
+					>
+						Close Camera
+					</button>
+				</Footer>
+			</Root>
+			<GlobalStyle />
+		</Fragment>
 	);
-};
+}
 
 export default FoodPhoto;
