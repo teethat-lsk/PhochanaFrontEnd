@@ -13,6 +13,7 @@
 .eBox {
   height: 15%;
   width: 100vw;
+  /* width: 100%; */
 }
 .boxSlide {
   width: 100%;
@@ -22,6 +23,7 @@
   justify-content: center;
   justify-items: center;
   align-items: center;
+  margin-right: 0px;
 }
 
 .slide-content {
@@ -42,6 +44,9 @@
   border: 0;
 }
 
+.exerciseButton_active {
+  background-color: rgba(255, 212, 144, 0.925);
+}
 .textExercise {
   font-size: 17px;
   font-family: "Kanit", sans-serif;
@@ -186,7 +191,7 @@
 }
 
 .exercise_btn_enter {
-  width: 60px;
+  width: 80px;
   height: 60px;
   background-color: var(--bg2_active);
   color: white;
@@ -195,4 +200,13 @@
 
 .c {
   width: 73%;
+}
+
+.savePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  width: 50px;
+  height: 60px;
 }
