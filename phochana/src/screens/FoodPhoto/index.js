@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import ReactDOM from 'react-dom';
 import { Camera } from './camera';
 import { Root, Preview, Footer, GlobalStyle } from './styles';
 
