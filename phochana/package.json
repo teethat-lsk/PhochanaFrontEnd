@@ -15,7 +15,6 @@
 		"moment": "^2.29.1",
 		"react": "^17.0.1",
 		"react-calendar": "^3.3.1",
-		"react-camera-pro": "^1.1.0",
 		"react-confirm-alert": "^2.7.0",
 		"react-dom": "^17.0.1",
 		"react-loader-spinner": "^4.0.0",
