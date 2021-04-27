@@ -259,7 +259,7 @@ export function EditProfile(props) {
 				},
 				data: bodyFormData,
 			};
-			console.log(newUserData.job);
+			// console.log(newUserData.job);
 			const res = await apiClient(config);
 			if (res.data.status === 'success') {
 				// console.log('yoo');
@@ -273,7 +273,7 @@ export function EditProfile(props) {
 				setLodding(false);
 			}
 		} else {
-			console.log('จะอัพเดทอะไรยังไม่ได้แก้ไขอะไรเลยโว้ยย');
+			// console.log('จะอัพเดทอะไรยังไม่ได้แก้ไขอะไรเลยโว้ยย');
 		}
 	};
 

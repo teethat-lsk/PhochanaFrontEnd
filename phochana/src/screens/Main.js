@@ -133,6 +133,16 @@ const Menu = ({ widthMenu, toggleMenu }) => {
 						</Link>
 					);
 				})}
+			{widthMenu === '60%' && (
+				<Link
+					to={'/logout'}
+					style={{ color: 'red' }}
+					className='main_menu_item noselect'
+					key={'logout'}
+				>
+					<div>ออกจากระบบ</div>
+				</Link>
+			)}
 		</div>
 	);
 };

@@ -20,6 +20,7 @@ import KnowledgeMain from './screens/Knowledge/KnowledgeMain';
 import ExerciseMain from './screens/Exercise/ExerciseMain';
 import PhotoFood from './screens/FoodPhoto';
 import Register from './screens/Register';
+import Logout from './screens/Logout';
 import { isLoggedIn } from './middleware/Cookie';
 
 console.warn = console.error = () => {}; // Something bad happened 🌠
@@ -31,9 +32,12 @@ const App = () => {
 			<Switch>
 				<PrivateRoute path='/' exact component={Main} />
 				<Route path='/home' component={Home}></Route>
-				<Route path='/register'>{Register}</Route>
+				<Route path='/register' component={Register}></Route>
 				<Route path='/agreement' component={Agreement} />
-				<Route path='/login' component={Login} />
+				<Route path='/login'>
+					{isLoggedIn() ? <Redirect to='/' /> : <Login />}
+				</Route>
+				<PrivateRoute path='/logout' component={Logout} />
 				<PrivateRoute
 					path='/friends/:pagestate'
 					component={ManageFriendRequest}
