@@ -125,6 +125,7 @@ function ExerciseMain() {
   }, []);
 
   const handleSubmitEx = async (e) => {
+    setShowSave(false);
     var nowSend = new Date();
     if (nowSend.getDay() < 10) {
       var d = "0" + nowSend.getDay().toString();
@@ -182,28 +183,52 @@ function ExerciseMain() {
       }),
     };
     const res = await apiClient(config);
-    console.log(res.data);
-    //alert(res.data);
+    console.log(res.data.status);
+    setTimeout(() => {
+      if (res.data.status == "success") {
+        setShowSave(true);
+        setShowSave((a) => {
+          console.log(a);
+          Swal.fire({
+            title: "บันทึกสำเร็จ",
+            text: "",
+            type: "success",
+          });
+        });
+      } else {
+        setShowSave(false);
+        setShowSave((a) => {
+          console.log(a);
+          Swal.fire({
+            title: "บันทึกไม่สำเร็จ",
+            text: "",
+            type: "error",
+          });
+        });
+      }
+    }, 500);
+
+    // const opensweetalert = () => {
+    //   Swal.fire({
+    //     title: "บันทึกสำเร็จ",
+    //     text: "",
+    //     type: "success",
+    //   });
+    // };
+
+    // const opensweetalertFalse = () => {
+    //   Swal.fire({
+    //     title: "บันทึกไม่สำเร็จ",
+    //     text: "",
+    //     type: "error",
+    //   });
+    // };
   };
 
   const [state, setState] = useState({ name: "test", cal_p_h: 0 });
 
   const [showSave, setShowSave] = useState(false);
-  const handleSave = () => {
-    console.log("hello");
-    setShowSave((prev) => !prev);
-  };
-  const Save = ({ showSave, setShowSave }) => {
-    return <>{showSave ? <div className='savePage'>Save</div> : null}</>;
-  };
 
-  const opensweetalert = () => {
-    Swal.fire({
-      title: "บันทึกสำเร็จ",
-      text: "",
-      type: "success",
-    });
-  };
   // ---------------------------- Calculate Burn ------------------------------------
 
   return (
@@ -419,12 +444,7 @@ function ExerciseMain() {
                 </div>
               </div>
               <form onSubmit={handleSubmitEx}>
-                <button
-                  type='submit'
-                  className='exercise_btn_enter'
-                  onClick={opensweetalert}
-                  // onClick={this.handleSubmit}
-                >
+                <button type='submit' className='exercise_btn_enter'>
                   บันทึก
                 </button>
               </form>
