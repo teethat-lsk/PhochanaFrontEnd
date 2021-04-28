@@ -1,43 +1,88 @@
 import React, { Fragment, useState } from 'react';
 import { Camera } from './camera';
-import { Root, Preview, Footer, GlobalStyle } from './styles';
+import { Preview } from './styles';
+import { MainHeaderContainer } from '../Main';
+import Moment from 'react-moment';
+import testImage from './images/ข้าวมันไก่.jpg';
+import '../../styles/FoodPhoto/FoodPhoto.css';
 
 function FoodPhoto() {
-	const [isCameraOpen, setIsCameraOpen] = useState(false);
 	const [cardImage, setCardImage] = useState();
 
 	return (
-		<Fragment>
-			<Root>
+		<div className='foodphoto_container'>
+			<MainHeaderContainer menu={false} />
+			{cardImage ? (
+				<PhotoPreview cardImage={cardImage} />
+			) : (
+				<TakePhoto setCardImage={setCardImage} />
+			)}
+		</div>
+	);
+}
+
+const PhotoPreview = ({ cardImage }) => {
+	const [name, setName] = useState('Test');
+	const [cal, setCal] = useState(100);
+	return (
+		<div>
+			<div className='food_photo_preview_container'>
+				<img
+					className='image_container'
+					src={cardImage && URL.createObjectURL(cardImage)}
+				/>
+				<div className='food_photo_name'>{name}</div>
+				<div className='food_photo_cal'>{cal} KCal</div>
+				<div className='btn_food_photo btn_save'>บันทึก</div>
+			</div>
+		</div>
+	);
+};
+
+const TakePhoto = ({ setCardImage }) => {
+	const [isCameraOpen, setIsCameraOpen] = useState(true);
+
+	const [cal, setCal] = useState(1000);
+
+	return (
+		<div>
+			<div className='food_photo_container'>
 				{isCameraOpen && (
 					<Camera
 						onCapture={(blob) => setCardImage(blob)}
 						onClear={() => setCardImage(undefined)}
 					/>
 				)}
+				<div className='btn_food_photo nocolor'>อัพโหลดรูปภาพ</div>
 
-				{cardImage && (
+				{/* {cardImage && (
 					<div>
 						<h2>Preview</h2>
 						<Preview src={cardImage && URL.createObjectURL(cardImage)} />
 					</div>
-				)}
-
-				<Footer>
-					<button onClick={() => setIsCameraOpen(true)}>Open Camera</button>
-					<button
-						onClick={() => {
-							setIsCameraOpen(false);
-							setCardImage(undefined);
-						}}
-					>
-						Close Camera
-					</button>
-				</Footer>
-			</Root>
-			<GlobalStyle />
-		</Fragment>
+				)} */}
+			</div>
+			<div className='footer_container'>
+				<div className='cal_rec_label'>{`แคลอรี่แนะนำสำหรับมื้อนี้ ${cal} KCal`}</div>
+				<Moment
+					className='food_photo_timestamp'
+					format='MMMM Do YYYY, h:mm:ss a'
+					date={new Date()}
+				/>
+			</div>
+		</div>
 	);
-}
+};
 
+{
+	/* <button onClick={() => setIsCameraOpen(true)}>Open Camera</button>
+<button
+	onClick={() => {
+		setIsCameraOpen(false);
+		setCardImage(undefined);
+	}}
+>
+	Close Camera
+</button> */
+}
 export default FoodPhoto;

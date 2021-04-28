@@ -184,7 +184,7 @@ export function EditProfile(props) {
 		if (res_) {
 			const res = res_.user;
 			const img = await GetImage(res.url_profile);
-			console.log(res_.user);
+			// console.log(res_.user);
 			setUserData({
 				...userData,
 				username: res.username,
@@ -237,7 +237,8 @@ export function EditProfile(props) {
 	};
 
 	const isModified = () => {
-		return JSON.stringify(userData) !== JSON.stringify(newUserData);
+		return true; //disable modified check
+		// return JSON.stringify(userData) !== JSON.stringify(newUserData);
 	};
 
 	const handleSave = async (e) => {

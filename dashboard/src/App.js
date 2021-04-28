@@ -11,7 +11,7 @@ import Admin from './components/Admin';
 import { isLoggedIn, isAdmin } from './middleware/Cookie';
 import './App.css';
 
-// console.warn = console.error = () => {}; // Something bad happened 🌠
+console.warn = console.error = () => {}; // Something bad happened 🌠
 
 function App() {
 	console.log(isAdmin());

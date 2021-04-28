@@ -10,7 +10,7 @@ import '../../styles/Friends/AddFriend.css';
 
 const AddFriend = (props) => {
 	const usernameToFind = props.match.params.username || null;
-	console.log('username =>', usernameToFind);
+	// console.log('username =>', usernameToFind);
 	return (
 		<div>
 			<MainHeaderContainer menu={false} title={'New Request'} />
@@ -160,7 +160,7 @@ const FindWithQRCode = () => {
 
 	const handleScan = (data) => {
 		if (data) {
-			// console.log(data);
+			console.log(data);
 			if (data.startsWith(`${frontend}/addfriend/`)) {
 				setResult(data);
 				history.push(`/addfriend/` + data.split('/').slice(-1).pop());
@@ -169,6 +169,8 @@ const FindWithQRCode = () => {
 				// TODO alert here
 				console.log('Invalid QRCode');
 			}
+		} else {
+			// console.log('Not QRCode');
 		}
 	};
 
@@ -183,8 +185,14 @@ const FindWithQRCode = () => {
 	return (
 		<div className='find_with_qr_code_container'>
 			<QrReader
-				legacyMode
 				ref={refReader}
+				delay={300}
+				onError={handleError}
+				onScan={handleScan}
+				style={{ display: 'none' }}
+				legacyMode
+			/>
+			<QrReader
 				delay={300}
 				onError={handleError}
 				onScan={handleScan}

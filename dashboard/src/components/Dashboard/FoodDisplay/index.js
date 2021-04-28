@@ -1,9 +1,11 @@
 import react, { useState } from 'react';
+import apiClient from '../../../middleware/ApiClient';
 import './fooddisplay.css';
 
 const FoodDisplay = () => {
 	const [addNewMenu, toggle] = useState(true);
 	const [selectItem, setSelectItem] = useState(null);
+	const [filter, setFilter] = useState('');
 	const [menuItem, setMenuItem] = useState([
 		{
 			name: 'ข้าวมันไก่',
@@ -53,25 +55,46 @@ const FoodDisplay = () => {
 	return (
 		<div className='food_display_container'>
 			<div className='menu_container'>
+				<div className='store_find'>
+					<div className='store_find_label noselect'>ค้นหาอาหาร</div>
+					<input
+						className='store_find_input'
+						onChange={(e) => {
+							setFilter(e.target.value);
+						}}
+					></input>
+				</div>
 				<div className='menu_body'>
-					{menuItem.map((item, key) => {
-						// console.log(key);
-						return (
-							<div
-								onClick={() => {
-									setSelectItem(menuItem[key]);
-									toggle(false);
-									console.log(menuItem[key]);
-								}}
-								className='menu_button noselect'
-								style={{ backgroundImage: `url(${item.picture})` }}
-								key={key}
-							>
-								{/* <img className='img_menu' src={item[1]} /> */}
-								<p className='menu_name'>{item.name}</p>
-							</div>
-						);
-					})}
+					{menuItem
+						.filter((element) => {
+							if (filter === null) {
+								return element;
+							}
+							if (
+								element.name.toLowerCase().includes(filter.toLowerCase()) ||
+								element.name.toUpperCase().includes(filter.toUpperCase())
+							) {
+								return element;
+							}
+						})
+						.map((item, key) => {
+							// console.log(key);
+							return (
+								<div
+									onClick={() => {
+										setSelectItem(menuItem[key]);
+										toggle(false);
+										console.log(menuItem[key]);
+									}}
+									className='menu_button noselect'
+									style={{ backgroundImage: `url(${item.picture})` }}
+									key={key}
+								>
+									{/* <img className='img_menu' src={item[1]} /> */}
+									<p className='menu_name'>{item.name}</p>
+								</div>
+							);
+						})}
 				</div>
 				<div
 					className='add_menu noselect'
@@ -195,9 +218,27 @@ const ShowMenu = ({
 		window.location.reload();
 	};
 
+	const downloadQR = () => {
+		const canvas = document.getElementById('react-qrcode-logo');
+		// console.log(canvas);
+		const pngUrl = canvas
+			.toDataURL('image/png')
+			.replace('image/png', 'image/octet-stream');
+		let downloadLink = document.createElement('a');
+		downloadLink.href = pngUrl;
+		downloadLink.download = `${_name}.png`;
+		document.body.appendChild(downloadLink);
+		downloadLink.click();
+		document.body.removeChild(downloadLink);
+	};
+
+	const qrcodeHandle = () => {
+		downloadQR();
+	};
+
 	const updateHandle = () => {
 		//TODO Call API Here :)
-		console.log(_name, _cal);
+		// console.log(_name, _cal);
 	};
 
 	return (
@@ -247,6 +288,9 @@ const ShowMenu = ({
 					</div>
 					<div onClick={cancelHandle} className='btn_action cancle noselect'>
 						ยกเลิก
+					</div>
+					<div onClick={qrcodeHandle} className='btn_action qrcode noselect'>
+						<i className='fa fa-qrcode' aria-hidden='true'></i>
 					</div>
 				</div>
 			</div>
