@@ -54,6 +54,7 @@ const Login = (props) => {
 					<div className='input_container'>
 						<div>username</div>
 						<input
+							autoComplete='off'
 							value={username}
 							onChange={(e) => {
 								setUsername(e.target.value);
@@ -64,6 +65,7 @@ const Login = (props) => {
 					<div className='input_container'>
 						<div>password</div>
 						<input
+							autoComplete='off'
 							value={password}
 							onChange={(e) => {
 								setPassword(e.target.value);

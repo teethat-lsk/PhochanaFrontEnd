@@ -15,9 +15,9 @@ const Admin = () => {
 	let { path, url } = useRouteMatch();
 
 	return (
-		<div className='dashboard_container'>
+		<div className='admin_container'>
 			<Navigation />
-			<div className='dashboard_body'>
+			<div className='admin_body'>
 				<Switch>
 					<Route path={`${path}/`} exact component={Main}></Route>
 					<Route path={`${path}/stores`} component={Store}></Route>
