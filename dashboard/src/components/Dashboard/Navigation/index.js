@@ -1,6 +1,10 @@
 import react, { useState } from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import { removeToken, isLoggedIn } from '../../../middleware/Cookie';
+import {
+	removeToken,
+	isLoggedIn,
+	getUsername,
+} from '../../../middleware/Cookie';
 import './navigation.css';
 
 const Navigation = () => {
@@ -14,7 +18,7 @@ const Navigation = () => {
 	let { path, url } = useRouteMatch();
 
 	const [title, setTitle] = useState('จัดการเมนูอาหาร');
-	const [username, setUsername] = useState('kookzaza');
+	const [username, setUsername] = useState(getUsername());
 	return (
 		<div className='navigation_container'>
 			<div className='navigation_top_container'>

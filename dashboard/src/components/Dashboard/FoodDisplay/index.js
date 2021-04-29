@@ -1,55 +1,30 @@
-import react, { useState } from 'react';
+import react, { useState, useEffect } from 'react';
 import apiClient from '../../../middleware/ApiClient';
+import getImage from '../../../middleware/GetImage';
+import { frontend } from '../../../config';
+import { QRCode } from 'react-qrcode-logo';
+import HomeLogoImage from '../../../images/logo_home.png';
 import './fooddisplay.css';
 
 const FoodDisplay = () => {
 	const [addNewMenu, toggle] = useState(true);
 	const [selectItem, setSelectItem] = useState(null);
 	const [filter, setFilter] = useState('');
-	const [menuItem, setMenuItem] = useState([
-		{
-			name: 'ข้าวมันไก่',
-			cal_p_h: 100,
-			picture: '../../images/ข้าวมันไก่.jpg',
-		},
-		{
-			name: 'ข้าวมันไก่ 2',
-			cal_p_h: 200,
-			picture: '../../images/ข้าวมันไก่.jpg',
-		},
-		{
-			name: 'ข้าวมันไก่ 3',
-			cal_p_h: 300,
-			picture: '../../images/ข้าวมันไก่.jpg',
-		},
-		{
-			name: 'ข้าวมันไก่ 4',
-			cal_p_h: 400,
-			picture: '../../images/ข้าวมันไก่.jpg',
-		},
-		{
-			name: 'ข้าวมันไก่ 5',
-			cal_p_h: 500,
-			picture: './../images/ข้าวมันไก่.jpg',
-		},
-		{
-			name: 'ข้าวมันไก่ 6',
-			cal_p_h: 10000,
-			picture: './../images/ข้าวมันไก่.jpg',
-		},
-	]);
+	const [menuItem, setMenuItem] = useState([]);
 
-	const callbackOnNameChange = (event) => {
+	useEffect(async () => {
+		let res = await getInfo();
+		// console.log(res.length);
+		for (var index = 0; index < res.length; index++) {
+			res[index].image = await getImage(res[index].image);
+		}
+		// console.log(res);
+		setMenuItem(res);
+	}, []);
+
+	const callbackOnChange = (e) => {
 		// console.log(selectItem);
-		setSelectItem({ ...selectItem, name: event.target.value });
-	};
-
-	const callbackOnCalChange = (event) => {
-		setSelectItem({ ...selectItem, cal_p_h: event.target.value });
-	};
-
-	const callbackOnPictureChange = (event) => {
-		setSelectItem({ ...selectItem, picture: event.target.value });
+		setSelectItem({ ...selectItem, [e.target.id]: e.target.value });
 	};
 
 	return (
@@ -79,15 +54,16 @@ const FoodDisplay = () => {
 						})
 						.map((item, key) => {
 							// console.log(key);
+							// console.log(item.image);
 							return (
 								<div
 									onClick={() => {
 										setSelectItem(menuItem[key]);
 										toggle(false);
-										console.log(menuItem[key]);
+										// console.log(menuItem[key]);
 									}}
 									className='menu_button noselect'
-									style={{ backgroundImage: `url(${item.picture})` }}
+									style={{ backgroundImage: `url(${item.image})` }}
 									key={key}
 								>
 									{/* <img className='img_menu' src={item[1]} /> */}
@@ -110,14 +86,7 @@ const FoodDisplay = () => {
 				{addNewMenu ? (
 					<AddNewMenu />
 				) : (
-					<ShowMenu
-						_name={selectItem.name}
-						_cal={selectItem.cal_p_h}
-						_picture={selectItem.picture}
-						callbackOnNameChange={callbackOnNameChange}
-						callbackOnCalChange={callbackOnCalChange}
-						callbackOnPictureChange={callbackOnPictureChange}
-					/>
+					<ShowMenu food={selectItem} callbackOnChange={callbackOnChange} />
 				)}
 			</div>
 		</div>
@@ -142,6 +111,30 @@ const AddNewMenu = () => {
 		setCal(0);
 		setTempFile(null);
 		setTempImage(null);
+	};
+
+	const handleSubmit = async () => {
+		let bodyFormData = new FormData();
+		bodyFormData.append('image', tempFile); //append the values with key, value pair
+		bodyFormData.append('calorie', cal);
+		bodyFormData.append('name', name);
+		var config = {
+			method: 'post',
+			url: '/food',
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+			data: bodyFormData,
+		};
+		// console.log(newUserData.job);
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			window.location.reload();
+			console.log(res.data);
+		} else {
+			// setLodding(false);
+			console.log('fetch backend fail');
+		}
 	};
 
 	return (
@@ -186,7 +179,9 @@ const AddNewMenu = () => {
 					/>
 				</div>
 				<div className='btn_container'>
-					<div className='btn_action save noselect'>บันทึก</div>
+					<div onClick={handleSubmit} className='btn_action save noselect'>
+						บันทึก
+					</div>
 					<div onClick={cancelHandle} className='btn_action cancle noselect'>
 						ยกเลิก
 					</div>
@@ -196,14 +191,8 @@ const AddNewMenu = () => {
 	);
 };
 
-const ShowMenu = ({
-	_name,
-	_cal,
-	_picture,
-	callbackOnNameChange,
-	callbackOnCalChange,
-	callbackOnPictureChange,
-}) => {
+const ShowMenu = ({ food, callbackOnChange }) => {
+	// console.log(food);
 	const [tempFile, setTempFile] = useState(null);
 	const [tempImage, setTempImage] = useState(null);
 
@@ -213,6 +202,10 @@ const ShowMenu = ({
 
 		setTempFile(event.target.files[0]);
 	};
+
+	useEffect(() => {
+		setTempImage(food.image);
+	}, [food.image]);
 
 	const cancelHandle = () => {
 		window.location.reload();
@@ -226,7 +219,7 @@ const ShowMenu = ({
 			.replace('image/png', 'image/octet-stream');
 		let downloadLink = document.createElement('a');
 		downloadLink.href = pngUrl;
-		downloadLink.download = `${_name}.png`;
+		downloadLink.download = `${food.name}.png`;
 		document.body.appendChild(downloadLink);
 		downloadLink.click();
 		document.body.removeChild(downloadLink);
@@ -238,6 +231,7 @@ const ShowMenu = ({
 
 	const updateHandle = () => {
 		//TODO Call API Here :)
+		console.log();
 		// console.log(_name, _cal);
 	};
 
@@ -247,21 +241,23 @@ const ShowMenu = ({
 				<div className='input_menu_container'>
 					<div className='menu_title'>ชื่ออาหาร</div>
 					<input
-						value={_name}
-						onChange={(e) => callbackOnNameChange(e)}
+						value={food && food.name}
+						onChange={(e) => callbackOnChange(e)}
 						className='menu_input'
 						placeholder='กรุณาใส่ชื่ออาหาร'
+						autoComplete='off'
 					></input>
 				</div>
 				<div className='input_menu_container' style={{ marginLeft: '100px' }}>
 					<div className='menu_title'>ปริมาณแคลรอรี่ (กิโลแคล)</div>
 					<input
 						type='number'
-						value={_cal}
-						onChange={(e) => callbackOnCalChange(e)}
+						value={food && food.calorie}
+						onChange={(e) => callbackOnChange(e)}
 						className='menu_input'
 						min='0.1'
 						max='10000'
+						autoComplete='off'
 					></input>
 				</div>
 			</div>
@@ -283,19 +279,53 @@ const ShowMenu = ({
 					/>
 				</div>
 				<div className='btn_container'>
+					<div>
+						<QRCode
+							value={`${frontend}/food/${food._id}`}
+							logoImage={HomeLogoImage}
+							size='200'
+						/>
+					</div>
+
+					<div
+						onClick={qrcodeHandle}
+						className='btn_action qrcode noselect'
+						style={{ marginBottom: '30px' }}
+					>
+						<i className='fa fa-qrcode' aria-hidden='true'></i>
+					</div>
+
 					<div className='btn_action save noselect' onClick={updateHandle}>
 						อัพเดท
 					</div>
 					<div onClick={cancelHandle} className='btn_action cancle noselect'>
 						ยกเลิก
 					</div>
-					<div onClick={qrcodeHandle} className='btn_action qrcode noselect'>
-						<i className='fa fa-qrcode' aria-hidden='true'></i>
-					</div>
 				</div>
 			</div>
 		</div>
 	);
+};
+
+const getInfo = async () => {
+	const config = {
+		method: 'get',
+		url: `/foodstore`,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	try {
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			return res.data.message.food;
+		} else {
+			return [];
+		}
+	} catch (error) {
+		return [];
+	}
 };
 
 export default FoodDisplay;

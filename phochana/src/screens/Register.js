@@ -95,6 +95,7 @@ function Register() {
 						minLength={8}
 						maxLength={15}
 						allow='displayName'
+						autoComplete='off'
 					></Input>
 				</div>
 				<div className='sub_input_container'>
@@ -104,19 +105,23 @@ function Register() {
 						type='text'
 						value={userData.displayName}
 						onChange={handleOnChange}
-						minLength={1}
+						minLength={4}
 						maxLength={20}
 						allow='email'
+						autoComplete='off'
 					></Input>
 				</div>
 				<div className='sub_input_container'>
 					<label className='input_label'>ชื่อผู้ใช้</label>
 					<Input
+						minLength={6}
+						maxLength={20}
 						id='username'
 						type='text'
 						value={userData.username}
 						onChange={handleOnChange}
 						allow='username'
+						autoComplete='off'
 					></Input>
 				</div>
 				<div className='sub_input_container'>
@@ -130,6 +135,7 @@ function Register() {
 						maxLength={30}
 						allow='password'
 						type='password'
+						autoComplete='off'
 					></Input>
 				</div>
 				<div className='sub_input_container'>
@@ -143,6 +149,7 @@ function Register() {
 						maxLength={30}
 						allow='password'
 						type='password'
+						autoComplete='off'
 					></Input>
 				</div>
 				<button
@@ -153,7 +160,7 @@ function Register() {
 					สมัครสมาชิก
 				</button>
 				<a
-					href='/register'
+					href='/login'
 					className='create_new_account'
 					style={{ marginBottom: '10px' }}
 				>

@@ -1,6 +1,7 @@
 import react, { useEffect } from 'react';
 import { removeToken } from '../middleware/Cookie';
 import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import apiClient from '../middleware/ApiClient';
 import '../styles/Logout.css';
 
@@ -25,4 +26,4 @@ const Logout = () => {
 	return <div className='logout_container'>logout</div>;
 };
 
-export default Logout;
+export default withRouter(Logout);

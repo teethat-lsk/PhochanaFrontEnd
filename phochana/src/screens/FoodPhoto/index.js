@@ -1,13 +1,19 @@
-import React, { Fragment, useState } from 'react';
+import react, { useState, useRef, useEffect } from 'react';
 import { Camera } from './camera';
 import { Preview } from './styles';
 import { MainHeaderContainer } from '../Main';
 import Moment from 'react-moment';
 import testImage from './images/ข้าวมันไก่.jpg';
+import { frontend } from '../../config';
 import '../../styles/FoodPhoto/FoodPhoto.css';
 
 function FoodPhoto() {
 	const [cardImage, setCardImage] = useState();
+
+	useEffect(() => {
+		if (cardImage) {
+		}
+	}, [cardImage]);
 
 	return (
 		<div className='foodphoto_container'>
@@ -39,11 +45,11 @@ const PhotoPreview = ({ cardImage }) => {
 	);
 };
 
-const TakePhoto = ({ setCardImage }) => {
+const TakePhoto = ({ setCardImage, openImageDialog }) => {
+	const ref = useRef(null);
+
 	const [isCameraOpen, setIsCameraOpen] = useState(true);
-
 	const [cal, setCal] = useState(1000);
-
 	return (
 		<div>
 			<div className='food_photo_container'>
@@ -53,14 +59,22 @@ const TakePhoto = ({ setCardImage }) => {
 						onClear={() => setCardImage(undefined)}
 					/>
 				)}
-				<div className='btn_food_photo nocolor'>อัพโหลดรูปภาพ</div>
-
-				{/* {cardImage && (
-					<div>
-						<h2>Preview</h2>
-						<Preview src={cardImage && URL.createObjectURL(cardImage)} />
-					</div>
-				)} */}
+				<input
+					type='file'
+					style={{ display: 'none' }}
+					ref={ref}
+					onChange={(e) => {
+						setCardImage(e.target.files[0]);
+					}}
+				></input>
+				<div
+					className='btn_food_photo nocolor'
+					onClick={() => {
+						ref.current.click();
+					}}
+				>
+					อัพโหลดรูปภาพ
+				</div>
 			</div>
 			<div className='footer_container'>
 				<div className='cal_rec_label'>{`แคลอรี่แนะนำสำหรับมื้อนี้ ${cal} KCal`}</div>
