@@ -8,14 +8,20 @@ const getRole = () => {
 	return localStorage.getItem('role');
 };
 
-const setToken = (token, role) => {
+const getUsername = () => {
+	return localStorage.getItem('username');
+};
+
+const setToken = (token, role, username) => {
 	if (token) localStorage.setItem(tokenName, token);
 	if (role) localStorage.setItem('role', role);
+	if (username) localStorage.setItem('username', username);
 };
 
 const removeToken = () => {
 	localStorage.removeItem(tokenName);
 	localStorage.removeItem('role');
+	localStorage.removeItem('username');
 };
 
 const isLoggedIn = () => {
@@ -33,4 +39,5 @@ module.exports = {
 	isLoggedIn,
 	isAdmin,
 	getRole,
+	getUsername,
 };

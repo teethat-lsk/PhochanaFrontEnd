@@ -1,5 +1,5 @@
 import apiClient from './ApiClient';
-import defaultProfile from '../images/default_profile-01.jpg';
+import defaultProfile from './images/ข้าวมันไก่.jpg';
 
 const GetImage = async (imageName) => {
 	if (typeof imageName === 'undefined') {
@@ -11,10 +11,11 @@ const GetImage = async (imageName) => {
 			url: `/images/${imageName}`,
 		};
 		const res = await apiClient(config);
+		// console.log(res.data);
 		if (res.data.status === 'success') return res.data.message;
 		else return defaultProfile;
 	} catch (error) {
-		// console.log(error);
+		// console.log(error.message);
 		return defaultProfile;
 	}
 };

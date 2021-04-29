@@ -69,6 +69,7 @@ class Login extends Component {
 								allow='username'
 								minLength={6}
 								maxLength={20}
+								autoComplete='off'
 							></Input>
 						</div>
 						<div className='password'>
@@ -86,6 +87,7 @@ class Login extends Component {
 								minLength={8}
 								maxLength={30}
 								type='password'
+								autoComplete='off'
 							></Input>
 						</div>
 					</form>

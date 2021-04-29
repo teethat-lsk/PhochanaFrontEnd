@@ -143,11 +143,11 @@ input:focus {
 .image_preview {
 	margin-left: 20px;
 	background-color: rgb(255, 255, 255);
-	width: 65vw;
+	width: 55vw;
 	height: 70vh;
-	max-width: 65vw;
+	max-width: 55vw;
 	max-height: 70vh;
-	min-width: 65vw;
+	min-width: 55vw;
 	min-height: 70vh;
 	background-position: center center;
 	background-repeat: no-repeat;
