@@ -281,7 +281,7 @@ const ShowMenu = ({ food, callbackOnChange }) => {
 				<div className='btn_container'>
 					<div>
 						<QRCode
-							value={`${frontend}/food/${food._id}`}
+							value={`food_store_${food._id}`}
 							logoImage={HomeLogoImage}
 							size='200'
 						/>

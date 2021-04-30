@@ -6,6 +6,7 @@ import apiClient from '../middleware/ApiClient';
 import '../styles/Logout.css';
 
 const Logout = () => {
+	// console.log('logout loaded!');
 	const history = useHistory();
 	useEffect(async () => {
 		const config = {
@@ -16,10 +17,12 @@ const Logout = () => {
 			},
 		};
 		const res = await apiClient(config);
-		console.log(res.data);
+		// console.log(res.data);
 		//alert(res.data);
 		if (res.data.status === 'success') {
 			removeToken();
+			history.push('/login');
+		} else {
 			history.push('/login');
 		}
 	}, []);

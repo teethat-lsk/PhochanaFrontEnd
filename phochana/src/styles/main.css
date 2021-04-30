@@ -145,3 +145,25 @@
   font-size: 16px;
   /* color: #000; */
 }
+
+.boxStat {
+  width: 95%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
+  /* background-color: aliceblue; */
+}
+
+.statName {
+  height: 15%;
+  background-color: var(--bg2_active);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+  color: white;
+  font-size: 25px;
+}
