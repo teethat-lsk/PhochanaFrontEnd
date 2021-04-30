@@ -1,17 +1,27 @@
 import react, { useState, useRef, useEffect } from 'react';
 import { Camera } from './camera';
-import { Preview } from './styles';
+import apiClient from '../../middleware/ApiClient';
 import { MainHeaderContainer } from '../Main';
 import Moment from 'react-moment';
 import testImage from './images/ข้าวมันไก่.jpg';
 import { frontend } from '../../config';
 import '../../styles/FoodPhoto/FoodPhoto.css';
 
-function FoodPhoto() {
+const FoodPhoto = () => {
 	const [cardImage, setCardImage] = useState();
+	const [foodData, setFoodData] = useState({
+		image_process: { name: 'unknow', calorie: 0 },
+		process_with_ml: false,
+	});
 
-	useEffect(() => {
+	useEffect(async () => {
 		if (cardImage) {
+			const res = await preProcessImage(cardImage);
+			// console.log(res);
+			if (res) {
+				setFoodData(res.message);
+				// console.log('set');
+			}
 		}
 	}, [cardImage]);
 
@@ -19,17 +29,19 @@ function FoodPhoto() {
 		<div className='foodphoto_container'>
 			<MainHeaderContainer menu={false} />
 			{cardImage ? (
-				<PhotoPreview cardImage={cardImage} />
+				<PhotoPreview cardImage={cardImage} foodData={foodData} />
 			) : (
 				<TakePhoto setCardImage={setCardImage} />
 			)}
 		</div>
 	);
-}
+};
 
-const PhotoPreview = ({ cardImage }) => {
-	const [name, setName] = useState('Test');
-	const [cal, setCal] = useState(100);
+const PhotoPreview = ({ cardImage, foodData }) => {
+	console.log(foodData);
+	if (foodData.process_with_ml) {
+		console.log('Process with ML!');
+	}
 	return (
 		<div>
 			<div className='food_photo_preview_container'>
@@ -37,8 +49,10 @@ const PhotoPreview = ({ cardImage }) => {
 					className='image_container'
 					src={cardImage && URL.createObjectURL(cardImage)}
 				/>
-				<div className='food_photo_name'>{name}</div>
-				<div className='food_photo_cal'>{cal} KCal</div>
+				<div className='food_photo_name'>{foodData.image_process.name}</div>
+				<div className='food_photo_cal'>
+					{foodData.image_process.calorie} KCal
+				</div>
 				<div className='btn_food_photo btn_save'>บันทึก</div>
 			</div>
 		</div>
@@ -88,15 +102,30 @@ const TakePhoto = ({ setCardImage, openImageDialog }) => {
 	);
 };
 
-{
-	/* <button onClick={() => setIsCameraOpen(true)}>Open Camera</button>
-<button
-	onClick={() => {
-		setIsCameraOpen(false);
-		setCardImage(undefined);
-	}}
->
-	Close Camera
-</button> */
-}
+const preProcessImage = async (cardImage) => {
+	let bodyFormData = new FormData();
+	bodyFormData.append('image', cardImage);
+	const config = {
+		method: 'post',
+		url: '/foodphotopreprocess',
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		},
+		data: bodyFormData,
+	};
+
+	try {
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			// console.log(res.data);
+			return res.data;
+		} else {
+			// console.log(res);
+			return null;
+		}
+	} catch (err) {
+		// console.log(err.message);
+		return null;
+	}
+};
 export default FoodPhoto;

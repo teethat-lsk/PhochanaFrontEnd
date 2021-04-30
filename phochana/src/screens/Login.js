@@ -29,7 +29,7 @@ class Login extends Component {
 			}),
 		};
 		const res = await apiClient(config);
-		console.log(res.data);
+		// console.log(res.data);
 		//alert(res.data);
 		if (res.data.status === 'success') {
 			setToken(res.data.message.token);

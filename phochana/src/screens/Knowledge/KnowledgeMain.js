@@ -15,8 +15,8 @@ function KnowledgeMain() {
 			<Swiper
 				spaceBetween={30}
 				slidesPerView={1}
-				onSlideChange={() => console.log('slide change')}
-				onSwiper={(swiper) => console.log(swiper)}
+				// onSlideChange={() => console.log('slide change')}
+				// onSwiper={(swiper) => console.log(swiper)}
 				className='kBox'
 			>
 				{data.map((user) => (

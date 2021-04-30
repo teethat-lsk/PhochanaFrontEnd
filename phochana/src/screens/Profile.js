@@ -2,7 +2,6 @@ import react, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import apiClient from '../middleware/ApiClient';
 import moment from 'moment';
-import { confirmAlert } from 'react-confirm-alert'; // Import
 import calendarIcon from '../images/calendar.png';
 import friendsIcon from '../images/chat.png';
 import cupIcon from '../images/cup.png';
@@ -10,9 +9,10 @@ import excerciseIcon from '../images/excercise.png';
 import GetImage from '../middleware/GetImage';
 import Input from '../components/Input';
 import Loader from 'react-loader-spinner';
+import Swal from 'sweetalert2';
+import '../styles/Exercises/sweetalert2.scss';
 import '../styles/profile.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export function ShowProfile(props) {
 	// const username = 'kookza01';
@@ -265,11 +265,7 @@ export function EditProfile(props) {
 			if (res.data.status === 'success') {
 				// console.log('yoo');
 				setLodding(false);
-				setStatus(true);
-				setTimeout(() => {
-					setStatus(false);
-					// console.log('reset');
-				}, 1000);
+				HandleSweetSuccess();
 			} else {
 				setLodding(false);
 			}
@@ -278,24 +274,31 @@ export function EditProfile(props) {
 		}
 	};
 
-	const alertBox = () => {
-		confirmAlert({
-			title: 'ต้องการย้อนกลับ?',
-			message: 'ระบบยังไม่ได้บันทึกข้อมูล ต้องการย้อนกลับใช่หรือไม่',
-			buttons: [
-				{
-					label: 'Yes',
-					onClick: () => {
-						backToProfile.current.click();
-						// window.location.reload();
-					},
-				},
-				{
-					label: 'No',
-					onClick: () => {},
-				},
-			],
+	const HandleSweetSuccess = () => {
+		Swal.fire({
+			title: 'บันทึกสำเร็จ',
+			text: '',
+			type: 'success',
 		});
+	};
+
+	const HandleSweetAlert = async () => {
+		const res = await Swal.fire({
+			title: 'ต้องการย้อนกลับ?',
+			showDenyButton: true,
+			showCancelButton: true,
+			confirmButtonText: `ใช่`,
+			denyButtonText: `ไม่ใช่`,
+		});
+		// console.log('yooo', res);
+		if (res.value) {
+			console.log('Clicked!!');
+			// backToProfile.current.click();
+			// Swal.fire('Saved!', '', 'success');
+			await Swal.fire('กำลังคืนค่าเดิม', '', 'info');
+			window.location.reload();
+		} else if (res.dismiss) {
+		}
 	};
 
 	return (
@@ -407,14 +410,12 @@ export function EditProfile(props) {
 				<button className='edit_profile_btn' onClick={handleSave}>
 					{loading ? (
 						<Loader type='TailSpin' color='#fff' height={35} width={35} />
-					) : pass ? (
-						<i className='fa fa-check' aria-hidden='true'></i>
 					) : (
 						'บันทึก'
 					)}
 				</button>
-				<button className='edit_profile_btn' onClick={alertBox}>
-					ย้อนกลับ
+				<button className='edit_profile_btn' onClick={HandleSweetAlert}>
+					เคลียร์
 				</button>
 			</div>
 		</div>
@@ -432,7 +433,7 @@ const getUserProfile = async (username, history) => {
 		return null;
 	} catch (error) {
 		// console.log(error);
-		if (error.response.status == 404) {
+		if (error.response && error.response.status == 404) {
 			history.push('/404');
 		}
 		// alert(error);
