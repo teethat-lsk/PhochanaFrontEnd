@@ -10,6 +10,7 @@ import GetImage from '../middleware/GetImage';
 import Input from '../components/Input';
 import Loader from 'react-loader-spinner';
 import Swal from 'sweetalert2';
+import Compressor from 'compressorjs';
 import '../styles/Exercises/sweetalert2.scss';
 import '../styles/profile.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
@@ -203,14 +204,26 @@ export function EditProfile(props) {
 		setNewUserData({ ...userData });
 	}, [userData]);
 
-	const handleFileUpload = (event) => {
+	const handleFileUpload = async (e) => {
 		// console.log(event.target.files[0]);
+		const file = e.target.files[0];
+		if (!file) {
+			return;
+		}
+		const result = await new Promise((resolve, reject) => {
+			new Compressor(file, {
+				quality: 0.2,
+				convertSize: 0,
+				success: resolve,
+				error: reject,
+			});
+		});
 		setNewUserData({
 			...newUserData,
-			imgpath: URL.createObjectURL(event.target.files[0]),
+			imgpath: URL.createObjectURL(result),
 		});
 
-		setTempFile(event.target.files[0]);
+		setTempFile(result);
 	};
 
 	const handleOnchange = (e) => {
