@@ -168,8 +168,8 @@ function ExerciseMain() {
 
     var timeUseAll =
       (timeExerciseHr * 60).toString() + timeExerciseMn.toString();
-    console.log(d + m + y + h + m + s);
-    console.log("Ready?");
+    // console.log(d + m + y + h + m + s);
+    // console.log("Ready?");
     e.preventDefault();
     const config = {
       method: "post",
@@ -186,7 +186,7 @@ function ExerciseMain() {
       }),
     };
     const res = await apiClient(config);
-    console.log(res.data.status);
+    // console.log(res.data.status);
     if (res.data.status === "success") {
       setLodding(false);
       Swal.fire({
