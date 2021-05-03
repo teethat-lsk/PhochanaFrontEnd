@@ -127,19 +127,24 @@ function ExerciseMain() {
 	}, []);
 
 	const handleSubmitEx = async (e) => {
+		// console.log(timeExerciseHr, timeExerciseMn);
+		if (timeExerciseMn == 0 && timeExerciseHr == 0) return;
+		e.preventDefault();
 		setLodding(true);
 		setShowSave(false);
 		var nowSend = new Date();
-		if (nowSend.getDay() < 10) {
-			var d = '0' + nowSend.getDay().toString();
+		if (nowSend.getDate() < 10) {
+			var d = '0' + nowSend.getDate().toString();
 		} else {
-			var d = nowSend.getDay().toString();
+			var d = nowSend.getDate().toString();
 		}
 
 		if (nowSend.getMonth() < 10) {
-			var m = '0' + nowSend.getMonth().toString();
+			var _m = '0' + nowSend.getMonth().toString();
+			// console.log(m);
 		} else {
-			var m = nowSend.getMonth().toString();
+			var _m = nowSend.getMonth().toString();
+			// console.log(m);
 		}
 
 		if (nowSend.getFullYear() < 10) {
@@ -168,9 +173,8 @@ function ExerciseMain() {
 
 		var timeUseAll =
 			(timeExerciseHr * 60).toString() + timeExerciseMn.toString();
-		// console.log(d + m + y + h + m + s);
+		// console.log(d, _m, y, h, m, s);
 		// console.log("Ready?");
-		e.preventDefault();
 		const config = {
 			method: 'post',
 			url: `/exercise/user`,
@@ -181,7 +185,7 @@ function ExerciseMain() {
 				exercise_id: state._id,
 				// exercise_id: exID[0],
 				time: timeUseAll,
-				start_at: d + m + y + h + m + s,
+				start_at: d + _m + y + h + m + s,
 				// g:selectedDate.getDay+selectedDate.getMonth+selectedDate.getFullYear
 			}),
 		};

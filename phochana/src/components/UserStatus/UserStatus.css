@@ -1,0 +1,75 @@
+@import '../../styles/Color.css';
+.user_status_container {
+	/* background-color: red; */
+	width: 95%;
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+	/* margin-bottom: 10px; */
+}
+
+.user_status_top {
+	/* background-color: blue; */
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.user_status_lr {
+	width: 50%;
+	height: 20vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.user_status_line {
+	width: 1px;
+	height: 20vh;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.user_status_top {
+	/* background-color: aquamarine; */
+}
+
+.user_status_bottom {
+	height: 8vh;
+	width: 100%;
+	background-color: #c8f0ef;
+	display: flex;
+	flex-direction: row;
+}
+
+.user_status_d {
+	width: 50%;
+	/* align-items: center; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.user_status_val {
+	font-size: 30px;
+}
+
+.user_status_btn {
+	background-color: var(--bg2);
+	margin-top: 5px;
+	width: 80%;
+	height: 30%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+
+.user_status_btn:active {
+	opacity: 50%;
+}
+
+.user_status_lb {
+	font-size: 12px;
+}
