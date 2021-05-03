@@ -17,7 +17,7 @@ const CalendarFood = () => {
 	}, []);
 
 	return (
-		<div>
+		<div className='fade_effect'>
 			<MainHeaderContainer
 				menu={false}
 				title={''}

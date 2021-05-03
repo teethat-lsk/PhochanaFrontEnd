@@ -10,7 +10,7 @@ import '../styles/main.css';
 
 function Main() {
 	return (
-		<div className='main_container'>
+		<div className='main_container fade_effect'>
 			<MainHeaderContainer right={'calendar'} to={'/photocalendar'} />
 			<div className='main_body_container'>
 				<HomeLogo />
@@ -147,9 +147,9 @@ const MainHeaderContainer = ({
 const Menu = ({ widthMenu, toggleMenu }) => {
 	const menuItems = [
 		['โปรไฟล์ของฉัน', '/profile/me'],
-		['อาหารของฉัน', '/food/'],
-		['การออกกำลังกาย', '/ex/'],
-		['บาร์โค้ตของฉัน', '/bar/'],
+		['อาหารของฉัน', '/photocalendar/'],
+		['การออกกำลังกาย', '/exercise/'],
+		['บาร์โค้ตของฉัน', '/myinformation/'],
 		['ตั้งค่า', '/settings/'],
 	];
 	return (
