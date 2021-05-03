@@ -40,7 +40,7 @@ const MyInformation = () => {
 	};
 
 	return (
-		<div className='my_info_container'>
+		<div className='my_info_container fade_effect'>
 			<QRCode
 				value={`${frontend}/addfriend/${username}`}
 				logoImage={HomeLogoImage}

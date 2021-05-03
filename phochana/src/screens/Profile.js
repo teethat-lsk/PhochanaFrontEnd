@@ -41,10 +41,17 @@ export function ShowProfile(props) {
 			// BMR Calculator
 			let BMR = '*';
 			let BMI = '*';
-			if (res.gender === 'G') {
-				BMR = (65 + 9.6 * res.weight + 1.8 * res.height - 4.7 * age).toFixed(1);
-			} else if (res.gender === 'B') {
-				BMR = (66 + 13.7 * res.weight + 5 * res.height - 6.8 * age).toFixed(1);
+			if (res.gender === 'เพศหญิง') {
+				BMR = (665 + 9.6 * res.weight + 1.8 * res.height - 4.7 * age).toFixed(
+					1
+				);
+			} else if (res.gender === 'เพศชาย') {
+				BMR = (
+					66.5 +
+					13.75 * (res.weight || 0) +
+					5.003 * (res.height || 0) -
+					6.755 * (age || 0)
+				).toFixed(1);
 			}
 
 			// BMI Calculator
@@ -66,7 +73,7 @@ export function ShowProfile(props) {
 	}, []);
 
 	return (
-		<div className='profile_container noselect c1'>
+		<div className='profile_container noselect c1 fade_effect'>
 			<div className='profile_navigation_container'>
 				<div className='btn_back_ward' onClick={() => history.goBack()}>
 					<i className='fa fa-chevron-circle-left' aria-hidden='true'></i>
@@ -180,6 +187,14 @@ export function EditProfile(props) {
 	const [pass, setStatus] = useState(false);
 	const backToProfile = useRef(null);
 
+	const job = [
+		'ไม่ได้ทำงาน',
+		'พนักงานสำนักงาน',
+		'แรงงานทั่วไป',
+		'กรรมกร',
+		'นักกีฬาอาชีพ',
+	];
+
 	useEffect(async () => {
 		const res_ = await getUserProfile(username, history);
 		if (res_) {
@@ -194,8 +209,8 @@ export function EditProfile(props) {
 				height: res.height || 0,
 				weight: res.weight || 0,
 				birthday: moment(res.birthday).format('YYYY-MM-DD'),
-				job: res.job || 'Programmer',
-				gender: res.gender || 'G',
+				job: res.job || 'ไม่ได้ทำงาน',
+				gender: res.gender || 'เพศชาย',
 			});
 		}
 	}, []);
@@ -315,7 +330,7 @@ export function EditProfile(props) {
 	};
 
 	return (
-		<div className='edit_profile_container'>
+		<div className='edit_profile_container fade_effect'>
 			<div className='profile_navigation_container'>
 				<div
 					ref={backToProfile}
@@ -405,7 +420,7 @@ export function EditProfile(props) {
 					onChange={handleOnchange}
 					id='gender'
 					type='combobox'
-					options={['G', 'B']}
+					options={['เพศชาย', 'เพศหญิง']}
 				>
 					เพศ
 				</Input>
@@ -414,7 +429,7 @@ export function EditProfile(props) {
 					onChange={handleOnchange}
 					id='job'
 					type='combobox'
-					options={['Programmer', 'Student']}
+					options={job}
 				>
 					อาชีพ
 				</Input>

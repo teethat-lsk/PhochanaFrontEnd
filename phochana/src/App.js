@@ -8,19 +8,20 @@ import Home from './screens/Home';
 import Agreement from './screens/Agreement';
 import Login from './screens/Login';
 import { Main } from './screens/Main';
-// Friend zone
 import FriendsView from './screens/Friends/FriendsView';
 import { ManageFriendRequest } from './screens/Friends/ManageRequest';
 import { MyInformation } from './screens/Friends/MyInfomation';
 import { AddFriend } from './screens/Friends/AddFriend';
-
 import { ShowProfile, EditProfile } from './screens/Profile';
 import NotFoundPage from './screens/NotFoundPage';
 import KnowledgeMain from './screens/Knowledge/KnowledgeMain';
 import ExerciseMain from './screens/Exercise/ExerciseMain';
-import PhotoFood from './screens/FoodPhoto';
 import Register from './screens/Register';
+import FoodPhoto from './screens/FoodPhoto';
 import Logout from './screens/Logout';
+import PhotoCalendar from './components/PhotoCalendar';
+import PhotoList from './components/PhotoList';
+import PhotoView from './components/PhotoView';
 import { isLoggedIn } from './middleware/Cookie';
 
 console.warn = console.error = () => {}; // Something bad happened 🌠
@@ -58,7 +59,10 @@ const App = () => {
 					path='/editprofile'
 					component={(props) => <EditProfile {...props} />}
 				/>
-				<PrivateRoute path='/foodphoto' component={PhotoFood} />
+				<PrivateRoute path='/foodphoto' component={FoodPhoto} />
+				<PrivateRoute path='/photocalendar' component={PhotoCalendar} />
+				<PrivateRoute path='/photolist' component={PhotoList} />
+				<PrivateRoute path='/photoview/:id' component={PhotoView} />
 				<Route path='/404' component={NotFoundPage} />
 				<Redirect to='/404' />
 			</Switch>

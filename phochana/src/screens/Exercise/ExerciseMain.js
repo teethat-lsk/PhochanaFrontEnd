@@ -232,7 +232,7 @@ function ExerciseMain() {
 	// ---------------------------- Calculate Burn ------------------------------------
 
 	return (
-		<div className='windowE'>
+		<div className='windowE fade_effect'>
 			<div className='windowS'>
 				<MainHeaderContainer title={'Exercise'} />
 				{userExercise && (

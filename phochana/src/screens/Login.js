@@ -52,7 +52,7 @@ class Login extends Component {
 
 	render() {
 		return (
-			<form className='window' onSubmit={this.handleSubmit}>
+			<form className='window fade_effect' onSubmit={this.handleSubmit}>
 				<label className='textLogin'> เข้าสู่ระบบ </label>
 				<div className='login_container'>
 					<form onSubmit={this.handleSubmit}>

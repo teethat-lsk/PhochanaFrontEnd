@@ -2,7 +2,7 @@ import './HomeLogo.css';
 import { NavLink } from 'react-router-dom';
 import logo from '../../images/logo_home.png';
 
-function HomeLogo() {
+const HomeLogo = () => {
 	return (
 		<NavLink className='homelogo_circle' to='/foodphoto'>
 			<img className='homelogo_logo' src={logo}></img>
@@ -11,6 +11,6 @@ function HomeLogo() {
 			<div className='homelogo_arrow arrow2'></div>
 		</NavLink>
 	);
-}
+};
 
 export default HomeLogo;

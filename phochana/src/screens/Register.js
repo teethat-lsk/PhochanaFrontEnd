@@ -82,7 +82,7 @@ function Register() {
 	};
 
 	return (
-		<div className='register_container'>
+		<div className='register_container fade_effect'>
 			<label className='register_label'>ลงทะเบียน</label>
 			<div className='input_container'>
 				<div className='sub_input_container'>

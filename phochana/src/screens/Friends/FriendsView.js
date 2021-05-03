@@ -8,7 +8,7 @@ import '../../styles/Friends/FriendsView.css';
 
 function FriendsView() {
 	return (
-		<div>
+		<div className='fade_effect'>
 			<MainHeaderContainer
 				title={'Friends'}
 				right='friend'

@@ -31,7 +31,7 @@ const AddFriendBody = ({ usernameToFind }) => {
 	};
 
 	return (
-		<div className='add_friend_body_container'>
+		<div className='add_friend_body_container fade_effect'>
 			<div className='add_friend_body_header' onChange={toggleHandle}>
 				<div className='input_checkbox_container'>
 					<input

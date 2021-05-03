@@ -51,7 +51,7 @@ const FoodPhoto = () => {
 	}, [cardImage]);
 
 	return (
-		<div className='foodphoto_container'>
+		<div className='foodphoto_container fade_effect'>
 			<MainHeaderContainer menu={false} />
 			{cardImage ? (
 				saved ? (
@@ -90,7 +90,7 @@ const PhotoSave = ({ cardImage, imageName, cal }) => {
 
 	const history = useHistory();
 	return (
-		<div className='foodphoto_container'>
+		<div className='foodphoto_container fade_effect'>
 			<div className='container_for_save' ref={refSave}>
 				<img
 					src={cardImage && URL.createObjectURL(cardImage)}
@@ -205,7 +205,7 @@ const PhotoPreview = ({
 
 	return (
 		<div>
-			<div className='food_photo_preview_container'>
+			<div className='food_photo_preview_container fade_effect'>
 				<div className='report_foodphoto'>
 					<div className='icon_report'>
 						<i class='fa fa-flag' aria-hidden='true'></i>

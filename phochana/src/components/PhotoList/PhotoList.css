@@ -1,0 +1,22 @@
+.photo_list_container {
+	width: 100vw;
+	height: 100vh;
+	/* background-color: red; */
+}
+
+.photo_list_table {
+	display: flex;
+	flex-flow: wrap;
+	padding: 5px;
+}
+
+.photo_list_cell {
+	list-style: none;
+	flex: 0 0 33.333333%;
+	height: 20vh;
+	/* width: 20vh; */
+	border: 1px solid rgba(100, 100, 100, 0.2);
+	background-repeat: no-repeat;
+	background-size: cover;
+	/* background-color: red; */
+}

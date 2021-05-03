@@ -232,7 +232,7 @@ const EditStore = ({ store, callbackOnChange }) => {
 					<div className='edit_store_label'>Display name</div>
 					<input
 						className='edit_store_input'
-						value={store && store.owner.display_name}
+						value={store && store.owner && store.owner.display_name}
 						id='display_name'
 						onChange={handleOnChange}
 						autoComplete='off'
@@ -242,7 +242,7 @@ const EditStore = ({ store, callbackOnChange }) => {
 					<div className='edit_store_label'>Username</div>
 					<input
 						className='edit_store_input'
-						value={store && store.owner.username}
+						value={store && store.owner && store.owner.username}
 						id='username'
 						autoComplete='off'
 					></input>
