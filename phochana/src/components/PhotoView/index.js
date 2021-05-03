@@ -30,7 +30,7 @@ const PhotoView = () => {
 	}, [photoData]);
 	// console.log('loaded');
 	return (
-		<div>
+		<div className='fade_effect'>
 			{id === undefined && <Redirect to='/404' />}
 			<MainHeaderContainer menu={false} title={''} />
 			<div className='photo_view_container'>
