@@ -360,11 +360,11 @@ function ExerciseMain() {
 									</label>
 									<label className='cal1'>แคลอรี่</label>
 								</div>
-								<div className='cBottom'>
+								{/* <div className='cBottom'>
 									<label className='burnLeft'>ต้องเผาผลาญอีก</label>
 									<label className='valLeft'> ?? </label>
 									<label className='cal2'>แคลอรี่</label>
-								</div>
+								</div> */}
 							</div>
 							<form onSubmit={handleSubmitEx}>
 								<button type='submit' className='exercise_btn_enter'>

@@ -22,6 +22,7 @@ import Logout from './screens/Logout';
 import PhotoCalendar from './components/PhotoCalendar';
 import PhotoList from './components/PhotoList';
 import PhotoView from './components/PhotoView';
+import Achievement from './components/Achievement';
 import { isLoggedIn } from './middleware/Cookie';
 
 console.warn = console.error = () => {}; // Something bad happened 🌠
@@ -63,6 +64,7 @@ const App = () => {
 				<PrivateRoute path='/photocalendar' component={PhotoCalendar} />
 				<PrivateRoute path='/photolist' component={PhotoList} />
 				<PrivateRoute path='/photoview/:id' component={PhotoView} />
+				<PrivateRoute path='/achievement' component={Achievement} />
 				<Route path='/404' component={NotFoundPage} />
 				<Redirect to='/404' />
 			</Switch>
