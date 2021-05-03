@@ -8,7 +8,7 @@ import '../../styles/Friends/ManageRequest.css';
 // TODO เพิ่มปุ่ม > < เพื่อให้แสดงทีละ 20 User/Page
 const ManageFriendRequest = (props) => {
 	return (
-		<div>
+		<div className='fade_effect'>
 			<MainHeaderContainer
 				menu={false}
 				backwardTo='/friends'

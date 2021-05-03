@@ -10,7 +10,7 @@ var data = dataArray.sort(() => Math.random() - 0.5);
 SwiperCore.use([EffectFlip]);
 function KnowledgeMain() {
 	return (
-		<div>
+		<div className='fade_effect'>
 			<MainHeaderContainer title={'Knowledge'} />
 			<Swiper
 				spaceBetween={30}

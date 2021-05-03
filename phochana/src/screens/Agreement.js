@@ -6,7 +6,7 @@ import agreementText from '../config/agreement';
 
 function Agreement() {
 	return (
-		<div className='agreement'>
+		<div className='agreement fade_effect'>
 			<ScrollText h='calc(78% - 30px)' w='100%' className='agreement_text'>
 				{agreementText}
 			</ScrollText>

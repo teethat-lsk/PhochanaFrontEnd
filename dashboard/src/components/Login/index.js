@@ -11,7 +11,7 @@ const Login = (props) => {
 	const [password, setPassword] = useState('');
 
 	const handleSubmit = async (e) => {
-		console.log(username, password);
+		// console.log(username, password);
 		const config = {
 			method: 'post',
 			url: `/supervisor/login`,
@@ -25,14 +25,22 @@ const Login = (props) => {
 		};
 		// console.log(username, password);
 		const res = await apiClient(config);
-		//alert(res.data);
-		const token = res.data.message.token;
-		const role = res.data.message.user_data.role;
-		const _username = res.data.message.user_data.username;
-		if (res.data.status === 'success') {
-			setToken(token, role, _username);
-			if (role === 'Admin') props.history.push('/admin');
-			else props.history.push('/store');
+		// alert(res.data);
+		// console.log(res.data.message);
+		try {
+			if (res.data.status === 'success') {
+				const token = res.data.message.token;
+				const role = res.data.message.user_data.role;
+				const _username = res.data.message.user_data.username;
+				setToken(token, role, _username);
+				if (role === 'Admin') props.history.push('/admin');
+				else props.history.push('/store');
+			} else {
+				// console.log(res.data);
+				alert(res.data.message);
+			}
+		} catch (err) {
+			console.log(err.message);
 		}
 	};
 

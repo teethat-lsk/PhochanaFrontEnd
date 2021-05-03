@@ -49,3 +49,10 @@ input {
 input[type='number'] {
 	-moz-appearance: textfield;
 }
+
+.fade_effect {
+	animation: fadein 1s;
+	-moz-animation: fadein 1s; /* Firefox */
+	-webkit-animation: fadein 1s; /* Safari and Chrome */
+	-o-animation: fadein 1s; /* Opera */
+}
