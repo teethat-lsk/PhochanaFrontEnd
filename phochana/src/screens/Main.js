@@ -3,6 +3,7 @@ import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
 import HomeLogo from '../components/HomeLogo';
 import { getToken, setToken, removeToken } from '../middleware/Cookie';
 import calendarIcon from '../images/calendar.png';
+import UserStatus from '../components/UserStatus';
 import Chart from 'react-google-charts';
 import '../styles/main.css';
 
@@ -15,8 +16,8 @@ function Main() {
 			<div className='main_body_container'>
 				<HomeLogo />
 				<MainScore />
+				<UserStatus />
 				<StatGraph />
-				{/* <CalendarFood /> */}
 			</div>
 			<MainFooterBox />
 		</div>

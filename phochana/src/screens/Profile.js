@@ -8,6 +8,7 @@ import cupIcon from '../images/cup.png';
 import excerciseIcon from '../images/excercise.png';
 import GetImage from '../middleware/GetImage';
 import Input from '../components/Input';
+import UserStatus from '../components/UserStatus';
 import Loader from 'react-loader-spinner';
 import Swal from 'sweetalert2';
 import Compressor from 'compressorjs';
@@ -84,6 +85,7 @@ export function ShowProfile(props) {
 				<ProfileHeader userData={userData} isOwner={isOwner} />
 				<div className='profile_body_container'>
 					{isOwner && <Shortcut_Box />}
+					{isOwner && <UserStatus />}
 				</div>
 			</div>
 		</div>
