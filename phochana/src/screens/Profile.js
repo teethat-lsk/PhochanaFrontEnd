@@ -144,8 +144,8 @@ const ProfileHeader = ({ userData, isOwner }) => {
 
 const Shortcut_Box = () => {
 	const items = [
-		[cupIcon, '/cup/'],
-		[calendarIcon, '/Calendar/'],
+		[cupIcon, '/achievement/'],
+		[calendarIcon, '/photocalendar/'],
 		[friendsIcon, '/friends/'],
 		[excerciseIcon, '/excercises/'],
 	];

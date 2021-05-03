@@ -29,11 +29,21 @@ const FoodPhoto = () => {
 		image_process: { name: 'กำลังประมวลผล!', calorie: 0 },
 		process_with_ml: false,
 	});
+	const [bmr, setBmr] = useState(0);
 	const [saved, setSaved] = useState(false);
 
 	const handleLoading = (status) => {
 		setLoading(status);
 	};
+
+	useEffect(async () => {
+		try {
+			const res = await getUserBMR();
+			if (res) {
+				setBmr(res.bmr);
+			}
+		} catch (err) {}
+	}, []);
 
 	useEffect(async () => {
 		if (cardImage) {
@@ -72,7 +82,7 @@ const FoodPhoto = () => {
 					/>
 				)
 			) : (
-				<TakePhoto setCardImage={setCardImage} />
+				<TakePhoto setCardImage={setCardImage} bmr={bmr} />
 			)}
 		</div>
 	);
@@ -276,11 +286,11 @@ const PhotoPreview = ({
 	);
 };
 
-const TakePhoto = ({ setCardImage, openImageDialog }) => {
+const TakePhoto = ({ setCardImage, openImageDialog, bmr }) => {
 	const ref = useRef(null);
 
 	const [isCameraOpen, setIsCameraOpen] = useState(true);
-	const [cal, setCal] = useState(1000);
+	// const [cal, setCal] = useState(1000);
 	return (
 		<div>
 			<div className='food_photo_container'>
@@ -330,7 +340,9 @@ const TakePhoto = ({ setCardImage, openImageDialog }) => {
 				</div>
 			</div>
 			<div className='footer_container'>
-				<div className='cal_rec_label'>{`แคลอรี่แนะนำสำหรับมื้อนี้ ${cal} KCal`}</div>
+				<div className='cal_rec_label'>{`แคลอรี่แนะนำสำหรับมื้อนี้ ${(
+					(bmr || 0) / 3
+				).toFixed(0)} KCal`}</div>
 				<Moment
 					className='food_photo_timestamp'
 					format='MMMM Do YYYY, h:mm:ss a'
@@ -395,4 +407,21 @@ const preProcessImage = async (cardImage) => {
 		return null;
 	}
 };
+
+const getUserBMR = async () => {
+	const config = {
+		method: 'get',
+		url: `/users/bmr`,
+	};
+	try {
+		const res = await apiClient(config);
+		if (res.data.status == 'success') return res.data.message;
+		return null;
+	} catch (error) {
+		// console.log(error);
+		// alert(error);
+		return null;
+	}
+};
+
 export default FoodPhoto;
