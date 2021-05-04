@@ -12,6 +12,7 @@ class Login extends Component {
 			username: '',
 			password: '',
 			isLoading: false,
+			tError: '',
 		};
 	}
 
@@ -35,6 +36,14 @@ class Login extends Component {
 			setToken(res.data.message.token);
 			// this.props.history.push('/main');
 			this.props.history.push('/');
+		}
+	};
+
+	preCheck = (e) => {
+		if (this.state.username == '' || this.state.password == '') {
+			this.setState({
+				tError: 'ช่องนี้เว้นว่างไม่ได้',
+			});
 		}
 	};
 
@@ -70,6 +79,8 @@ class Login extends Component {
 								minLength={6}
 								maxLength={20}
 								autoComplete='off'
+								tError={this.state.tError}
+								emptyCheck
 							></Input>
 						</div>
 						<div className='password'>
@@ -88,6 +99,8 @@ class Login extends Component {
 								maxLength={30}
 								type='password'
 								autoComplete='off'
+								tError={this.state.tError}
+								emptyCheck
 							></Input>
 						</div>
 					</form>
@@ -95,7 +108,7 @@ class Login extends Component {
 				<button
 					type='submit'
 					className='login_btn_enter'
-					// onClick={this.handleSubmit}
+					onClick={this.preCheck}
 				>
 					เข้าสู่ระบบ
 				</button>

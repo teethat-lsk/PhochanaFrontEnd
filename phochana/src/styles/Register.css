@@ -1,11 +1,11 @@
 @import './Color.css';
 .register_container {
-	height: 100vh;
+	height: auto;
 	width: 100vw;
-	position: relative;
+	/* position: relative; */
 	background-color: var(--bg);
-	position: absolute;
-	bottom: 0;
+	/* position: absolute; */
+	/* bottom: 0; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

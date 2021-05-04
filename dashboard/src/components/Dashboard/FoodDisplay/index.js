@@ -16,14 +16,14 @@ const FoodDisplay = () => {
 		let res = await getInfo();
 		// console.log(res.length);
 		for (var index = 0; index < res.length; index++) {
-			res[index].image = await getImage(res[index].image);
+			// console.log(res[index]);
+			res[index]._image = await getImage(res[index].image);
 		}
-		// console.log(res);
 		setMenuItem(res);
 	}, []);
 
 	const callbackOnChange = (e) => {
-		// console.log(selectItem);
+		// console.log(e.target);
 		setSelectItem({ ...selectItem, [e.target.id]: e.target.value });
 	};
 
@@ -63,7 +63,7 @@ const FoodDisplay = () => {
 										// console.log(menuItem[key]);
 									}}
 									className='menu_button noselect'
-									style={{ backgroundImage: `url(${item.image})` }}
+									style={{ backgroundImage: `url(${item._image})` }}
 									key={key}
 								>
 									{/* <img className='img_menu' src={item[1]} /> */}
@@ -127,14 +127,16 @@ const AddNewMenu = () => {
 			data: bodyFormData,
 		};
 		// console.log(newUserData.job);
-		const res = await apiClient(config);
-		if (res.data.status === 'success') {
-			window.location.reload();
-			console.log(res.data);
-		} else {
-			// setLodding(false);
-			console.log('fetch backend fail');
-		}
+		try {
+			const res = await apiClient(config);
+			if (res.data.status === 'success') {
+				window.location.reload();
+				// console.log(res.data);
+			} else {
+				// setLodding(false);
+				// console.log('fetch backend fail');
+			}
+		} catch (err) {}
 	};
 
 	return (
@@ -197,15 +199,15 @@ const ShowMenu = ({ food, callbackOnChange }) => {
 	const [tempImage, setTempImage] = useState(null);
 
 	const handleFileUpload = async (event) => {
-		// console.log(event.target.files[0]);
+		console.log(event.target.files[0]);
 		setTempImage(URL.createObjectURL(event.target.files[0]));
 
 		setTempFile(event.target.files[0]);
 	};
 
 	useEffect(() => {
-		setTempImage(food.image);
-	}, [food.image]);
+		setTempImage(food._image);
+	}, [food._image]);
 
 	const cancelHandle = () => {
 		window.location.reload();
@@ -229,10 +231,32 @@ const ShowMenu = ({ food, callbackOnChange }) => {
 		downloadQR();
 	};
 
-	const updateHandle = () => {
+	const updateHandle = async () => {
 		//TODO Call API Here :)
-		console.log();
-		// console.log(_name, _cal);
+		let bodyFormData = new FormData();
+		bodyFormData.append('id', food._id);
+		bodyFormData.append('image', tempFile); //append the values with key, value pair
+		bodyFormData.append('calorie', food.calorie);
+		bodyFormData.append('name', food.name);
+		var config = {
+			method: 'put',
+			url: '/food',
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+			data: bodyFormData,
+		};
+		// console.log(newUserData.job);
+		try {
+			const res = await apiClient(config);
+			if (res.data.status === 'success') {
+				window.location.reload();
+				// console.log(res.data);
+			} else {
+				// setLodding(false);
+				// console.log('fetch backend fail');
+			}
+		} catch (err) {}
 	};
 
 	return (
@@ -241,6 +265,7 @@ const ShowMenu = ({ food, callbackOnChange }) => {
 				<div className='input_menu_container'>
 					<div className='menu_title'>ชื่ออาหาร</div>
 					<input
+						id='name'
 						value={food && food.name}
 						onChange={(e) => callbackOnChange(e)}
 						className='menu_input'
@@ -251,6 +276,7 @@ const ShowMenu = ({ food, callbackOnChange }) => {
 				<div className='input_menu_container' style={{ marginLeft: '100px' }}>
 					<div className='menu_title'>ปริมาณแคลรอรี่ (กิโลแคล)</div>
 					<input
+						id='calorie'
 						type='number'
 						value={food && food.calorie}
 						onChange={(e) => callbackOnChange(e)}

@@ -14,7 +14,7 @@ import './App.css';
 console.warn = console.error = () => {}; // Something bad happened 🌠
 
 function App() {
-	console.log(isAdmin());
+	// console.log(isAdmin());
 	return (
 		<Router>
 			<Switch>

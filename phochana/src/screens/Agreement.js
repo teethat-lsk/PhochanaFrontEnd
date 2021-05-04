@@ -15,7 +15,7 @@ function Agreement() {
 					ยอมรับ
 				</ButtonLink>
 				<ButtonLink
-					to='/'
+					to='/home'
 					height='70px'
 					backgroundColor='transparent'
 					fontSize='18px'

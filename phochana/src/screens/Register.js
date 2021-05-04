@@ -16,6 +16,7 @@ function Register() {
 		c_password: '',
 	});
 	const [errors, setErrors] = useState({});
+	const [tError, setTError] = useState('');
 
 	const handleOnChange = (e) => {
 		setErrors({ ...errors, [e.target.id]: e.target.error });
@@ -24,10 +25,9 @@ function Register() {
 
 	const canSubmit = () => {
 		// Error check
-		let haveError = false;
 		for (const x in errors) {
 			if (errors[x]) {
-				haveError = true;
+				// haveError = true;
 				return false;
 			}
 		}
@@ -36,11 +36,11 @@ function Register() {
 
 	const emptyCheck = () => {
 		return (
-			userData.display_name !== '' &&
-			userData.email !== '' &&
-			userData.username !== '' &&
-			userData.password !== '' &&
-			userData.c_password !== ''
+			userData.display_name != '' &&
+			userData.email != '' &&
+			userData.username != '' &&
+			userData.password != '' &&
+			userData.c_password != ''
 		);
 	};
 
@@ -49,8 +49,9 @@ function Register() {
 	};
 
 	const handleSubmit = async () => {
+		console.log(userData.display_name);
 		if (canSubmit() && emptyCheck() && checkPassword()) {
-			console.log('Can submit');
+			// console.log('Can submit');
 
 			// Will call hash password!
 			const config = {
@@ -77,7 +78,9 @@ function Register() {
 				history.push('/');
 			}
 		} else {
-			console.log("can't submit");
+			// console.log('ช่องนี้เว้นว่างไม่ได้');
+			console.log(errors);
+			setTError('ช่องนี้เว้นว่างไม่ได้');
 		}
 	};
 
@@ -96,6 +99,8 @@ function Register() {
 						maxLength={15}
 						allow='displayName'
 						autoComplete='off'
+						tError={tError}
+						emptyCheck
 					></Input>
 				</div>
 				<div className='sub_input_container'>
@@ -109,6 +114,8 @@ function Register() {
 						maxLength={20}
 						allow='email'
 						autoComplete='off'
+						tError={tError}
+						emptyCheck
 					></Input>
 				</div>
 				<div className='sub_input_container'>
@@ -122,6 +129,8 @@ function Register() {
 						onChange={handleOnChange}
 						allow='username'
 						autoComplete='off'
+						tError={tError}
+						emptyCheck
 					></Input>
 				</div>
 				<div className='sub_input_container'>
@@ -136,6 +145,8 @@ function Register() {
 						allow='password'
 						type='password'
 						autoComplete='off'
+						tError={tError}
+						emptyCheck
 					></Input>
 				</div>
 				<div className='sub_input_container'>
@@ -150,6 +161,8 @@ function Register() {
 						allow='password'
 						type='password'
 						autoComplete='off'
+						tError={tError}
+						emptyCheck
 					></Input>
 				</div>
 				<button

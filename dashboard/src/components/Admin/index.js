@@ -19,9 +19,9 @@ const Admin = () => {
 			<Navigation />
 			<div className='admin_body'>
 				<Switch>
-					<Route path={`${path}/`} exact component={Main}></Route>
-					<Route path={`${path}/stores`} component={Store}></Route>
-					<Route path={`${path}/reports`} component={Report}></Route>
+					{/* <Route path={`${path}/`} exact component={Main}></Route> */}
+					<Route path={`${path}/`} component={Store}></Route>
+					{/* <Route path={`${path}/reports`} component={Report}></Route> */}
 				</Switch>
 			</div>
 		</div>

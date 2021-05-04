@@ -15,7 +15,37 @@ const Store = () => {
 	}, []);
 
 	const callbackOnChange = (e) => {
-		setSelectItem({ ...selectItem, [e.target.id]: e.target.value });
+		// console.log(e.target);
+		// let temp = selectItem;
+		if (e.target.id == 'name') {
+			setSelectItem({
+				...selectItem,
+				name: e.target.value,
+			});
+			// console.log('do');
+		} else if (e.target.id == 'display_name') {
+			setSelectItem({
+				...selectItem,
+				owner: {
+					...selectItem.owner,
+					display_name: e.target.value,
+				},
+			});
+		} else if (e.target.id == 'username') {
+			setSelectItem({
+				...selectItem,
+				owner: { ...selectItem.owner, username: e.target.value },
+			});
+		} else if (e.target.id == 'password') {
+			setSelectItem({
+				...selectItem,
+				owner: {
+					...selectItem.owner,
+					password: e.target.value,
+				},
+			});
+		}
+		// console.log(temp);
 	};
 
 	return (
@@ -119,12 +149,14 @@ const AddStore = () => {
 			}),
 		};
 		// console.log(username, password);
-		const res = await apiClient(config);
-		//alert(res.data);
-		if (res.data.status === 'success') {
-			window.location.reload();
-			console.log(res.data);
-		}
+		try {
+			const res = await apiClient(config);
+			//alert(res.data);
+			if (res.data.status === 'success') {
+				window.location.reload();
+				console.log(res.data);
+			}
+		} catch (err) {}
 	};
 
 	return (
@@ -199,18 +231,44 @@ const AddStore = () => {
 };
 
 const EditStore = ({ store, callbackOnChange }) => {
+	// console.log(store);
+	const handleSubmit = async () => {
+		console.log(store);
+		const config = {
+			method: 'put',
+			url: `/store`,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			data: JSON.stringify({
+				id: store._id,
+				name: store.name,
+				display_name: store.owner.display_name,
+				_username: store.owner.username,
+				password: store.owner.password,
+			}),
+		};
+		// console.log(username, ;
+		try {
+			const res = await apiClient(config);
+			//alert(res.data);
+			if (res.data.status === 'success') {
+				window.location.reload();
+				console.log(res.data);
+			} else {
+				console.log('can"t submit');
+			}
+		} catch (err) {
+			console.log(err.message);
+		}
+	};
+
 	const handleOnChange = (e) => {
 		callbackOnChange(e);
 	};
 
 	const handleOnCancle = (e) => {
-		callbackOnChange({
-			name: '',
-			display_name: '',
-			username: '',
-			password: '',
-			c_password: '',
-		});
+		window.location.reload();
 	};
 
 	return (
@@ -224,6 +282,7 @@ const EditStore = ({ store, callbackOnChange }) => {
 					value={store && store.name}
 					id='name'
 					autoComplete='off'
+					onChange={(e) => handleOnChange(e)}
 				></input>
 			</div>
 			<div className='user_store_container'>
@@ -234,7 +293,7 @@ const EditStore = ({ store, callbackOnChange }) => {
 						className='edit_store_input'
 						value={store && store.owner && store.owner.display_name}
 						id='display_name'
-						onChange={handleOnChange}
+						onChange={(e) => handleOnChange(e)}
 						autoComplete='off'
 					></input>
 				</div>
@@ -245,6 +304,7 @@ const EditStore = ({ store, callbackOnChange }) => {
 						value={store && store.owner && store.owner.username}
 						id='username'
 						autoComplete='off'
+						// onChange={(e) => handleOnChange(e)}
 					></input>
 				</div>
 				<div className='edit_store_input'>
@@ -255,11 +315,15 @@ const EditStore = ({ store, callbackOnChange }) => {
 						type='password'
 						autoComplete='off'
 						placeholder='ตั้งรหัสผ่านใหม่'
+						onChange={(e) => handleOnChange(e)}
+						value={store && store.owner && store.owner.password}
 					></input>
 				</div>
 			</div>
 			<div className='btn_store_container noselect'>
-				<div className='btn_store_action save'>ปรับปรุง</div>
+				<div className='btn_store_action save' onClick={handleSubmit}>
+					ปรับปรุง
+				</div>
 				<div className='btn_store_action cancle' onClick={handleOnCancle}>
 					ยกเลิก
 				</div>
