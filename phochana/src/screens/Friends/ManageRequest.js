@@ -75,6 +75,7 @@ const ManagerFriendRequestBody = ({ pageState }) => {
 					<RequestCardIncome
 						display_name={element.owner.display_name}
 						profile={element.owner.profile}
+						username={element.owner.username}
 					/>
 				) : (
 					<RequestCardOutcome
@@ -125,6 +126,12 @@ const RequestCardIncome = ({ profile, display_name, username }) => {
 		setProfile(res);
 	}, [profile]);
 
+	const handleRequest = async (status) => {
+		const res = await AcceptDeclineRequest(username, status);
+		// console.log(res);
+		window.location.reload();
+	};
+
 	return (
 		<div className='friend_request_card_container'>
 			<Link className='friend_request_box1' to={'/profile/' + username}>
@@ -132,10 +139,20 @@ const RequestCardIncome = ({ profile, display_name, username }) => {
 				<p className='user_profile_name'>{display_name}</p>
 			</Link>
 			<div className='btn_action_container'>
-				<div className='btn_action _accept'>
+				<div
+					className='btn_action _accept'
+					onClick={async () => {
+						handleRequest(true);
+					}}
+				>
 					<i className='fa fa-check' aria-hidden='true'></i>
 				</div>
-				<div className='btn_action _decline'>
+				<div
+					className='btn_action _decline'
+					onClick={async () => {
+						handleRequest(false);
+					}}
+				>
 					<i className='fa fa-times' aria-hidden='true'></i>
 				</div>
 			</div>
@@ -154,10 +171,10 @@ const RequestCardOutcome = ({ profile, display_name, username }) => {
 
 	return (
 		<div className='friend_request_card_container'>
-			<Link className='friend_request_box1' to={'/profile/' + username}>
+			<div className='friend_request_box1'>
 				<img className='user_profile_img' src={imgProfile} />
 				<p className='user_profile_name'>{display_name}</p>
-			</Link>
+			</div>
 			<div className='btn_action_container'>
 				<div className='btn_action _wait'>
 					<i className='fa fa-clock-o' aria-hidden='true'></i>
@@ -173,6 +190,42 @@ const ManagerFriendRequestFooter = () => {
 			<p>ข้อมูลของฉัน</p>
 		</Link>
 	);
+};
+
+const AcceptDeclineRequest = async (username, status) => {
+	let data;
+	if (status) {
+		data = JSON.stringify({
+			target: username,
+			is_accept: true,
+		});
+	} else {
+		data = JSON.stringify({
+			target: username,
+			is_decline: true,
+		});
+	}
+	// console.log(data);
+
+	const config = {
+		method: 'put',
+		url: '/friends',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		data: data,
+	};
+
+	try {
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			return res.data.message;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		return null;
+	}
 };
 
 export { ManageFriendRequest, ManagerFriendRequestFooter };
