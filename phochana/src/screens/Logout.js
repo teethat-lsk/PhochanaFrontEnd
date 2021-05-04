@@ -18,12 +18,12 @@ const Logout = () => {
 				},
 			};
 			try {
-				const res = await apiClient(config);
+				// const res = await apiClient(config);
 			} catch (err) {
 			} finally {
-				removeToken();
-				history.push('/login');
 			}
+			removeToken();
+			history.push('/login');
 		}
 	}, []);
 	return <div className='logout_container fade_effect'>logout</div>;

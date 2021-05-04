@@ -26,7 +26,7 @@ import ExerciseView from './components/ExerciseView.js';
 import Achievement from './components/Achievement';
 import { isLoggedIn } from './middleware/Cookie';
 
-console.warn = console.error = () => {}; // Something bad happened 🌠
+console.warn = console.error = console.log = () => {}; // Something bad happened 🌠
 
 const App = () => {
 	console.log(`User had been logged ==> ${isLoggedIn()}`);
@@ -72,7 +72,10 @@ const App = () => {
 				<PrivateRoute path='/photocalendar' component={PhotoCalendar} />
 				<PrivateRoute path='/photolist' component={PhotoList} />
 				<PrivateRoute path='/photoview/:id' component={PhotoView} />
-				<PrivateRoute path='/achievement' component={Achievement} />
+				<PrivateRoute
+					path={['/achievement/', '/achievement/:id']}
+					component={Achievement}
+				/>
 				<Route path='/404' component={NotFoundPage} />
 				<Redirect to='/404' />
 			</Switch>
