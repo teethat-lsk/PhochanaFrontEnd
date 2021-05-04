@@ -39,7 +39,7 @@ const StatGraph = () => {
 			const res = await apiClient(config);
 			// console.log(res);
 			if (res.data.status == 'success') {
-				console.log(res.data.message);
+				// console.log(res.data.message);
 				let temp = [['Date', 'Calories']];
 				if (res.data.message.calorie) {
 					for (const [key, value] of Object.entries(res.data.message.calorie)) {

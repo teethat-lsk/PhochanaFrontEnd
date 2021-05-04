@@ -171,9 +171,9 @@ function ExerciseMain() {
 			var s = selectedDate.getSeconds().toString();
 		}
 
-		var timeUseAll =
-			(timeExerciseHr * 60).toString() + timeExerciseMn.toString();
+		var timeUseAll = timeExerciseHr * 60 + timeExerciseMn;
 		// console.log(d, _m, y, h, m, s);
+		console.log(timeUseAll);
 		// console.log("Ready?");
 		const config = {
 			method: 'post',

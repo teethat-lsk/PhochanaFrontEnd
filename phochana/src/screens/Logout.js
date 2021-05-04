@@ -21,8 +21,8 @@ const Logout = () => {
 				const res = await apiClient(config);
 			} catch (err) {
 			} finally {
-				history.push('/login');
 				removeToken();
+				history.push('/login');
 			}
 		}
 	}, []);

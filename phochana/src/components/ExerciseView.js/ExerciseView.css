@@ -1,0 +1,15 @@
+.exercise_view_container {
+	width: 100vw;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.exercise_container {
+}
+
+.exercise_container:active {
+	opacity: 50%;
+}
