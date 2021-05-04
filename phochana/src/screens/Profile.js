@@ -147,7 +147,7 @@ const Shortcut_Box = () => {
 		[cupIcon, '/achievement/'],
 		[calendarIcon, '/photocalendar/'],
 		[friendsIcon, '/friends/'],
-		[excerciseIcon, '/excercises/'],
+		[excerciseIcon, '/myexercise/'],
 	];
 	return (
 		<div className='shortcut_box_container'>
@@ -379,7 +379,7 @@ export function EditProfile(props) {
 				<Input
 					value={newUserData.display_name}
 					onChange={handleOnchange}
-					id='displayname'
+					id='display_name'
 					allow='plain'
 					maxLength={20}
 				>

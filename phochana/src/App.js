@@ -22,6 +22,7 @@ import Logout from './screens/Logout';
 import PhotoCalendar from './components/PhotoCalendar';
 import PhotoList from './components/PhotoList';
 import PhotoView from './components/PhotoView';
+import ExerciseView from './components/ExerciseView.js';
 import Achievement from './components/Achievement';
 import { isLoggedIn } from './middleware/Cookie';
 
@@ -53,6 +54,7 @@ const App = () => {
 				<PrivateRoute path='/friends' component={FriendsView} />
 				<PrivateRoute path='/myinformation' component={MyInformation} />
 				<PrivateRoute path='/exercise' component={ExerciseMain} />
+				<PrivateRoute path='/myexercise' component={ExerciseView} />
 				<PrivateRoute
 					path='/addfriend/:username?'
 					component={(props) => <AddFriend {...props} />}

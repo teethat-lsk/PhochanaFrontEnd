@@ -30,17 +30,19 @@ const FriendBody = () => {
 			method: 'get',
 			url: '/friends?limit=20&skip=0',
 		};
-		const res = await apiClient(config);
-		if (res.data.status === 'success') {
-			if (res.data.message.users.length !== 0) {
-				console.log('have user', res.data.message.users);
-				setUserData(res.data.message.users);
+		try {
+			const res = await apiClient(config);
+			if (res.data.status === 'success') {
+				if (res.data.message.users.length !== 0) {
+					// console.log('have user', res.data.message.users);
+					setUserData(res.data.message.users);
+				} else {
+					// console.log('no have user');
+				}
 			} else {
-				// console.log('no have user');
+				// console.log('something wrong');
 			}
-		} else {
-			// console.log('something wrong');
-		}
+		} catch (err) {}
 	}, []);
 
 	const searchSpace = (event) => {
