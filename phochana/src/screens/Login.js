@@ -4,6 +4,8 @@ import apiClient from '../middleware/ApiClient';
 import { setToken } from '../middleware/Cookie';
 import { withRouter } from 'react-router-dom';
 import Input from '../components/Input';
+import Swal from 'sweetalert2';
+import '../styles/Exercises/sweetalert2.scss';
 class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -36,6 +38,12 @@ class Login extends Component {
 			setToken(res.data.message.token);
 			// this.props.history.push('/main');
 			this.props.history.push('/');
+		} else {
+			Swal.fire({
+				title: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
+				text: '',
+				type: 'warning',
+			});
 		}
 	};
 

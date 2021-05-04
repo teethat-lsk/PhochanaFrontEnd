@@ -6,7 +6,7 @@ import apiClient from '../middleware/ApiClient';
 import '../styles/Logout.css';
 
 const Logout = () => {
-	console.log('logout loaded!');
+	// console.log('logout loaded!');
 	const history = useHistory();
 	useEffect(async () => {
 		if (getToken()) {
@@ -17,15 +17,13 @@ const Logout = () => {
 					'Content-Type': 'application/json',
 				},
 			};
-			const res = await apiClient(config);
-			// console.log(res.data);
-			//alert(res.data);
-			if (res.data.status === 'success') {
+			try {
+				const res = await apiClient(config);
+			} catch (err) {
+			} finally {
 				history.push('/login');
-			} else {
-				history.push('/login');
+				removeToken();
 			}
-			removeToken();
 		}
 	}, []);
 	return <div className='logout_container fade_effect'>logout</div>;

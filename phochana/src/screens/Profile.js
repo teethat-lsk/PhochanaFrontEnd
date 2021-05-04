@@ -11,8 +11,8 @@ import Input from '../components/Input';
 import UserStatus from '../components/UserStatus';
 import Loader from 'react-loader-spinner';
 import Swal from 'sweetalert2';
-import Compressor from 'compressorjs';
 import '../styles/Exercises/sweetalert2.scss';
+import Compressor from 'compressorjs';
 import '../styles/profile.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
