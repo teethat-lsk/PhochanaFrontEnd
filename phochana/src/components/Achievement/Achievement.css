@@ -1,3 +1,5 @@
+@import '../../styles/Color.css';
+
 .achievement_body_container {
 	width: 100%;
 	display: flex;
@@ -8,7 +10,7 @@
 	margin-bottom: 40px;
 }
 .achievement_container {
-	/* background-color: red; */
+	background-color: var(--bg2);
 	width: 100%;
 	height: 8vh;
 	display: flex;
@@ -36,4 +38,5 @@
 
 .___name {
 	width: 70%;
+	color: white;
 }
