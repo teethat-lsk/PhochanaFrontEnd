@@ -67,8 +67,12 @@ const FoodPhoto = () => {
 				saved ? (
 					<PhotoSave
 						cardImage={cardImage}
-						imageName={foodSelect.name}
-						cal={foodSelect.calorie}
+						imageName={
+							foodSelect ? foodSelect.name : foodData.image_process.name
+						}
+						cal={
+							foodSelect ? foodSelect.calorie : foodData.image_process.calorie
+						}
 					/>
 				) : (
 					<PhotoPreview
@@ -154,6 +158,8 @@ const PhotoPreview = ({
 	setFoodSelect,
 	setSaved,
 }) => {
+	console.log(foodData);
+
 	const [foodList, setFoodList] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	// console.log(foodData);
@@ -197,7 +203,10 @@ const PhotoPreview = ({
 			handleLoading(true);
 			console.log('calling api!');
 			try {
-				const res = await saveImage(cardImage, foodSelect._id);
+				const res = await saveImage(
+					cardImage,
+					foodSelect ? foodSelect._id : foodData.image_process._id
+				);
 				if (res.status === 'success') {
 					HandleSweetSuccess();
 					setSaved(true);

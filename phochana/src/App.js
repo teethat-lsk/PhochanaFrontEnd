@@ -26,7 +26,7 @@ import ExerciseView from './components/ExerciseView.js';
 import Achievement from './components/Achievement';
 import { isLoggedIn } from './middleware/Cookie';
 
-console.warn = console.error = console.log = () => {}; // Something bad happened 🌠
+console.warn = console.error = () => {}; // Something bad happened 🌠
 
 const App = () => {
 	console.log(`User had been logged ==> ${isLoggedIn()}`);

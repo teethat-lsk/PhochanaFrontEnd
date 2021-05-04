@@ -1,4 +1,4 @@
 module.exports = {
-	backend: 'BACKEND_HOST',
-	frontend: 'FRONTEND_HOST',
+	backend: 'api.exitguy.studio',
+	frontend: 'phochana.exitguy.studio',
 };
