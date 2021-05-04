@@ -267,19 +267,19 @@ function ExerciseMain() {
 						</tr>
 						<tr>
 							<td>30 นาที</td>
-							<td>{state.cal_p_h * 0.5} แคลอรี่</td>
+							<td>{state.cal_p_h * 0.5} KCal</td>
 						</tr>
 						<tr>
 							<td>60 นาที</td>
-							<td>{state.cal_p_h} แคลอรี่</td>
+							<td>{state.cal_p_h} KCal</td>
 						</tr>
 						<tr>
 							<td>90 นาที</td>
-							<td>{state.cal_p_h * 1.5} แคลอรี่</td>
+							<td>{state.cal_p_h * 1.5} KCal</td>
 						</tr>
 						<tr>
 							<td>120 นาที</td>
-							<td>{state.cal_p_h * 2} แคลอรี่</td>
+							<td>{state.cal_p_h * 2} KCal</td>
 						</tr>
 					</table>
 				</div>
@@ -358,7 +358,7 @@ function ExerciseMain() {
 											60
 										).toFixed(2)}
 									</label>
-									<label className='cal1'>แคลอรี่</label>
+									<label className='cal1'>KCal</label>
 								</div>
 								{/* <div className='cBottom'>
 									<label className='burnLeft'>ต้องเผาผลาญอีก</label>

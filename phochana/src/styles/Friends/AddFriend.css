@@ -155,6 +155,7 @@
 
 .btn_upload_image {
 	width: 90%;
+	margin-top: 5px;
 	background-color: var(--bg2);
 	color: white;
 	height: 7vh;

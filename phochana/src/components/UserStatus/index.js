@@ -39,7 +39,7 @@ const UserStatus = () => {
 					<div className='user_status_lb'>แคลอรี่ที่ได้รับจากอาหาร</div>
 					<div>{userCard && userCard.food_cal} KCal</div>
 					<div className='user_status_lb'>เผาผลาญจากการออกกำลังกาย</div>
-					<div>{userCard && userCard.exercise_cal} Cal</div>
+					<div>{userCard && userCard.exercise_cal} KCal</div>
 				</div>
 			</div>
 			<div className='user_status_bottom'>

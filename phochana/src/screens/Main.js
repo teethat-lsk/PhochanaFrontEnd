@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
 import HomeLogo from '../components/HomeLogo';
+import apiClient from '../middleware/ApiClient';
 import { getToken, setToken, removeToken } from '../middleware/Cookie';
 import calendarIcon from '../images/calendar.png';
 import UserStatus from '../components/UserStatus';
@@ -25,25 +26,64 @@ function Main() {
 }
 
 const StatGraph = () => {
+	const [stat, setStat] = useState([
+		['Date', 'Calories'],
+		[10, 10],
+	]);
+	const getUserStat = async () => {
+		const config = {
+			method: 'get',
+			url: `/users/lasted/stat`,
+		};
+		try {
+			const res = await apiClient(config);
+			// console.log(res);
+			if (res.data.status == 'success') {
+				console.log(res.data.message);
+				let temp = [['Date', 'Calories']];
+				if (res.data.message.calorie) {
+					for (const [key, value] of Object.entries(res.data.message.calorie)) {
+						// console.log(`${key}: ${value}`);
+						temp.push([key, value]);
+					}
+					// console.log(temp);
+				}
+				setStat(temp);
+				return;
+			}
+			return null;
+		} catch (error) {
+			// console.log(error.message);
+			return null;
+		}
+	};
+
+	useEffect(async () => {
+		await getUserStat('me');
+		// console.log('?');
+	}, []);
+
+	// [
+	// 	['Date', 'Calories'],
+	// 	['16 ม.ค.', 12.2],
+	// 	['17 ม.ค.', 9.1],
+	// 	['18 ม.ค.', 12.2],
+	// 	['19 ม.ค.', 22.9],
+	// 	['20 ม.ค.', 22.9],
+	// 	['21 ม.ค.', 9.1],
+	// 	['22 ม.ค.', 12.2],
+	// ]
+
 	return (
-		<div className='boxStat'>
+		<div className='boxStat' style={{ marginBottom: '15px' }}>
 			<div className='statName'>กราฟแคลอรี่ภายในอาทิตย์นี้</div>
 			<Chart
-				fontSize={'40px'}
+				fontSize='16px'
 				width={'100%'}
 				height={'300px'}
 				chartType='ColumnChart'
 				loader={<div>Loading Chart</div>}
-				data={[
-					['Date', 'Calories'],
-					['16 ม.ค.', 12.2],
-					['17 ม.ค.', 9.1],
-					['18 ม.ค.', 12.2],
-					['19 ม.ค.', 22.9],
-					['20 ม.ค.', 22.9],
-					['21 ม.ค.', 9.1],
-					['22 ม.ค.', 12.2],
-				]}
+				data={stat}
 				options={{
 					title: '',
 					legend: { position: 'none' },
@@ -61,10 +101,35 @@ const StatGraph = () => {
 };
 
 const MainScore = () => {
-	const [score, setScore] = useState(1000);
+	const [score, setScore] = useState(0);
+
+	const getUserScore = async (username) => {
+		const config = {
+			method: 'get',
+			url: `/users/score?username=${username}`,
+		};
+		try {
+			const res = await apiClient(config);
+			// console.log(res);
+			if (res.data.status == 'success') {
+				setScore(res.data.message.score || 0);
+				return;
+			}
+			return null;
+		} catch (error) {
+			// console.log(error.message);
+			return null;
+		}
+	};
+
+	useEffect(async () => {
+		await getUserScore('me');
+		// console.log('?');
+	}, []);
+
 	return (
 		<div className='main_score_container'>
-			<div style={{ paddingRight: '5px' }}>คะแนนวันนี้ :</div>
+			<div style={{ paddingRight: '5px' }}>คะแนน :</div>
 			<div>{score} </div>
 			<div style={{ paddingLeft: '10px', fontSize: '20px' }}>🚀</div>
 		</div>

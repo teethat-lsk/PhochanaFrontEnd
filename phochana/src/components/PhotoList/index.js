@@ -10,8 +10,10 @@ const PhotoList = () => {
 	const [foodPhotoList, setFoodPhotoList] = useState([]);
 	const [listComponent, setComponent] = useState();
 	useEffect(async () => {
-		const res = await getInfo();
-		setFoodPhotoList(res);
+		try {
+			const res = await getInfo();
+			if (res) setFoodPhotoList(res);
+		} catch (err) {}
 	}, []);
 
 	useEffect(async () => {

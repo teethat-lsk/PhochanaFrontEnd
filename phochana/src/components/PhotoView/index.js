@@ -10,16 +10,19 @@ const PhotoView = () => {
 	const { id } = useParams();
 	const [photoData, setData] = useState(null);
 	useEffect(async () => {
-		console.log('loaded', id);
+		// console.log('loaded', id);
 		if (id == null) {
 			// console.log('?');
 			return;
 		}
 		try {
 			let res = await getInfo(id);
-			res.food_photo._image = await GetImage(res.food_photo.image);
 			// console.log(res);
-			setData(res.food_photo);
+			if (res && res.food_photo) {
+				res.food_photo._image = await GetImage(res.food_photo.image);
+				// console.log(res);
+				setData(res.food_photo);
+			}
 		} catch (err) {}
 	}, []);
 
@@ -36,7 +39,9 @@ const PhotoView = () => {
 			<div className='photo_view_container'>
 				<div style={{ padding: '10px' }}>
 					<div
-						style={{ backgroundImage: `url(${photoData && photoData._image})` }}
+						style={{
+							backgroundImage: `url(${photoData && photoData._image})`,
+						}}
 						className='photo_view_img'
 					/>
 				</div>
@@ -45,12 +50,12 @@ const PhotoView = () => {
 					<div
 						style={{ fontSize: '20px', color: 'white', marginBottom: '10px' }}
 					>
-						{photoData && photoData.food_id.name}
+						{photoData && photoData.food_id && photoData.food_id.name}
 					</div>
 					<div className='sub_title'>
 						<div className='_title'>แคลลอรี่ : </div>
 						<div className='__title'>
-							{photoData && photoData.food_id.calorie} KCal
+							{photoData && photoData.food_id && photoData.food_id.calorie} KCal
 						</div>
 					</div>
 					<div className='sub_title'>

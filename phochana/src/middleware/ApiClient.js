@@ -34,7 +34,7 @@ axios.interceptors.response.use(
 				window.location.reload();
 			}
 		} catch (err) {
-			console.log('fetch backend fail :(');
+			// console.log('fetch backend fail :(');
 		}
 		return Promise.reject(error);
 	}
