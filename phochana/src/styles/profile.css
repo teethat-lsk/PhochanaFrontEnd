@@ -1,8 +1,9 @@
 @import './Color.css';
 .profile_container {
-	height: 100vh;
+	/* height: 100vh; */
 	width: 100vw;
 	position: relative;
+	/* background-color: white; */
 }
 
 .c1 {
@@ -139,7 +140,13 @@
 	margin-top: 15px;
 	width: 100%;
 	background-color: white;
+	margin-bottom: 20px;
 	height: 100%;
+	/* margin-bottom: 40px; */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .shortcut_box_container {
