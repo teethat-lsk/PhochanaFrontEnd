@@ -33,9 +33,15 @@ const App = () => {
 		<Router>
 			<Switch>
 				<PrivateRoute path='/' exact component={Main} />
-				<Route path='/home' component={Home}></Route>
-				<Route path='/register' component={Register}></Route>
-				<Route path='/agreement' component={Agreement} />
+				<Route path='/home'>
+					{isLoggedIn() ? <Redirect to='/' /> : <Home />}
+				</Route>
+				<Route path='/register'>
+					{isLoggedIn() ? <Redirect to='/' /> : <Register />}
+				</Route>
+				<Route path='/agreement'>
+					{isLoggedIn() ? <Redirect to='/' /> : <Agreement />}
+				</Route>
 				<Route path='/login'>
 					{isLoggedIn() ? <Redirect to='/' /> : <Login />}
 				</Route>

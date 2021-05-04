@@ -1,7 +1,7 @@
 import Navigation from './Navigation';
-import Main from './Main';
+// import Main from './Main';
 import FoodDisplay from './FoodDisplay';
-import Report from './Report';
+// import Report from './Report';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -19,9 +19,9 @@ const Dashboard = () => {
 			<Navigation />
 			<div className='dashboard_body'>
 				<Switch>
-					<Route path={`${path}/`} exact component={Main}></Route>
-					<Route path={`${path}/foods`} component={FoodDisplay}></Route>
-					<Route path={`${path}/reports`} component={Report}></Route>
+					{/* <Route path={`${path}/`} exact component={Main}></Route> */}
+					<Route path={`${path}/`} component={FoodDisplay}></Route>
+					{/* <Route path={`${path}/reports`} component={Report}></Route> */}
 				</Switch>
 			</div>
 		</div>

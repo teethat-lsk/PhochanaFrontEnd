@@ -17,7 +17,7 @@ const Navigation = () => {
 
 	let { path, url } = useRouteMatch();
 
-	const [title, setTitle] = useState('จัดการเมนูอาหาร');
+	const [title, setTitle] = useState('จัดการร้านค้า');
 	const [username, setUsername] = useState('test');
 	return (
 		<div className='navigation_container'>
@@ -34,28 +34,28 @@ const Navigation = () => {
 				<div className='header_title'>{title}</div>
 			</div>
 			<div className='navigation_left_container noselect'>
-				<NavLink
+				{/* <NavLink
 					to={`${url}`}
 					exact
 					className='btn_navigation_left'
 					activeClassName='btn_n_l_active'
 				>
 					<i className='fa fa-home' aria-hidden='true'></i>
-				</NavLink>
+				</NavLink> */}
 				<NavLink
-					to={`${url}/stores`}
+					to={`${url}/`}
 					className='btn_navigation_left'
 					activeClassName='btn_n_l_active'
 				>
 					<i className='fa fa-archive' aria-hidden='true'></i>
 				</NavLink>
-				<NavLink
+				{/* <NavLink
 					to={`${url}/reports`}
 					className='btn_navigation_left'
 					activeClassName='btn_n_l_active'
 				>
 					<i className='fa fa-flag' aria-hidden='true'></i>
-				</NavLink>
+				</NavLink> */}
 			</div>
 		</div>
 	);
