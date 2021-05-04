@@ -140,7 +140,7 @@ function Register() {
             type='text'
             value={userData.password}
             onChange={handleOnChange}
-            minLength={8}
+            minLength={9}
             maxLength={30}
             allow='password'
             type='password'
@@ -156,7 +156,7 @@ function Register() {
             type='text'
             value={userData.confirmPassword}
             onChange={handleOnChange}
-            minLength={8}
+            minLength={9}
             maxLength={30}
             allow='password'
             type='password'
