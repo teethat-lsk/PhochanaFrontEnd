@@ -26,7 +26,7 @@ const Achievement = () => {
 			<div className='achievement_body_container'>
 				{data &&
 					data.map((e, key) => {
-						console.log(e);
+						// console.log(e);
 						return <AchievementCard key={key} data={e} />;
 					})}
 			</div>

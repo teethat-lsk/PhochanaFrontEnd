@@ -170,7 +170,7 @@ function Input({
 		} else {
 			e.target.error = true;
 		}
-		setTError('');
+		setTError && setTError('');
 		onChange(e);
 	};
 
