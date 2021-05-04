@@ -11,8 +11,10 @@ import { useEffect, useState } from 'react';
 const CalendarFood = () => {
 	const [foodPhotoList, setFoodPhotoList] = useState([]);
 	useEffect(async () => {
-		const res = await getInfo();
-		setFoodPhotoList(res.group_food_photo);
+		try {
+			const res = await getInfo();
+			if (res) setFoodPhotoList(res.group_food_photo);
+		} catch (err) {}
 		// console.log(res.group_food_photo);
 	}, []);
 

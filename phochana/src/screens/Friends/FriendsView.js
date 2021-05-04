@@ -33,7 +33,7 @@ const FriendBody = () => {
 		const res = await apiClient(config);
 		if (res.data.status === 'success') {
 			if (res.data.message.users.length !== 0) {
-				// console.log('have user', res.data.message.users);
+				console.log('have user', res.data.message.users);
 				setUserData(res.data.message.users);
 			} else {
 				// console.log('no have user');
@@ -137,7 +137,7 @@ const UserCard = ({ profile, display_name, score, username }) => {
 
 const PopupFriendManager = ({ isDisplay, username }) => {
 	const handleDelete = async () => {
-		console.log('yoo');
+		// console.log('yoo');
 		try {
 			await DeleteFriend(username);
 			window.location.reload();
