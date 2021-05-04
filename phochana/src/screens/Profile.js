@@ -380,7 +380,7 @@ export function EditProfile(props) {
           value={newUserData.display_name}
           onChange={handleOnchange}
           id='display_name'
-          allow='plain'
+          allow='displayName'
           minLength={9}
           maxLength={15}
         >
