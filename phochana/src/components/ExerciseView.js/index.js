@@ -42,8 +42,10 @@ const ExerciseCard = ({ data }) => {
 	console.log(data);
 	return (
 		<div className='exercise_container'>
-			<div>{moment(data.start_at).format('DD-MM-YYYY, h:mm a')}</div>
-			<div>
+			<div style={{ color: 'white', fontSize: '18px' }}>
+				{moment(data.start_at).format('DD/MM/YYYY, h:mm a')}
+			</div>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<div>{data.exercise_id.name}</div>
 				<div>{data.time} Minutes</div>
 				<div>{data.exercise_id.cal_p_h * data.time} KCal</div>
