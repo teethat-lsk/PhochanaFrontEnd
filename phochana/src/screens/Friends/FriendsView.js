@@ -107,7 +107,8 @@ const UserCard = ({ profile, display_name, score, username }) => {
 		onClick: (ev) => {
 			if (showPopup) togglePopup(!showPopup);
 			else {
-				return <Link to='test' />;
+				// console.log('?');
+				// return <Link to='test' />;
 			}
 		},
 		onLongPress: (ev) => {
@@ -117,30 +118,72 @@ const UserCard = ({ profile, display_name, score, username }) => {
 	});
 
 	return (
-		<div className='user_card_display' {...longPressProps}>
-			<Link className='user_profile_box1' to={'/profile/' + username}>
+		<div className='user_card_display'>
+			<Link
+				className='user_profile_box1'
+				to={'/profile/' + username}
+				{...longPressProps}
+			>
 				<img className='user_profile_img' src={imgProfile} />
 				<p className='user_profile_name'>{display_name}</p>
 			</Link>
 			<div className='user_profile_score'>
 				<p>{score}</p>
 			</div>
-			<PopupFriendManager isDisplay={showPopup} />
+			<PopupFriendManager isDisplay={showPopup} username={username} />
 		</div>
 	);
 };
 
-const PopupFriendManager = ({ isDisplay }) => {
+const PopupFriendManager = ({ isDisplay, username }) => {
+	const handleDelete = async () => {
+		console.log('yoo');
+		try {
+			await DeleteFriend(username);
+			window.location.reload();
+		} catch (err) {}
+	};
 	return (
 		<div
 			className={
 				'popup_friend_manager_container' +
 				(isDisplay === true ? ' popup_show' : ' popup_hide')
 			}
+			onClick={() => {
+				handleDelete();
+			}}
 		>
 			ลบ
 		</div>
 	);
+};
+
+const DeleteFriend = async (username) => {
+	const data = JSON.stringify({
+		target: username,
+		is_delete: true,
+	});
+	// console.log(data);
+
+	const config = {
+		method: 'put',
+		url: '/friends',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		data: data,
+	};
+
+	try {
+		const res = await apiClient(config);
+		if (res.data.status === 'success') {
+			return res.data.message;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		return null;
+	}
 };
 
 export default FriendsView;

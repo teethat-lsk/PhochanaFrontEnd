@@ -1,5 +1,5 @@
 import react, { useState, useRef, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ManagerFriendRequestFooter } from './ManageRequest';
 import { MainHeaderContainer } from '../Main';
 import apiClient from '../../middleware/ApiClient';
@@ -97,7 +97,9 @@ const FindWithUsername = ({ usernameToFind }) => {
 			if (res) {
 				setUserdata(res.user);
 				if (res.type === 'new') {
-					setType(res.type);
+					if (res.is_owner) {
+						setType('profile');
+					} else setType(res.type);
 				} else if (
 					res.is_accept === false &&
 					res.is_decline === false &&
@@ -111,7 +113,7 @@ const FindWithUsername = ({ usernameToFind }) => {
 				) {
 					setType('profile');
 				}
-				console.log('found!', res);
+				// console.log('found!', res);
 				setError('');
 			} else {
 				// console.log('user not found!');
@@ -146,6 +148,7 @@ const FindWithUsername = ({ usernameToFind }) => {
 					display_name={userdata && userdata.display_name}
 					username={userdata && userdata.username}
 					type={type}
+					setType={setType}
 				/>
 			)}
 		</div>
@@ -160,7 +163,7 @@ const FindWithQRCode = () => {
 
 	const handleScan = (data) => {
 		if (data) {
-			console.log(data);
+			// console.log(data);
 			if (data.startsWith(`${frontend}/addfriend/`)) {
 				setResult(data);
 				history.push(`/addfriend/` + data.split('/').slice(-1).pop());
@@ -198,7 +201,7 @@ const FindWithQRCode = () => {
 				onScan={handleScan}
 				style={{ width: '100%' }}
 			/>
-			<p>debugger: {result}</p>
+			{/* <p>debugger: {result}</p> */}
 			<div className='btn_upload_image' onClick={openImageDialog}>
 				เลือกรูป
 			</div>
@@ -206,7 +209,14 @@ const FindWithQRCode = () => {
 	);
 };
 
-const DisplayUser = ({ profile, display_name, username, message, type }) => {
+const DisplayUser = ({
+	profile,
+	display_name,
+	username,
+	message,
+	type,
+	setType,
+}) => {
 	// console.log('updated!!!!!!');
 
 	const [loading, setLoading] = useState(false);
@@ -228,20 +238,24 @@ const DisplayUser = ({ profile, display_name, username, message, type }) => {
 				case 'new': {
 					// console.log('new !');
 					res = await createRequest(username);
-					if (res.msg === 'created a new request successfully') {
-						console.log('create successfully');
+					if (res && res.msg === 'created a new request successfully') {
+						// console.log('create successfully');
+						setType('wait');
 					} else {
-						console.log('duplicate request');
+						// console.log('duplicate request');
 					}
+					// window.location.reload();
 					// console.log(res);
 					break;
 				}
 				case 'wait': {
-					console.log('wait');
+					// setType('wait');
+					// console.log('wait');
 					break;
 				}
 				case 'profile': {
-					console.log('profile');
+					// setType('profile');
+					// console.log('profile');
 					break;
 				}
 			}
@@ -267,9 +281,9 @@ const DisplayUser = ({ profile, display_name, username, message, type }) => {
 						</div>
 					)}
 					{type === 'profile' && (
-						<div className='display_user_action' onClick={handleSubmit}>
+						<Link className='display_user_action' to={'/profile/' + username}>
 							<i className='fa fa-user' aria-hidden='true'></i>
-						</div>
+						</Link>
 					)}
 				</div>
 			) : (
@@ -317,8 +331,10 @@ const createRequest = async (username) => {
 	try {
 		const res = await apiClient(config);
 		if (res.data.status === 'success') {
+			// console.log(res.data);
 			return res.data.message;
 		} else {
+			// console.log(res.data);
 			return null;
 		}
 	} catch (error) {
