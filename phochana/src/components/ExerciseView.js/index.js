@@ -28,7 +28,6 @@ const ExerciseView = () => {
 				{data &&
 					data.map((e, key) => {
 						// console.log(e);
-
 						return <ExerciseCard key={key} data={e} />;
 					})}
 			</div>
@@ -39,7 +38,7 @@ const ExerciseView = () => {
 };
 
 const ExerciseCard = ({ data }) => {
-	console.log(data);
+	// console.log(data);
 	return (
 		<div className='exercise_container'>
 			<div style={{ color: 'white', fontSize: '18px' }}>

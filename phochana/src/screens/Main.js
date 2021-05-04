@@ -216,7 +216,7 @@ const Menu = ({ widthMenu, toggleMenu }) => {
 		['อาหารของฉัน', '/photocalendar/'],
 		['การออกกำลังกาย', '/exercise/'],
 		['บาร์โค้ตของฉัน', '/myinformation/'],
-		['ตั้งค่า', '/settings/'],
+		// ['ตั้งค่า', '/settings/'],
 	];
 	return (
 		<div
